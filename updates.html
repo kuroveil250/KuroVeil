@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Updates • Kuroveil</title>
+  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective." />
+
+  <meta property="og:title" content="Kuroveil" />
+  <meta property="og:description" content="Enter the Abyss. Build the Veil." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="roster.html" />
+  <meta property="og:image" content="og-kuroveil.jpg" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kuroveil" />
+  <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="twitter:image" content="og-kuroveil.jpg" />
+  
+
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+      --card: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.55);
+      --purple:#8a2be2;
+      --purple2:#b16cff;
+      --shadow: 0 14px 40px rgba(0,0,0,0.45);
+      --radius: 16px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(177,108,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 15% 15%, rgba(138,43,226,0.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* ===== PARTICLES (NEW) ===== */
+    #veilParticles{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-3;          /* behind everything */
+      pointer-events:none;
+      opacity:0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{display:none;}
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      top:-220px;
+      left:50%;
+      transform:translateX(-50%);
+      width:980px;
+      height:520px;
+      background: radial-gradient(closest-side, rgba(177,108,255,0.24), transparent 70%);
+      filter: blur(65px);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* subtle moving grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+      z-index:0;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* Pinned bar */
+    .pinned{
+      background: linear-gradient(90deg, rgba(138,43,226,0.28), rgba(177,108,255,0.12));
+      border-bottom: 1px solid rgba(177,108,255,0.28);
+      font-size: 13px;
+      position:relative;
+      z-index:2;
+    }
+    .pinned .wrap{
+      padding: 10px 22px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pinned b{color:#fff}
+    .pinned span{color: rgba(255,255,255,0.72)}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .top{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 0; gap:12px;
+    }
+    .brand{
+      font-weight:800;
+      letter-spacing:0.6px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .sigil{
+      width: 30px; height:30px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.75), rgba(138,43,226,0.12));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 22px rgba(177,108,255,0.25);
+      position:relative;
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:7px;
+      border-radius: 9px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+
+    nav{display:flex; gap:16px; font-size:14px; color: var(--muted)}
+    nav a{
+      text-decoration:none;
+      opacity:0.9;
+      position:relative;
+      padding-bottom: 10px; /* room for the line */
+    }
+    nav a.active{
+      opacity:1;
+      color: var(--text);
+    }
+    nav a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:26px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
+    }
+    nav a:hover{opacity:1; color:var(--text)}
+    nav a:hover::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:26px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.65), transparent);
+      opacity:0.9;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:12px;
+      font-weight:600; text-decoration:none;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      transition:
+        transform .12s ease,
+        background .12s ease,
+        box-shadow .12s ease,
+        border-color .12s ease,
+        filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+      border-color: rgba(177,108,255,0.30);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.45),
+        0 0 26px rgba(177,108,255,0.35);
+    }
+
+    /* Hero Banner */
+    .hero{padding: 22px 0 14px; margin-top: 18px; position:relative; z-index:2;}
+    .heroBanner{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(700px 220px at 20% 10%, rgba(177,108,255,0.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .heroBanner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(120% 95% at 50% 35%,
+        rgba(0,0,0,0) 45%,
+        rgba(0,0,0,0.50) 100%);
+    }
+    .heroBanner::after{
+      content:"";
+      position:absolute;
+      left: 6%;
+      right: 6%;
+      bottom: -18px;
+      height: 36px;
+      background: radial-gradient(closest-side, rgba(177,108,255,0.24), transparent 70%);
+      filter: blur(10px);
+      opacity: 0.95;
+      z-index:-1;
+    }
+    .heroBanner:hover{
+      transform: translateY(-4px);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow:
+        0 26px 70px rgba(0,0,0,0.70),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 34px rgba(138,43,226,0.22);
+    }
+
+    .heroInner{
+      position:relative;
+      padding: 20px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    h1{margin: 10px 0 8px; font-size: clamp(30px, 3.8vw, 44px); letter-spacing:-0.7px}
+    .sub{margin:0; color: var(--muted); line-height:1.65; max-width: 90ch}
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(177,108,255,0.9);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+    }
+
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 7px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat b{display:block; font-size: 16px}
+    .stat span{color: var(--muted2); font-size: 12px}
+
+    .heroCard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Layout */
+    .layout{
+      margin: 14px 0 40px;
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 14px;
+      align-items:start;
+      position:relative;
+      z-index:2;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* Post */
+    .post{
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.30);
+      position:relative;
+      overflow:hidden;
+    }
+    .post::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+      opacity:0;
+      transition: opacity .3s;
+      pointer-events:none;
+      z-index:0;
+    }
+    .post > *{ position: relative; z-index: 2; }
+
+    .meta{color: var(--muted2); font-size: 12px}
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+    .post h2{margin: 8px 0 8px; font-size: 18px}
+    .post p{margin: 0; color: var(--muted); line-height:1.7}
+    .postActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    /* Side */
+    .side{display:flex; flex-direction:column; gap: 12px}
+    .box{
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.20);
+      position:relative;
+      overflow:hidden;
+    }
+    .box b{display:block; margin-bottom:8px}
+    .box p{margin:0; color: var(--muted); font-size: 13px; line-height:1.6}
+    .miniLink a{text-decoration:none; opacity:0.9}
+    .miniLink a:hover{opacity:1}
+
+    /* Social icon buttons */
+    .socials{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .iconBtn{
+      width: 36px;
+      height: 36px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      text-decoration:none;
+    }
+    .iconBtn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.45);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 12px 26px rgba(138,43,226,0.18);
+    }
+    .iconBtn svg{ width: 18px; height: 18px; opacity: .92; }
+    .iconBtn:hover svg{opacity:1}
+
+    /* Reveal animation */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{ opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+    }
+
+    footer{
+      padding: 40px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 10px;
+      position:relative;
+      z-index:2;
+    }
+
+    /* Timeline feed */
+    .feed{
+      position:relative;
+      padding-left: 22px;
+    }
+    .feed::before{
+      content:"";
+      position:absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 9px;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(
+        to bottom,
+        rgba(177,108,255,0.00),
+        rgba(177,108,255,0.35),
+        rgba(177,108,255,0.08),
+        rgba(177,108,255,0.28),
+        rgba(177,108,255,0.00)
+      );
+      box-shadow: 0 0 18px rgba(177,108,255,0.14);
+    }
+
+    .post::after{
+      content:"";
+      position:absolute;
+      left: -22px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(177,108,255,0.9);
+      box-shadow:
+        0 0 0 5px rgba(177,108,255,0.12),
+        0 0 22px rgba(177,108,255,0.30);
+      border: 1px solid rgba(255,255,255,0.18);
+      z-index: 3;
+    }
+    .post.isProgress::after{
+      background: rgba(255,255,255,0.55);
+      box-shadow:
+        0 0 0 5px rgba(255,255,255,0.08),
+        0 0 18px rgba(177,108,255,0.18);
+    }
+
+    /* Global hover pop */
+    .heroCard, .post, .box{
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+    }
+    .heroCard:hover, .post:hover, .box:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.42);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.75),
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(177,108,255,0.18),
+        0 0 34px rgba(138,43,226,0.28);
+    }
+    .post:hover::before{ opacity: 1; }
+    .post:hover::after{
+      box-shadow:
+        0 0 0 6px rgba(177,108,255,0.14),
+        0 0 30px rgba(177,108,255,0.42);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .layout{grid-template-columns: 1fr}
+      .heroInner{grid-template-columns: 1fr}
+      .heroGrid{grid-template-columns: 1fr}
+      nav{display:none}
+      .feed{padding-left: 18px;}
+      .feed::before{left: 7px;}
+      .post::after{left: -18px;}
+    }
+
+/* Fade-in */
+body{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+body.is-loaded{
+  opacity: 1;
+}
+
+/* Scroll progress bar */
+.scrollProgress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
+  box-shadow: 0 0 18px rgba(177,108,255,0.35);
+  pointer-events:none;
+}
+
+/* Back to top */
+.toTop{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 9998;
+}
+.toTop.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   GLOBAL "ROSTER-SMOOTH" BOX LOOK
+   Apply to cards / panels / members / etc.
+========================================= */
+
+:root{
+  --glass-bg: rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.26);
+  --glass-shadow: 0 18px 50px rgba(0,0,0,0.45);
+  --glass-shadow-hover:
+    0 28px 78px rgba(0,0,0,0.72),
+    0 0 0 1px rgba(177,108,255,0.12),
+    0 0 34px rgba(138,43,226,0.16);
+}
+
+/* Make ALL boxes smoother by default */
+.card,
+.panel,
+.member,
+.featureBig,
+.heroPanel,
+.applyBox,
+.veilCard,
+.genCard,
+.infoCard,
+.stat,
+.faqItem{
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 18px !important;              /* smooth corners */
+  box-shadow: var(--glass-shadow) !important;   /* softer shadow */
+  backdrop-filter: blur(10px);                  /* glass smooth */
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform .18s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    filter .22s ease;
+  will-change: transform;
+}
+
+/* Smooth hover (roster-style) */
+.card:hover,
+.panel:hover,
+.member:hover,
+.featureBig:hover,
+.heroPanel:hover,
+.applyBox:hover,
+.veilCard:hover,
+.genCard:hover,
+.infoCard:hover,
+.stat:hover,
+.faqItem:hover{
+  transform: translateY(-6px);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.96);
+}
+
+/* Optional: slightly smoother “shine” pass */
+.card::before,
+.panel::before,
+.member::before,
+.featureBig::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+  opacity:0;
+  transition: opacity .35s ease;
+  pointer-events:none;
+}
+.card:hover::before,
+.panel:hover::before,
+.member:hover::before,
+.featureBig:hover::before{
+  opacity:1;
+}
+
+/* ===== FORCE ROSTER-SMOOTH (more noticeable) ===== */
+:root{
+  /* darker glass = more “smooth” / less gray-wash */
+  --glass-bg: rgba(0,0,0,0.34);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.34);
+
+  /* softer + deeper */
+  --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  --glass-shadow-hover:
+    0 34px 95px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(177,108,255,0.16),
+    0 0 40px rgba(138,43,226,0.22);
+}
+
+/* apply to your actual boxes */
+.card,
+.member,
+.genCard,
+.applyBox,
+.heroPanel,
+.veilCard,
+.featureBig,
+.stat{
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+
+  /* smoother corners */
+  border-radius: 20px !important;
+
+  /* stronger glass blur */
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  /* “smooth” transition feel (this is a big part of it) */
+  transition:
+    transform .26s cubic-bezier(.2,.8,.2,1),
+    box-shadow .26s cubic-bezier(.2,.8,.2,1),
+    border-color .26s cubic-bezier(.2,.8,.2,1),
+    filter .26s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.card:hover,
+.member:hover,
+.genCard:hover,
+.applyBox:hover,
+.heroPanel:hover,
+.veilCard:hover,
+.featureBig:hover,
+.stat:hover{
+  transform: translateY(-7px) scale(1.01);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.95);
+}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- PARTICLES (NEW) -->
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="grain"></div>
+  <div class="scrollProgress"></div>
+
+  <div class="pinned">
+    <div class="wrap">
+      <div><b>Pinned:</b> Applications open — next review wave this Sunday.</div>
+      <span>Updated weekly</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <div class="brand">
+          <div class="sigil"></div>
+          <div>KUROVEIL</div>
+        </div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="roster.html">Roster</a>
+          <a class="active" href="updates.html">Updates</a>
+          <a href="apply.html">Apply</a>
+          <a href="about.html">About</a>
+        </nav>
+
+        <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroBanner reveal">
+        <div class="heroInner">
+          <div>
+            <div class="kicker"><span class="dot"></span> Updates • Progress Log</div>
+            <h1>Updates</h1>
+            <p class="sub">
+              Announcements and progress logs for Kuroveil. Managed from behind the veil — recruiting, structure, and growth systems.
+            </p>
+          </div>
+
+          <div class="heroCard">
+            <div class="kicker"><span class="dot"></span> Quick Actions</div>
+            <div class="postActions" style="margin-top:12px;">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
+            </div>
+            <div class="pillRow">
+              <span class="pill">Founding Gen</span>
+              <span class="pill">Rolling Reviews</span>
+              <span class="pill">Recruiting Open</span>
+              <span class="pill">Collab Planning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heroGrid" style="margin-top:14px;">
+        <div class="heroCard reveal">
+          <div class="kicker"><span class="dot"></span> Recruiting Status</div>
+          <div class="stats">
+            <div class="stat"><b>Open</b><span>Applications</span></div>
+            <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
+            <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
+            <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+          </div>
+        </div>
+
+        <div class="heroCard reveal">
+          <div class="kicker"><span class="dot"></span> Recent Activity</div>
+          <div class="tagRow" style="margin-top:12px;">
+            <span class="tag">New applications: active</span>
+            <span class="tag">Roster: expanding</span>
+            <span class="tag">Discord: onboarding</span>
+            <span class="tag">Clips: pipeline</span>
+          </div>
+          <p class="sub" style="margin-top:12px; max-width: 60ch;">
+            Website is being updated.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="feed" style="display:flex; flex-direction:column; gap: 12px;">
+        <article class="post reveal">
+          <div class="meta">2026 • Announcement</div>
+          <h2>Founding Generation Recruitment Open</h2>
+          <p>
+            Kuroveil is accepting applications now. If you’re consistent, collab-friendly, and want a team to grow with,
+            step forward through the application form.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Recruiting</span>
+            <span class="tag">Founding Gen</span>
+            <span class="tag">Rolling Reviews</span>
+          </div>
+          <div class="postActions">
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          </div>
+        </article>
+
+        <article class="post isProgress reveal">
+          <div class="meta">2026 • Progress</div>
+          <h2>Website + Application System Live</h2>
+          <p>
+            Core pages are live and the application flow is active. Next: roster expansion, update cadence,
+            and first group collab planning.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Site</span>
+            <span class="tag">Systems</span>
+            <span class="tag">Milestones</span>
+          </div>
+        </article>
+
+        <article class="post isProgress reveal">
+          <div class="meta">2026 • Discord</div>
+          <h2>Onboarding & Roles Being Finalized</h2>
+          <p>
+            Channels, rules, and onboarding are being refined to keep the server clean and active.
+            Invite link is live for applicants and future members.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Discord</span>
+            <span class="tag">Onboarding</span>
+            <span class="tag">Community</span>
+          </div>
+        </article>
+      </div>
+
+      <aside class="side">
+        <div class="box reveal">
+          <b>Quick Links</b>
+
+          <div class="socials">
+            <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener" title="Discord" aria-label="Discord">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 7.2c1.1-.5 2.3-.8 3.5-.8s2.4.3 3.5.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 8.5c-1 1.6-1.6 3.4-1.6 5.3 0 1.4.3 2.7.9 3.9 1.3 1 2.9 1.6 4.7 1.6l.6-1c.3.1.9.1 1.2 0l.6 1c1.8 0 3.4-.6 4.7-1.6.6-1.2.9-2.5.9-3.9 0-1.9-.6-3.7-1.6-5.3-1.1-.7-2.3-1.1-3.6-1.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9.5 14.2h.01M14.5 14.2h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+            </a>
+            <a class="iconBtn" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener" title="Application Form" aria-label="Application Form">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 3h8l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.6"/></svg>
+            </a>
+            <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M21 12s0-3.4-.5-5c-.3-1.1-1.2-2-2.3-2.3C16.6 4.2 12 4.2 12 4.2s-4.6 0-6.2.5C4.7 5 3.8 5.9 3.5 7c-.5 1.6-.5 5-.5 5s0 3.4.5 5c.3 1.1 1.2 2 2.3 2.3 1.6.5 6.2.5 6.2.5s4.6 0 6.2-.5c1.1-.3 2-1.2 2.3-2.3.5-1.6.5-5 .5-5z" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 9.5v5l5-2.5-5-2.5z" fill="currentColor"/></svg>
+            </a>
+            <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener" title="X" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M7.5 6H18v10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </a>
+            <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener" title="Twitch" aria-label="Twitch">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 3h16v10l-4 4h-4l-2 2H8v-2H4V3z" stroke="currentColor" stroke-width="1.6"/><path d="M10 8v5M14 8v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </a>
+          </div>
+
+          <p class="miniLink" style="margin-top:10px;"><a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord Invite</a></p>
+          <p class="miniLink"><a href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Application Form</a></p>
+          <p class="miniLink"><a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a></p>
+          <p class="miniLink"><a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a></p>
+          <p class="miniLink"><a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a></p>
+        </div>
+
+        <div class="box reveal">
+          <b>What to post (weekly)</b>
+          <p>• “Review wave this weekend”</p>
+          <p>• “Next collab night planned”</p>
+          <p>• “Discord update / new channels”</p>
+        </div>
+
+        <div class="box reveal">
+          <b>Next Milestones</b>
+          <p>• Add new members to roster<br>• First collab night<br>• Clip pipeline setup</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
+        <div style="display:flex; gap:12px;">
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // ===== PARTICLES (NEW) =====
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+      let particles = [];
+      let rafId = null;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.8,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.18 + Math.random() * 0.28,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // subtle connections
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120){
+              const t = 1 - dist / 120;
+              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+  </script>
+  <button class="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
+    </svg>
+  </button>
+  
+  <script>
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+  
+    const bar = document.querySelector('.scrollProgress');
+    const toTop = document.querySelector('.toTop');
+  
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  
+      if (bar) bar.style.width = pct.toFixed(2) + '%';
+  
+      if (toTop){
+        if (scrollTop > 420) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      }
+    }
+  
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  
+    if (toTop){
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+  
+</body>
+</html>

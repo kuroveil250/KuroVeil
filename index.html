@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kuroveil</title>
+
+  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective built for consistency." />
+
+  <meta property="og:title" content="Kuroveil" />
+  <meta property="og:description" content="Enter the Abyss. Build the Veil." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourusername.github.io/kuroveil/" />
+  <meta property="og:image" content="og-kuroveil.jpg" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kuroveil" />
+  <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="twitter:image" content="og-kuroveil.jpg" />
+  
+  
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+      --card: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --purple:#8a2be2;
+      --purple2:#b16cff;
+      --shadow: 0 12px 35px rgba(0,0,0,0.45);
+      --radius: 16px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(177,108,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 15% 15%, rgba(138,43,226,0.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* ===== PARTICLES (same as About page) ===== */
+    #veilParticles{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-3;
+      pointer-events:none;
+      opacity:0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{display:none;}
+    }
+
+    /* subtle moving grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* ===== Background bloom ===== */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      background:
+        radial-gradient(800px 560px at 8% 45%, rgba(177,108,255,0.20), transparent 60%),
+        radial-gradient(520px 420px at 12% 55%, rgba(138,43,226,0.16), transparent 65%);
+    }
+
+    /* Subtle top glow overlay */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-top: 10px;
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:0.6px;
+    }
+    .sigil{
+      width: 34px;
+      height:34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.15));
+      border: 1px solid rgba(255,255,255,0.12);
+      position:relative;
+      animation: sigilGlow 4s ease-in-out infinite;
+    }
+    @keyframes sigilGlow{
+      0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
+      50%{ box-shadow: 0 0 22px rgba(177,108,255,0.6); }
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+
+    nav{
+      display:flex; align-items:center; gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    nav a{
+      text-decoration:none;
+      opacity:0.9;
+      position:relative;
+      padding-bottom: 10px;
+    }
+    nav a:hover{opacity:1; color: var(--text)}
+    nav a:hover::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.65), transparent);
+      opacity:0.9;
+    }
+    nav a.active{
+      opacity:1;
+      color: var(--text);
+    }
+    nav a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
+    }
+
+    .actions{display:flex; gap:10px; align-items:center}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease, border-color .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 26px rgba(177,108,255,0.35);
+      border-color: rgba(177,108,255,0.45);
+    }
+
+    /* Pills */
+    .pill{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      user-select:none;
+    }
+
+    /* HERO */
+    .hero{
+      padding: 26px 0 40px;
+      position:relative;
+      margin-top: 22px;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-20px;
+      background-image: radial-gradient(rgba(177,108,255,0.25) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity:0.12;
+      pointer-events:none;
+      mask-image: radial-gradient(circle at 50% 30%, black 35%, transparent 70%);
+    }
+
+    .heroBanner{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.55);
+      overflow:hidden;
+      position:relative;
+      min-height: 360px;
+      isolation:isolate;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.70)),
+        radial-gradient(700px 250px at 20% 20%, rgba(177,108,255,0.22), transparent 60%),
+        url("kuroveil-hero.jpg");
+      background-size: cover;
+      background-position: center;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+    }
+    .heroBanner:hover{
+      transform: translateY(-4px);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow: 0 32px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(177,108,255,0.14), 0 0 34px rgba(138,43,226,0.22);
+    }
+
+    .heroBanner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(120% 95% at 50% 35%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.62) 100%);
+      z-index:0;
+    }
+
+    .heroBanner .fadeBottom{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height: 150px;
+      pointer-events:none;
+      background: linear-gradient(to bottom, rgba(13,0,24,0), rgba(13,0,24,1));
+      z-index:1;
+    }
+
+    .heroBanner .underGlow{
+      position:absolute;
+      left: 8%;
+      right: 8%;
+      bottom: -22px;
+      height: 44px;
+      background: radial-gradient(closest-side, rgba(177,108,255,0.28), transparent 70%);
+      filter: blur(12px);
+      opacity: 0.9;
+      z-index:-1;
+    }
+
+    .badgeRecruit{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.90);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+    }
+    .badgeRecruit .pulse{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 16px rgba(177,108,255,0.80);
+    }
+
+    .heroInner{
+      animation: heroFloat 8s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+      padding: 34px;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      align-items:end;
+      min-height: 360px;
+    }
+    @keyframes heroFloat{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.80);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(34px, 4vw, 54px);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      text-shadow: 0 0 20px rgba(177,108,255,0.25);
+    }
+    .lead{
+      margin: 0;
+      color: rgba(255,255,255,0.80);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+    .heroBtns{display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px}
+
+    .heroPanel{
+      border-radius: 18px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .panelTitle{font-weight:800; letter-spacing:0.2px}
+    .mini{color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px}
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat b{display:block; font-size: 16px}
+    .stat span{color: rgba(255,255,255,0.60); font-size: 12px}
+
+    /* Sections */
+    .section{
+      padding: 70px 0;
+      position: relative;
+    }
+    .section:before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:70%;
+      height:1px;
+      background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
+    }
+    .section::after{
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:60%;
+      height:1px;
+      background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
+    }
+
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+      position:relative;
+      display:inline-block;
+      padding-bottom:6px;
+    }
+    .sectionHead h2:after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:60%;
+      height:2px;
+      background:linear-gradient(to right, rgba(177,108,255,0.7), transparent);
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 70ch;
+    }
+
+    /* Cards */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+      opacity:0;
+      transition: opacity .3s;
+      pointer-events:none;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.75), 0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(177,108,255,0.14), 0 0 30px rgba(138,43,226,0.18);
+    }
+    .card:hover:before{opacity:1;}
+    .card h3{margin: 0 0 8px; font-size: 16px}
+    .card p{margin:0; color: var(--muted); font-size: 13px; line-height: 1.55}
+
+    /* Founding Gen strip */
+    .genStrip{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .genCard{
+      width:120px;
+      text-align:center;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.12);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .genCard:hover{
+      transform:translateY(-6px);
+      border-color:rgba(177,108,255,0.42);
+      box-shadow: 0 22px 52px rgba(0,0,0,0.60), 0 0 26px rgba(138,43,226,0.16);
+    }
+    .genAvatar{
+      width:70px;
+      height:70px;
+      margin:0 auto 8px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#1a1a1a,#0d0018);
+      border:1px solid rgba(255,255,255,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:22px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .genCard:hover .genAvatar{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.55);
+      box-shadow: 0 0 0 6px rgba(177,108,255,0.10), 0 14px 30px rgba(138,43,226,0.22);
+    }
+
+    /* Featured Talent */
+    .featured{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .featureBig{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .featureBig:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.75), 0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(177,108,255,0.14), 0 0 30px rgba(138,43,226,0.18);
+    }
+    .featureBig:before{
+      content:"";
+      position:absolute;
+      width: 420px; height:420px;
+      right:-260px; top:-260px;
+      background: radial-gradient(circle, rgba(177,108,255,0.20), transparent 60%);
+      pointer-events:none;
+    }
+    .badgeRow{display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px}
+    .badge{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+    .featureSmall{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .member{
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.20);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .member:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.75), 0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(177,108,255,0.14), 0 0 30px rgba(138,43,226,0.18);
+    }
+    .row{display:flex; justify-content:space-between; gap:10px; align-items:baseline}
+    .row b{font-size: 15px}
+    .role{font-size: 12px; color: var(--muted2)}
+
+    /* Social icons */
+    .socials{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .iconBtn{
+      width: 34px;
+      height: 34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+      text-decoration:none;
+    }
+    .iconBtn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.45);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 12px 26px rgba(138,43,226,0.18);
+      filter: brightness(0.95);
+    }
+    .iconBtn svg{
+      width: 18px;
+      height: 18px;
+      opacity: .9;
+    }
+    .iconBtn:hover svg{opacity:1;}
+
+    /* Apply box */
+    .applyBox{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(138,43,226,0.18), rgba(255,255,255,0.04));
+      border: 1px solid rgba(177,108,255,0.22);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .applyBox:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.75), 0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(177,108,255,0.14), 0 0 30px rgba(138,43,226,0.18);
+    }
+    .applyBox p{margin:0; color: var(--muted); font-size: 13px; max-width: 70ch}
+
+    footer{
+      padding: 50px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 30px;
+    }
+
+    @media (max-width: 900px){
+      .heroInner{grid-template-columns: 1fr; min-height: 420px}
+      .featured{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      nav{display:none}
+    }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+    }
+
+    /* Top CTA bar */
+    .veilBar{ padding: 18px 0 10px; }
+    .veilCard{
+      border-radius: 22px;
+      padding: 22px 22px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+    }
+    .veilCard:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.30);
+      filter: brightness(0.92);
+      box-shadow: 0 34px 90px rgba(0,0,0,0.70), 0 0 0 1px rgba(177,108,255,0.14), 0 0 34px rgba(138,43,226,0.22);
+    }
+    .veilCard::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+    }
+    .veilText{
+      position:relative;
+      z-index:1;
+      max-width: 78ch;
+    }
+    .veilText h2{
+      margin:0 0 6px;
+      font-size: 30px;
+      letter-spacing:-0.6px;
+    }
+    .veilText p{
+      margin:0 0 12px;
+      color: rgba(255,255,255,0.72);
+      line-height:1.6;
+    }
+    .veilEmblem{
+      position:relative;
+      z-index:1;
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: radial-gradient(circle at 35% 35%, rgba(177,108,255,0.85), rgba(138,43,226,0.18));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 60px rgba(138,43,226,0.25);
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .veilCard:hover .veilEmblem{
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(0.95);
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 0 70px rgba(138,43,226,0.28), 0 14px 30px rgba(0,0,0,0.35);
+    }
+    @media (max-width: 900px){
+      .veilCard{flex-direction:column; align-items:flex-start;}
+      .veilEmblem{align-self:flex-end;}
+    }
+
+    /* ===== Fade-in on load ===== */
+body{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+body.is-loaded{
+  opacity: 1;
+}
+
+/* ===== Scroll progress bar ===== */
+.scrollProgress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
+  box-shadow: 0 0 18px rgba(177,108,255,0.35);
+  pointer-events:none;
+}
+
+/* ===== Back to top button ===== */
+.toTop{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 9998;
+}
+.toTop.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   GLOBAL "ROSTER-SMOOTH" BOX LOOK
+   Apply to cards / panels / members / etc.
+========================================= */
+
+:root{
+  --glass-bg: rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.26);
+  --glass-shadow: 0 18px 50px rgba(0,0,0,0.45);
+  --glass-shadow-hover:
+    0 28px 78px rgba(0,0,0,0.72),
+    0 0 0 1px rgba(177,108,255,0.12),
+    0 0 34px rgba(138,43,226,0.16);
+}
+
+/* Make ALL boxes smoother by default */
+.card,
+.panel,
+.member,
+.featureBig,
+.heroPanel,
+.applyBox,
+.veilCard,
+.genCard,
+.infoCard,
+.stat,
+.faqItem{
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 18px !important;              /* smooth corners */
+  box-shadow: var(--glass-shadow) !important;   /* softer shadow */
+  backdrop-filter: blur(10px);                  /* glass smooth */
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform .18s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    filter .22s ease;
+  will-change: transform;
+}
+
+/* Smooth hover (roster-style) */
+.card:hover,
+.panel:hover,
+.member:hover,
+.featureBig:hover,
+.heroPanel:hover,
+.applyBox:hover,
+.veilCard:hover,
+.genCard:hover,
+.infoCard:hover,
+.stat:hover,
+.faqItem:hover{
+  transform: translateY(-6px);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.96);
+}
+
+/* Optional: slightly smoother “shine” pass */
+.card::before,
+.panel::before,
+.member::before,
+.featureBig::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+  opacity:0;
+  transition: opacity .35s ease;
+  pointer-events:none;
+}
+.card:hover::before,
+.panel:hover::before,
+.member:hover::before,
+.featureBig:hover::before{
+  opacity:1;
+}
+
+/* ===== FORCE ROSTER-SMOOTH (more noticeable) ===== */
+:root{
+  /* darker glass = more “smooth” / less gray-wash */
+  --glass-bg: rgba(0,0,0,0.34);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.34);
+
+  /* softer + deeper */
+  --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  --glass-shadow-hover:
+    0 34px 95px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(177,108,255,0.16),
+    0 0 40px rgba(138,43,226,0.22);
+}
+
+/* apply to your actual boxes */
+.card,
+.member,
+.genCard,
+.applyBox,
+.heroPanel,
+.veilCard,
+.featureBig,
+.stat{
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+
+  /* smoother corners */
+  border-radius: 20px !important;
+
+  /* stronger glass blur */
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  /* “smooth” transition feel (this is a big part of it) */
+  transition:
+    transform .26s cubic-bezier(.2,.8,.2,1),
+    box-shadow .26s cubic-bezier(.2,.8,.2,1),
+    border-color .26s cubic-bezier(.2,.8,.2,1),
+    filter .26s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.card:hover,
+.member:hover,
+.genCard:hover,
+.applyBox:hover,
+.heroPanel:hover,
+.veilCard:hover,
+.featureBig:hover,
+.stat:hover{
+  transform: translateY(-7px) scale(1.01);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.95);
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- PARTICLES + GRAIN -->
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="scrollProgress"></div>
+  <div class="grain"></div>
+
+
+  <!-- TOP VEIL CTA BAR -->
+  <section class="veilBar reveal">
+    <div class="wrap">
+      <div class="veilCard">
+        <div class="veilText">
+          <h2>The Veil Watches</h2>
+          <p>
+            Kuroveil is not built from the spotlight. It grows from the shadows — guided, structured, and always moving forward.
+          </p>
+          <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+        </div>
+        <div class="veilEmblem" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="sigil"></div>
+          <span>KUROVEIL</span>
+        </div>
+
+        <nav>
+          <a class="active" href="index.html">Home</a>
+          <a href="roster.html">Roster</a>
+          <a href="updates.html">Updates</a>
+          <a href="apply.html">Apply</a>
+          <a href="about.html">About</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="roster.html">View Roster</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="heroBanner">
+        <div class="underGlow"></div>
+        <div class="fadeBottom"></div>
+
+        <div class="heroInner">
+          <div>
+            <div class="badgeRecruit">
+              <span class="pulse"></span> Recruiting • Founding Generation
+            </div>
+
+            <div class="kicker"><span class="dot"></span> Rolling review • Shortlist via Discord</div>
+
+            <h1>Enter the Abyss.<br/>Build the Veil.</h1>
+            <p class="lead">
+              Kuroveil is a shadow-themed VTuber collective focused on growth, collabs, and community.
+              Built and managed from behind the veil — structured, active, and designed to scale.
+            </p>
+
+            <div class="heroBtns">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
+              <a class="btn" href="updates.html">Latest Updates</a>
+              <a class="btn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">Watch</a>
+              <a class="btn" href="#about">About</a>
+            </div>
+          </div>
+
+          <div class="heroPanel">
+            <div class="panelTitle">Recruitment Status</div>
+            <div class="mini">
+              Reviews are rolling. Shortlisted applicants will be contacted via Discord.
+            </div>
+
+            <div class="stats">
+              <div class="stat"><b>Open</b><span>Applications</span></div>
+              <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
+              <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
+              <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Enter Discord</a>
+              <a class="btn" href="apply.html">Read Requirements</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section reveal" id="about">
+      <div class="sectionHead">
+        <div>
+          <h2>About Kuroveil</h2>
+          <p>A shadow-themed collective with structure, standards, and a real growth plan — not hype.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal">
+          <h3>Presence + Identity</h3>
+          <p>
+            Built from the shadows: a strong theme, consistent output, and an identity people recognize.
+            Lore is optional — presence is required.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="pill">Shadow Aesthetic</span>
+            <span class="pill">Lore Optional</span>
+            <span class="pill">Consistency</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3>Growth System</h3>
+          <p>
+            Weekly momentum: goals, feedback loops, and a clip-first mindset that improves discoverability over time.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="pill">Weekly Goals</span>
+            <span class="pill">Clip Pipeline</span>
+            <span class="pill">Feedback</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3>Collabs & Events</h3>
+          <p>
+            Regular collabs that push reach: group streams, duos, themed nights, and planned beats for content.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="pill">Duos</span>
+            <span class="pill">Group Streams</span>
+            <span class="pill">Themed Nights</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:14px;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div>
+            <h3 style="margin:0 0 6px; font-size:16px;">How to Join</h3>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6; max-width:80ch;">
+              Apply → rolling review → short Discord chat → onboarding → first collab plan.
+              Shortlisted applicants are contacted via Discord.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Open Application</a>
+            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDING GEN STRIP -->
+    <section class="section reveal">
+      <div class="sectionHead">
+        <div>
+          <h2>Founding Generation</h2>
+          <p>The first shadows forming the veil.</p>
+        </div>
+      </div>
+
+      <div class="genStrip">
+        <div class="genCard reveal"><div class="genAvatar">?</div><span>Open Slot</span></div>
+        <div class="genCard reveal"><div class="genAvatar">?</div><span>Open Slot</span></div>
+        <div class="genCard reveal"><div class="genAvatar">?</div><span>Open Slot</span></div>
+        <div class="genCard reveal"><div class="genAvatar">?</div><span>Open Slot</span></div>
+      </div>
+    </section>
+
+    <!-- FEATURED TALENT -->
+    <section class="section reveal">
+      <div class="sectionHead">
+        <div>
+          <h2>Featured Talent</h2>
+          <p>Highlighting active creators (or open slots) makes the collective look established and alive.</p>
+        </div>
+      </div>
+
+      <div class="featured">
+        <div class="featureBig reveal">
+          <div class="meta" style="color:var(--muted2); font-size:12px;">Featured • Leadership</div>
+          <h3 style="margin:8px 0 8px; font-size:18px;">Kuro (Founder) — Behind the Veil</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.7;">
+            Kuroveil is built and managed from the shadows — recruitment, systems, branding, collabs, and growth strategy.
+            The roster is for active talent.
+          </p>
+
+          <div class="badgeRow">
+            <span class="badge">Operations</span>
+            <span class="badge">Recruitment</span>
+            <span class="badge">Branding</span>
+            <span class="badge">Collabs</span>
+          </div>
+
+          <div class="socials" aria-label="Founder socials">
+            <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener" aria-label="Twitch">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4 2h18v12l-5 5h-4l-3 3H8v-3H4V2zm16 11V4H6v13h4v3l3-3h4l3-3z"/>
+                <path d="M16 6h2v6h-2V6zm-5 0h2v6h-2V6z"/>
+              </svg>
+            </a>
+
+            <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/>
+              </svg>
+            </a>
+
+            <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.2-6.8L5.2 22H2l7.3-8.4L1.7 2H8.5l4.7 6.2L18.9 2zm-1.2 18h1.7L7.4 3.9H5.6L17.7 20z"/>
+              </svg>
+            </a>
+
+            <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener" aria-label="Discord">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.5 5.2A15.6 15.6 0 0 0 15.6 4l-.2.4c1.5.4 2.2.9 3 1.4-1.2-.6-3.2-1.3-6.4-1.3S6.8 5.2 5.6 5.8c.8-.5 1.7-1 3-1.4L8.4 4A15.6 15.6 0 0 0 4.5 5.2C2.3 8.4 1.7 11.5 2 14.6c1.3 1 2.6 1.6 4 2l.9-1.5c-.5-.2-1.1-.5-1.6-.9l.4-.3c1 .5 2.8 1.2 6.3 1.2s5.3-.7 6.3-1.2l.4.3c-.5.4-1 .7-1.6.9l.9 1.5c1.4-.4 2.7-1 4-2 .4-3.7-.7-6.8-2.5-9.4zM9.2 13c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4 1.3.6 1.3 1.4S9.9 13 9.2 13zm5.6 0c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4 1.3.6 1.3 1.4S15.5 13 14.8 13z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="featureSmall">
+          <div class="member reveal">
+            <div class="row">
+              <b>Open Slot</b>
+              <span class="role">Talent • Recruiting</span>
+            </div>
+            <p style="margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.6;">
+              Shadow/dark aesthetic, consistent posting, collab-friendly.
+            </p>
+            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="apply.html">Requirements</a>
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask</a>
+            </div>
+          </div>
+
+          <div class="member reveal">
+            <div class="row">
+              <b>Open Slot</b>
+              <span class="role">Talent • Recruiting</span>
+            </div>
+            <p style="margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.6;">
+              Loves collabs + clips, lore-friendly content, consistency matters most.
+            </p>
+            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="roster.html">Roster</a>
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLY CTA -->
+    <section class="section reveal" id="apply">
+      <div class="applyBox">
+        <div>
+          <h2 style="margin:0 0 8px;">Apply to Kuroveil</h2>
+          <p>
+            We’re recruiting for the Founding Generation. No drama, no ghosting — just creators building something real.
+          </p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
+          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Open Application</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // ===== PARTICLES (same as About page) =====
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+      let particles = [];
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.8,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.18 + Math.random() * 0.28,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        // dots
+        for (const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // connecting lines
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120){
+              const t = 1 - dist / 120;
+              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+</script>
+
+<button class="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
+  </svg>
+</button>
+
+<script>
+  // Fade-in
+  requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
+  // Scroll progress + back-to-top
+  const bar = document.querySelector('.scrollProgress');
+  const toTop = document.querySelector('.toTop');
+
+  function onScroll(){
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+    if (bar) bar.style.width = pct.toFixed(2) + '%';
+
+    if (toTop){
+      if (scrollTop > 420) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+
+  if (toTop){
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
+
+</body>
+</html>
+  

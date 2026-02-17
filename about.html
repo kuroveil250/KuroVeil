@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About • Kuroveil</title>
+  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective." />
+
+  <meta property="og:title" content="Kuroveil" />
+  <meta property="og:description" content="Enter the Abyss. Build the Veil." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="about.html" />
+  <meta property="og:image" content="og-kuroveil.jpg" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kuroveil" />
+  <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="twitter:image" content="og-kuroveil.jpg" />
+  
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+      --card: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --purple:#8a2be2;
+      --purple2:#b16cff;
+      --shadow: 0 12px 35px rgba(0,0,0,0.45);
+      --radius: 16px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(177,108,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 15% 15%, rgba(138,43,226,0.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* ===== PARTICLES (NEW) ===== */
+    #veilParticles{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-3;
+      pointer-events:none;
+      opacity:0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{display:none;}
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* subtle moving grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+      z-index:0;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* one single body::before (avoid duplicates across pages) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      background:
+        radial-gradient(800px 560px at 8% 45%, rgba(177,108,255,0.20), transparent 60%),
+        radial-gradient(520px 420px at 12% 55%, rgba(138,43,226,0.16), transparent 65%);
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-top: 10px;
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:0.6px;
+    }
+    .sigil{
+      width: 34px; height:34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.15));
+      border: 1px solid rgba(255,255,255,0.12);
+      position:relative;
+      animation: sigilGlow 4s ease-in-out infinite;
+    }
+    @keyframes sigilGlow{
+      0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
+      50%{ box-shadow: 0 0 22px rgba(177,108,255,0.6); }
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+
+    nav{
+      display:flex; align-items:center; gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    nav a{
+      text-decoration:none;
+      opacity:0.9;
+      position:relative;
+      padding-bottom: 10px;
+    }
+    nav a.active{
+      opacity:1;
+      color: var(--text);
+    }
+    nav a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
+    }
+    nav a:hover{opacity:1; color:var(--text)}
+    nav a:hover::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.65), transparent);
+      opacity:0.9;
+    }
+
+    .actions{display:flex; gap:10px; align-items:center}
+
+    /* Buttons (apply-page style hover darken) */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition:
+        transform .12s ease,
+        background .12s ease,
+        box-shadow .12s ease,
+        border-color .12s ease,
+        filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.45),
+        0 0 26px rgba(177,108,255,0.35);
+      border-color: rgba(177,108,255,0.45);
+    }
+
+    /* Veil bar */
+    .veilBar{ padding: 18px 0 10px; position:relative; z-index:1; }
+    .veilCard{
+      border-radius: 22px;
+      padding: 22px 22px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+    }
+    .veilCard:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.30);
+      filter: brightness(0.92);
+      box-shadow:
+        0 34px 90px rgba(0,0,0,0.70),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 34px rgba(138,43,226,0.22);
+    }
+    .veilCard::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+    }
+    .veilText{ position:relative; z-index:1; max-width: 78ch; }
+    .veilText h2{ margin:0 0 6px; font-size: 30px; letter-spacing:-0.6px; }
+    .veilText p{ margin:0 0 12px; color: rgba(255,255,255,0.72); line-height:1.6; }
+    .veilEmblem{
+      position:relative;
+      z-index:1;
+      width: 96px; height: 96px;
+      border-radius: 22px;
+      background: radial-gradient(circle at 35% 35%, rgba(177,108,255,0.85), rgba(138,43,226,0.18));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 60px rgba(138,43,226,0.25);
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .veilCard:hover .veilEmblem{
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(0.95);
+      border-color: rgba(177,108,255,0.35);
+      box-shadow:
+        0 0 70px rgba(138,43,226,0.28),
+        0 14px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Page hero */
+    .pageHero{
+      padding: 26px 0 18px;
+      margin-top: 18px;
+      position:relative;
+      z-index:1;
+    }
+    .pageBanner{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.55);
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(700px 240px at 20% 20%, rgba(177,108,255,0.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .pageBanner:hover{
+      transform: translateY(-4px);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow:
+        0 32px 90px rgba(0,0,0,0.65),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 34px rgba(138,43,226,0.22);
+    }
+    .pageInner{
+      padding: 22px;
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items:stretch;
+      position:relative;
+      z-index:2;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.80);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(30px, 3.6vw, 44px);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      text-shadow: 0 0 20px rgba(177,108,255,0.18);
+    }
+    .sub{
+      margin:0;
+      color: rgba(255,255,255,0.78);
+      line-height:1.65;
+      max-width: 80ch;
+      font-size: 14px;
+    }
+    .infoCard{
+      border-radius: 18px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .infoTitle{font-weight:800; letter-spacing:0.2px}
+    .mini{color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px}
+    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 7px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+
+    /* Sections */
+    .section{
+      padding: 62px 0;
+      position: relative;
+      z-index:1;
+    }
+    .section:before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:70%;
+      height:1px;
+      background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
+    }
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+      position:relative;
+      display:inline-block;
+      padding-bottom:6px;
+    }
+    .sectionHead h2:after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:60%;
+      height:2px;
+      background:linear-gradient(to right, rgba(177,108,255,0.7), transparent);
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 80ch;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+      opacity:0;
+      transition: opacity .3s;
+      pointer-events:none;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.75),
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 30px rgba(138,43,226,0.18);
+    }
+    .card:hover:before{opacity:1;}
+    .card h3{margin: 0 0 8px; font-size: 16px}
+    .card p{margin:0; color: var(--muted); font-size: 13px; line-height: 1.65}
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+
+    /* two-column content */
+    .split{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .panel{
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .panel:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.75),
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 30px rgba(138,43,226,0.18);
+    }
+    .panel h3{margin:0 0 8px; font-size: 18px}
+    .panel p{margin:0; color: var(--muted); line-height:1.75}
+    .panel p + p{ margin-top: 10px; }
+
+    .list{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px;}
+    .li{
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .li b{display:block; font-size: 13px; color: rgba(255,255,255,0.90)}
+    .li span{display:block; font-size: 12px; color: rgba(255,255,255,0.60); margin-top:4px}
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      gap: 12px;
+    }
+    details.faqItem{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    details.faqItem:hover{
+      transform: translateY(-4px);
+      border-color: rgba(177,108,255,0.24);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.45),
+        0 0 28px rgba(138,43,226,0.14);
+    }
+    summary.faqQ{
+      cursor:pointer;
+      list-style:none;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+    summary.faqQ::-webkit-details-marker{display:none}
+    .chev{
+      width: 30px; height: 30px;
+      border-radius: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+      transition: transform .18s ease, border-color .18s ease;
+      flex: 0 0 auto;
+    }
+    details[open] .chev{ transform: rotate(90deg); border-color: rgba(177,108,255,0.35); }
+    .faqA{
+      padding: 0 16px 16px;
+      color: rgba(255,255,255,0.74);
+      line-height: 1.75;
+      font-size: 13px;
+    }
+    .faqA p{ margin: 10px 0 0; }
+    .faqA ul{ margin: 10px 0 0; padding-left: 18px; }
+    .faqA li{ margin: 6px 0; color: rgba(255,255,255,0.70); }
+
+    /* apply box */
+    .applyBox{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(138,43,226,0.18), rgba(255,255,255,0.04));
+      border: 1px solid rgba(177,108,255,0.22);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .applyBox:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.32);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.75),
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 30px rgba(138,43,226,0.18);
+    }
+    .applyBox p{margin:0; color: var(--muted); font-size: 13px; max-width: 70ch}
+
+    footer{
+      padding: 50px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 30px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{ opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+    }
+
+    @media (max-width: 900px){
+      nav{display:none}
+      .veilCard{flex-direction:column; align-items:flex-start;}
+      .veilEmblem{align-self:flex-end;}
+      .pageInner{grid-template-columns: 1fr;}
+      .grid3{grid-template-columns: 1fr}
+      .split{grid-template-columns: 1fr}
+    }
+
+/* Fade-in */
+body{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+body.is-loaded{
+  opacity: 1;
+}
+
+/* Scroll progress bar */
+.scrollProgress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
+  box-shadow: 0 0 18px rgba(177,108,255,0.35);
+  pointer-events:none;
+}
+
+/* Back to top */
+.toTop{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 9998;
+}
+.toTop.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   GLOBAL "ROSTER-SMOOTH" BOX LOOK
+   Apply to cards / panels / members / etc.
+========================================= */
+
+:root{
+  --glass-bg: rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.26);
+  --glass-shadow: 0 18px 50px rgba(0,0,0,0.45);
+  --glass-shadow-hover:
+    0 28px 78px rgba(0,0,0,0.72),
+    0 0 0 1px rgba(177,108,255,0.12),
+    0 0 34px rgba(138,43,226,0.16);
+}
+
+/* Make ALL boxes smoother by default */
+.card,
+.panel,
+.member,
+.featureBig,
+.heroPanel,
+.applyBox,
+.veilCard,
+.genCard,
+.infoCard,
+.stat,
+.faqItem{
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 18px !important;              /* smooth corners */
+  box-shadow: var(--glass-shadow) !important;   /* softer shadow */
+  backdrop-filter: blur(10px);                  /* glass smooth */
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform .18s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    filter .22s ease;
+  will-change: transform;
+}
+
+/* Smooth hover (roster-style) */
+.card:hover,
+.panel:hover,
+.member:hover,
+.featureBig:hover,
+.heroPanel:hover,
+.applyBox:hover,
+.veilCard:hover,
+.genCard:hover,
+.infoCard:hover,
+.stat:hover,
+.faqItem:hover{
+  transform: translateY(-6px);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.96);
+}
+
+/* Optional: slightly smoother “shine” pass */
+.card::before,
+.panel::before,
+.member::before,
+.featureBig::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
+  opacity:0;
+  transition: opacity .35s ease;
+  pointer-events:none;
+}
+.card:hover::before,
+.panel:hover::before,
+.member:hover::before,
+.featureBig:hover::before{
+  opacity:1;
+}
+
+/* ===== FORCE ROSTER-SMOOTH (more noticeable) ===== */
+:root{
+  /* darker glass = more “smooth” / less gray-wash */
+  --glass-bg: rgba(0,0,0,0.34);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.34);
+
+  /* softer + deeper */
+  --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  --glass-shadow-hover:
+    0 34px 95px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(177,108,255,0.16),
+    0 0 40px rgba(138,43,226,0.22);
+}
+
+/* apply to your actual boxes */
+.card,
+.member,
+.genCard,
+.applyBox,
+.heroPanel,
+.veilCard,
+.featureBig,
+.stat{
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+
+  /* smoother corners */
+  border-radius: 20px !important;
+
+  /* stronger glass blur */
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  /* “smooth” transition feel (this is a big part of it) */
+  transition:
+    transform .26s cubic-bezier(.2,.8,.2,1),
+    box-shadow .26s cubic-bezier(.2,.8,.2,1),
+    border-color .26s cubic-bezier(.2,.8,.2,1),
+    filter .26s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.card:hover,
+.member:hover,
+.genCard:hover,
+.applyBox:hover,
+.heroPanel:hover,
+.veilCard:hover,
+.featureBig:hover,
+.stat:hover{
+  transform: translateY(-7px) scale(1.01);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.95);
+}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- PARTICLES + GRAIN -->
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="grain"></div>
+  <div class="scrollProgress"></div>  
+
+  <!-- TOP VEIL CTA BAR -->
+  <section class="veilBar">
+    <div class="wrap">
+      <div class="veilCard">
+        <div class="veilText">
+          <h2>The Veil Watches</h2>
+          <p>Kuroveil grows from the shadows — guided, structured, and always moving forward.</p>
+          <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+        </div>
+        <div class="veilEmblem" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="sigil"></div>
+          <span>KUROVEIL</span>
+        </div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="roster.html">Roster</a>
+          <a href="updates.html">Updates</a>
+          <a href="apply.html">Apply</a>
+          <a class="active" href="about.html">About</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="roster.html">View Roster</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="position:relative; z-index:1;">
+
+    <!-- PAGE HERO -->
+    <section class="pageHero reveal" id="top">
+      <div class="pageBanner">
+        <div class="pageInner">
+          <div>
+            <div class="kicker"><span class="dot"></span> About • The Origin of the Veil</div>
+            <h1>What Kuroveil is — and what it isn’t.</h1>
+            <p class="sub">
+              Kuroveil is a shadow-themed VTuber collective built for consistency, collabs, and long-term growth.
+              It’s structured like a real team: standards, feedback, and momentum — not chaos.
+            </p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+              <a class="btn primary" href="#mission">Mission</a>
+              <a class="btn" href="#plan">The Plan</a>
+              <a class="btn" href="#lore">Lore</a>
+              <a class="btn" href="#faq">FAQ</a>
+            </div>
+          </div>
+
+          <div class="infoCard">
+            <div class="infoTitle">Core Principles</div>
+            <div class="mini">What keeps the Veil alive (and filters out dead servers).</div>
+            <div class="pillRow">
+              <span class="pill">Consistency</span>
+              <span class="pill">Collab Culture</span>
+              <span class="pill">Clip Mindset</span>
+              <span class="pill">No Drama</span>
+              <span class="pill">Momentum</span>
+              <span class="pill">Respect</span>
+              <span class="pill">Quality</span>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div class="mini" style="margin-top:0;">
+                If you’re serious about growth, you’ll feel at home here.
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+                <a class="btn" href="updates.html">Read Updates</a>
+                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section class="section reveal" id="mission">
+      <div class="sectionHead">
+        <div>
+          <h2>Mission</h2>
+          <p>A collective built to scale — not a temporary hangout server. We help creators grow, stay active, and ship better content together.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Growth With Structure</h3>
+          <p>
+            We build momentum through weekly cadence: content goals, check-ins, and feedback that actually gets used.
+            You don’t need to be perfect — you need to be consistent.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Cadence</span><span class="tag">Feedback</span><span class="tag">Accountability</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Collabs That Convert</h3>
+          <p>
+            Collabs aren’t random. We plan them like releases: themes, pairings, schedules, and clip prompts so the content travels.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Duos</span><span class="tag">Group Nights</span><span class="tag">Clip Prompts</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Community With Standards</h3>
+          <p>
+            The aesthetic is dark — the culture is clean. No drama, no spam, no dead channels. If it kills momentum, it doesn’t stay.
+          </p>
+          <div class="tagRow">
+            <span class="tag">No Drama</span><span class="tag">Moderation</span><span class="tag">Longevity</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section class="section reveal" id="whatwedo">
+      <div class="sectionHead">
+        <div>
+          <h2>What we do</h2>
+          <p>Here’s what “being in Kuroveil” actually looks like week-to-week — and why it works.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <h3>Weekly cadence</h3>
+          <p>
+            Kuroveil runs on a simple idea: momentum is built, not wished for.
+            Each week, members choose a manageable target (stream hours, posts, shorts, edits, clip quota, etc.),
+            then we follow through with light structure and real support.
+          </p>
+          <p>
+            The goal is not to pressure you — it’s to prevent the “I’ll post soon” spiral that kills most groups.
+            When everyone ships something each week, the server stays alive, the roster stays relevant, and growth becomes predictable.
+          </p>
+
+          <ul class="list">
+            <li class="li"><b>Weekly Targets</b><span>Pick a goal you can actually hit (and scale it later).</span></li>
+            <li class="li"><b>Clip Mindset</b><span>We design moments worth clipping — then we make sure they get clipped.</span></li>
+            <li class="li"><b>Feedback Loops</b><span>Quick notes on thumbnails, pacing, titles, and hooks — not vague “nice stream” replies.</span></li>
+            <li class="li"><b>Collab Scheduling</b><span>Planned pairings + themes so events don’t collapse last minute.</span></li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>Support systems (what you get)</h3>
+          <p>
+            This is a collective, not a solo grind room. We want members to improve faster than they would alone —
+            and we do that by focusing on the parts that actually move the needle: consistency, packaging, and collabs.
+          </p>
+
+          <ul class="list">
+            <li class="li"><b>Collab Formats</b><span>Duos, trios, “Shadow Trials,” themed nights, and rotating group events.</span></li>
+            <li class="li"><b>Content Prompts</b><span>Ready-to-run ideas that match the Kuroveil vibe and encourage interaction.</span></li>
+            <li class="li"><b>Onboarding</b><span>Clear expectations + roles so you know how to start immediately.</span></li>
+            <li class="li"><b>Standards</b><span>Simple rules that protect the culture and keep the server moving.</span></li>
+          </ul>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="roster.html">View Roster</a>
+            <a class="btn primary" href="updates.html">See the Proof</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PLAN / ROADMAP -->
+    <section class="section reveal" id="plan">
+      <div class="sectionHead">
+        <div>
+          <h2>The plan</h2>
+          <p>We’re building in phases so it scales cleanly: stable core → consistent output → bigger events → expansion.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Phase I — Founding Generation</h3>
+          <p>
+            Select a small roster of consistent creators. Establish the culture, standards, and weekly cadence.
+            Build the “always active” feeling first.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Roster</span><span class="tag">Onboarding</span><span class="tag">Cadence</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Phase II — Collab Engine</h3>
+          <p>
+            Launch recurring events with formats that are easy to repeat and clip. Pair members strategically and keep scheduling simple.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Events</span><span class="tag">Formats</span><span class="tag">Clips</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Phase III — Expansion</h3>
+          <p>
+            Add new talent only when the system is stable. Expand the roster without diluting quality: more creators, same standards.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Scale</span><span class="tag">Quality</span><span class="tag">Long-term</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:14px;">
+        <div class="panel">
+          <h3>What we will never be</h3>
+          <p>
+            Kuroveil isn’t a “join and disappear” server. It’s not a clout farm, a drama magnet, or a free-for-all.
+            The Veil stays alive because we protect momentum.
+          </p>
+          <ul class="list">
+            <li class="li"><b>No dead channels</b><span>We keep only what gets used.</span></li>
+            <li class="li"><b>No chaos culture</b><span>Respect and stability are non-negotiable.</span></li>
+            <li class="li"><b>No collector rosters</b><span>We recruit active creators, not profile pictures.</span></li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>What we’re building toward</h3>
+          <p>
+            A collective that feels like a world: lore, identity, and consistent output — with real teamwork behind it.
+            The goal is for viewers to recognize “Kuroveil” as a presence.
+          </p>
+          <ul class="list">
+            <li class="li"><b>Recognizable events</b><span>Recurring formats people come back for.</span></li>
+            <li class="li"><b>Cross-pollination</b><span>Members grow together instead of competing.</span></li>
+            <li class="li"><b>Long-term identity</b><span>A brand that survives beyond one trend.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LORE -->
+    <section class="section reveal" id="lore">
+      <div class="sectionHead">
+        <div>
+          <h2>The lore of Kuroveil</h2>
+          <p>Optional, but powerful: lore gives identity. It turns “a server” into a world.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <h3>Origin: The Veil</h3>
+          <p>
+            In the old city, there were streets that never made it onto maps — alleys where light thinned out and sound faded.
+            People called it coincidence. The ones who paid attention called it the Veil.
+          </p>
+          <p>
+            The Veil isn’t evil. It’s a filter. It keeps noise out and lets intent through.
+            Those who walk beneath it aren’t chosen by luck — they’re chosen by consistency.
+            If you return again and again, the Veil notices.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>Kuroveil’s meaning</h3>
+          <p>
+            “Kuro” is shadow. “Veil” is the boundary. Together, it’s the space where creators build without needing permission —
+            where growth isn’t about being loud, it’s about being relentless.
+          </p>
+          <ul class="list">
+            <li class="li"><b>The Abyss</b><span>The unknown — new viewers, new skills, new stages.</span></li>
+            <li class="li"><b>The Veil Watches</b><span>Momentum gets noticed. Consistency draws power.</span></li>
+            <li class="li"><b>Shadows</b><span>Members of the collective — quiet force, loud impact.</span></li>
+            <li class="li"><b>Founding Gen</b><span>The first to form the rules and set the tone.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px;">
+        <h3>How lore shows up</h3>
+        <p>
+          Lore is a layer, not a requirement. It can be as subtle as slogans, titles, and event names —
+          or as deep as character arcs and “missions.” The key is to keep it clean and consistent.
+        </p>
+        <ul class="list">
+          <li class="li"><b>Event names</b><span>“Shadow Trials,” “Veil Rites,” “Abyss Runs,” “The Watch.”</span></li>
+          <li class="li"><b>Roles</b><span>Recruit → Initiate → Shade → Warden → Sentinel (example ladder).</span></li>
+          <li class="li"><b>Community language</b><span>Short, repeatable lines that feel like a brand.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section reveal" id="faq">
+      <div class="sectionHead">
+        <div>
+          <h2>FAQ</h2>
+          <p>Everything people usually ask before joining. Clear answers, no mystery.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details class="faqItem">
+          <summary class="faqQ">
+            What do you expect from members?
+            <span class="chev">›</span>
+          </summary>
+          <div class="faqA">
+            <p>Three things: <b>consistency</b>, <b>communication</b>, and <b>collab readiness</b>.</p>
+            <ul>
+              <li>Be active weekly (streams/posts/shorts/Discord participation).</li>
+              <li>Show up for planned collabs if you say you will.</li>
+              <li>Respect the culture: no drama, no chaos, no harassment.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">
+            Do I need a huge following to join?
+            <span class="chev">›</span>
+          </summary>
+          <div class="faqA">
+            <p>No. We care more about <b>effort</b> and <b>consistency</b> than numbers.</p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">
+            How does recruitment work?
+            <span class="chev">›</span>
+          </summary>
+          <div class="faqA">
+            <p>Applications are rolling while the Founding Gen is forming.</p>
+            <ul>
+              <li>Apply with your content links.</li>
+              <li>We review and shortlist.</li>
+              <li>Shortlisted applicants are contacted via Discord.</li>
+              <li>Onboarding = roles, expectations, and collab planning.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">
+            Is Kuroveil an agency?
+            <span class="chev">›</span>
+          </summary>
+          <div class="faqA">
+            <p>No. It’s a <b>collective</b> — systems + collabs without the corporate vibe.</p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">
+            Where do I start if I want in?
+            <span class="chev">›</span>
+          </summary>
+          <div class="faqA">
+            <p>Join the Discord, read the requirements, and apply. If you have questions, ask.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section reveal">
+      <div class="applyBox">
+        <div>
+          <h2 style="margin:0 0 8px;">Step into the shadows.</h2>
+          <p>If you’re consistent, collab-friendly, and serious about growth — the Veil will notice.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Enter Discord</a>
+          <a class="btn" href="updates.html">See Updates</a>
+          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // ===== PARTICLES (NEW) =====
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+      let particles = [];
+      let rafId = null;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.8,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.18 + Math.random() * 0.28,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        // dots
+        for (const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // connecting lines
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120){
+              const t = 1 - dist / 120;
+              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+  </script>
+  <button class="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
+    </svg>
+  </button>
+  
+  <script>
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+  
+    const bar = document.querySelector('.scrollProgress');
+    const toTop = document.querySelector('.toTop');
+  
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  
+      if (bar) bar.style.width = pct.toFixed(2) + '%';
+  
+      if (toTop){
+        if (scrollTop > 420) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      }
+    }
+  
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  
+    if (toTop){
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+</body>
+</html>

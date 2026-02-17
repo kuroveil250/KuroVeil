@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roster • Kuroveil</title>
+  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective." />
+
+  <meta property="og:title" content="Kuroveil" />
+  <meta property="og:description" content="Enter the Abyss. Build the Veil." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="roster.html" />
+  <meta property="og:image" content="og-kuroveil.jpg" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kuroveil" />
+  <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="twitter:image" content="og-kuroveil.jpg" />
+  
+
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+      --card: rgba(255,255,255,0.06);
+      --stroke: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --purple:#8a2be2;
+      --purple2:#b16cff;
+      --shadow: 0 14px 40px rgba(0,0,0,0.45);
+      --radius: 16px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(177,108,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 15% 15%, rgba(138,43,226,0.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* ===== PARTICLES (NEW) ===== */
+    #veilParticles{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-3;
+      pointer-events:none;
+      opacity:0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{display:none;}
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* subtle moving grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+      z-index: 0;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:0.6px;
+    }
+    .sigil{
+      width: 34px; height:34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.15));
+      border: 1px solid rgba(255,255,255,0.12);
+      position:relative;
+      animation: sigilGlow 4s ease-in-out infinite;
+    }
+    @keyframes sigilGlow{
+      0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
+      50%{ box-shadow: 0 0 22px rgba(177,108,255,0.6); }
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+
+    nav{
+      display:flex; align-items:center; gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    nav a{
+      text-decoration:none;
+      opacity:0.9;
+      position:relative;
+      padding-bottom: 10px; /* room for line */
+    }
+    nav a.active{ opacity:1; color: var(--text); }
+    nav a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
+    }
+    nav a:hover{opacity:1; color: var(--text)}
+    nav a:hover::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width: 26px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.65), transparent);
+      opacity:0.9;
+    }
+
+    .actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition:
+        transform .12s ease,
+        background .12s ease,
+        box-shadow .12s ease,
+        border-color .12s ease,
+        filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+      border-color: rgba(177,108,255,0.30);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.45),
+        0 0 26px rgba(177,108,255,0.35);
+    }
+
+    /* Hero */
+    .hero{ padding: 26px 0 18px; margin-top: 18px; position:relative; z-index:2; }
+    .heroBanner{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height: 260px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.75)),
+        radial-gradient(700px 250px at 20% 20%, rgba(177,108,255,0.22), transparent 60%),
+        url("kuroveil-hero.jpg") center/cover no-repeat;
+      isolation:isolate;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .heroBanner::before{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(120% 95% at 50% 35%,
+        rgba(0,0,0,0) 45%,
+        rgba(0,0,0,0.55) 100%);
+      z-index:0;
+    }
+    .heroBanner::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:0;
+      height: 120px;
+      pointer-events:none;
+      background: linear-gradient(to bottom, rgba(13,0,24,0), rgba(13,0,24,1));
+      z-index:0;
+    }
+    .heroGlow{
+      position:absolute;
+      left: 8%;
+      right: 8%;
+      bottom: -18px;
+      height: 36px;
+      background: radial-gradient(closest-side, rgba(177,108,255,0.28), transparent 70%);
+      filter: blur(10px);
+      opacity: 0.9;
+      z-index:-1;
+    }
+    .heroInner{
+      position:relative;
+      z-index:1;
+      padding: 26px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items:end;
+      min-height: 260px;
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing: -0.6px;
+      line-height: 1.05;
+      text-shadow: 0 0 20px rgba(177,108,255,0.25);
+    }
+    .sub{
+      margin:0;
+      color: rgba(255,255,255,0.78);
+      line-height:1.65;
+      max-width: 80ch;
+      font-size: 14px;
+    }
+
+    .badgeRecruit{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.90);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+    }
+    .badgeRecruit .pulse{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 16px rgba(177,108,255,0.80);
+    }
+
+    .chipRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .chip{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 8px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+
+    .heroPanel{
+      border-radius: 18px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .panelTitle{font-weight:800; letter-spacing:0.2px}
+    .mini{color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px}
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat b{display:block; font-size: 16px}
+    .stat span{color: rgba(255,255,255,0.60); font-size: 12px}
+
+    /* Sections */
+    .section{ padding: 48px 0; position: relative; z-index:2; }
+    .section:before{
+      content:"";
+      position:absolute; top:0; left:50%;
+      transform:translateX(-50%);
+      width:70%; height:1px;
+      background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
+    }
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+      position:relative;
+      display:inline-block;
+      padding-bottom:6px;
+    }
+    .sectionHead h2:after{
+      content:"";
+      position:absolute;
+      left:0; bottom:0;
+      width:60%;
+      height:2px;
+      background:linear-gradient(to right, rgba(177,108,255,0.7), transparent);
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 70ch;
+    }
+
+    /* Grid */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    /* Card base */
+    .member{
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.30);
+      min-height: 240px;
+      position: relative;
+      transform: translateY(0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .banner{
+      height: 78px;
+      background:
+        radial-gradient(120px 80px at 20% 30%, rgba(177,108,255,0.35), transparent 60%),
+        radial-gradient(140px 90px at 80% 20%, rgba(138,43,226,0.25), transparent 60%),
+        rgba(0,0,0,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position:relative;
+    }
+
+    .avatar{
+      width: 64px; height:64px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      position:absolute;
+      left: 14px;
+      bottom: -18px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+      color: rgba(255,255,255,0.85);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      overflow:hidden;
+    }
+
+    /* Logo avatar (recommended) */
+    .avatar.avatarLogo{
+      padding: 8px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.35), rgba(0,0,0,0.18));
+      border-color: rgba(177,108,255,0.35);
+    }
+    .avatar.avatarLogo img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.18);
+      border-radius: 12px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+    }
+
+    /* Optional: sigil avatar */
+    .avatar.avatarSigil{
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.70), rgba(138,43,226,0.15));
+      border-color: rgba(255,255,255,0.14);
+    }
+    .avatar.avatarSigil::after{
+      content:"";
+      position:absolute;
+      inset: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+
+    .body{padding: 30px 14px 14px}
+    .row{display:flex; justify-content:space-between; gap:10px; align-items:baseline}
+    .row b{font-size: 16px}
+    .role{font-size: 12px; color: var(--muted2)}
+    .bio{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
+    .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top: 10px}
+    .tag{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+    .cta{ margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* Social icons */
+    .socials{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
+    .iconBtn{
+      width: 34px; height: 34px;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+      text-decoration:none;
+    }
+    .iconBtn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.45);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 12px 26px rgba(138,43,226,0.18);
+      filter: brightness(0.95);
+    }
+    .iconBtn svg{width:18px;height:18px;opacity:.92}
+    .iconBtn:hover svg{opacity:1}
+
+    /* Open slots */
+    .open .banner{
+      background:
+        radial-gradient(140px 90px at 30% 30%, rgba(177,108,255,0.18), transparent 60%),
+        rgba(0,0,0,0.22);
+    }
+    .open .avatar{color: rgba(255,255,255,0.65)}
+
+    /* Reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{opacity:1; transform: translateY(0)}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+    }
+
+    footer{
+      padding: 40px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 10px;
+      position:relative;
+      z-index:2;
+    }
+
+    @media (max-width: 900px){
+      .heroInner{grid-template-columns: 1fr; min-height: 340px}
+      .grid{grid-template-columns: 1fr}
+      nav{display:none}
+    }
+
+    /* =====================================================
+       MEMBER FX (SINGLE SOURCE OF TRUTH — NO CONFLICTS)
+       ===================================================== */
+    .member:hover{
+      transform: translateY(-6px);
+      border-color: rgba(177,108,255,0.35);
+      box-shadow:
+        0 28px 70px rgba(0,0,0,0.75),
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(177,108,255,0.18),
+        0 0 34px rgba(138,43,226,0.22);
+    }
+
+    .member .banner,
+    .member .body{ position: relative; z-index: 2; }
+
+    .member::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      z-index: 1;
+      pointer-events:none;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.22),
+        rgba(255,255,255,0.08),
+        transparent 60%
+      );
+      transform: translateX(-30%) rotate(12deg);
+      opacity: 0;
+      transition: opacity .25s ease, transform .55s ease;
+    }
+    .member:hover::before{
+      opacity: 1;
+      transform: translateX(30%) rotate(12deg);
+    }
+
+    .member::after{
+      content:"";
+      position:absolute;
+      inset:-50px;
+      z-index: 0;
+      pointer-events:none;
+      opacity: 0;
+      transition: opacity .2s ease;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(177,108,255,0.18), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(138,43,226,0.12), transparent 60%);
+    }
+    .member:hover::after{ opacity: .22; }
+
+    .member:hover .avatar{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.55);
+      box-shadow:
+        0 0 0 6px rgba(177,108,255,0.12),
+        0 14px 30px rgba(138,43,226,0.25);
+    }
+
+    .member.open{ cursor:pointer; }
+    .member.open:hover{
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(177,108,255,0.45);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      box-shadow:
+        0 26px 60px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(177,108,255,0.18),
+        0 0 34px rgba(138,43,226,0.25);
+    }
+    .member.open::after{
+      opacity: .20;
+      background:
+        radial-gradient(900px 220px at 25% 20%, rgba(177,108,255,0.24), transparent 55%),
+        radial-gradient(circle, rgba(177,108,255,0.90) 1px, transparent 2px) 10px 20px / 120px 120px,
+        radial-gradient(circle, rgba(138,43,226,0.75) 1px, transparent 2px) 60px 80px / 160px 160px,
+        radial-gradient(circle, rgba(177,108,255,0.55) 1px, transparent 2px) 30px 50px / 200px 200px,
+        radial-gradient(circle at 70% 80%, rgba(138,43,226,0.14), transparent 60%);
+      animation: kvParticles 10s linear infinite;
+    }
+    .member.open:hover::after{ opacity: .38; }
+    .member.open:hover .avatar{
+      transform: translateY(-4px) scale(1.03);
+      border-color: rgba(177,108,255,0.65);
+      box-shadow:
+        0 0 0 7px rgba(177,108,255,0.12),
+        0 18px 38px rgba(138,43,226,0.28);
+    }
+
+    .member.founder::after{
+      opacity: .16;
+      background:
+        radial-gradient(circle, rgba(177,108,255,0.55) 1px, transparent 2px) 20px 30px / 150px 150px,
+        radial-gradient(circle, rgba(138,43,226,0.45) 1px, transparent 2px) 80px 60px / 220px 220px,
+        radial-gradient(circle at 30% 20%, rgba(177,108,255,0.16), transparent 55%);
+      animation: kvParticles 14s linear infinite;
+    }
+
+    @keyframes kvParticles{
+      0%   { transform: translate3d(0,0,0); }
+      50%  { transform: translate3d(-18px, 22px, 0); }
+      100% { transform: translate3d(0,0,0); }
+    }
+
+/* Fade-in */
+body{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+body.is-loaded{
+  opacity: 1;
+}
+
+/* Scroll progress bar */
+.scrollProgress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
+  box-shadow: 0 0 18px rgba(177,108,255,0.35);
+  pointer-events:none;
+}
+
+/* Back to top */
+.toTop{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 9998;
+}
+.toTop.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== FORCE ROSTER-SMOOTH (more noticeable) ===== */
+:root{
+  /* darker glass = more “smooth” / less gray-wash */
+  --glass-bg: rgba(0,0,0,0.34);
+  --glass-border: rgba(255,255,255,0.10);
+  --glass-border-hover: rgba(177,108,255,0.34);
+
+  /* softer + deeper */
+  --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  --glass-shadow-hover:
+    0 34px 95px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(177,108,255,0.16),
+    0 0 40px rgba(138,43,226,0.22);
+}
+
+/* apply to your actual boxes */
+.card,
+.member,
+.genCard,
+.applyBox,
+.heroPanel,
+.veilCard,
+.featureBig,
+.stat{
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+
+  /* smoother corners */
+  border-radius: 20px !important;
+
+  /* stronger glass blur */
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+  /* “smooth” transition feel (this is a big part of it) */
+  transition:
+    transform .26s cubic-bezier(.2,.8,.2,1),
+    box-shadow .26s cubic-bezier(.2,.8,.2,1),
+    border-color .26s cubic-bezier(.2,.8,.2,1),
+    filter .26s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+.card:hover,
+.member:hover,
+.genCard:hover,
+.applyBox:hover,
+.heroPanel:hover,
+.veilCard:hover,
+.featureBig:hover,
+.stat:hover{
+  transform: translateY(-7px) scale(1.01);
+  border-color: var(--glass-border-hover) !important;
+  box-shadow: var(--glass-shadow-hover) !important;
+  filter: brightness(0.95);
+}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- PARTICLES (NEW) -->
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="grain"></div>
+  <div class="scrollProgress"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="sigil"></div>
+          <span>KUROVEIL</span>
+        </div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a class="active" href="roster.html">Roster</a>
+          <a href="updates.html">Updates</a>
+          <a href="apply.html">Apply</a>
+          <a href="about.html">About</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="updates.html">Updates</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="position:relative; z-index:2;">
+    <section class="hero reveal">
+      <div style="position:relative;">
+        <div class="heroGlow"></div>
+        <div class="heroBanner">
+          <div class="heroInner">
+            <div>
+              <div class="badgeRecruit"><span class="pulse"></span> Recruiting • Founding Generation</div>
+              <h1>Roster</h1>
+              <p class="sub">
+                The Founding Generation is forming. Profiles expand as members join.
+                If you want a slot, apply — and be ready to move with the team.
+              </p>
+
+              <div class="chipRow">
+                <span class="chip">Founding Gen</span>
+                <span class="chip">Recruiting</span>
+                <span class="chip">Collab Focus</span>
+                <span class="chip">Shadow Aesthetic</span>
+              </div>
+            </div>
+
+            <div class="heroPanel">
+              <div class="panelTitle">How to Join</div>
+              <div class="mini">Apply → rolling review → short Discord chat → onboarding.</div>
+
+              <div class="stats">
+                <div class="stat"><b>Open</b><span>Applications</span></div>
+                <div class="stat"><b>Rolling</b><span>Reviews</span></div>
+                <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
+                <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+              </div>
+
+              <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
+                <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- uses kuroveil-hero.jpg in same folder -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Leadership</h2>
+          <p>Managed from behind the veil — recruitment, structure, branding, collabs, and growth systems.</p>
+        </div>
+      </div>
+
+      <section class="grid">
+        <article class="member founder reveal">
+          <div class="banner">
+            <div class="avatar avatarLogo" aria-label="Kuroveil logo">
+              <img src="kuro-logo.png" alt="Kuroveil Logo">
+            </div>
+          </div>
+
+          <div class="body">
+            <div class="row">
+              <b>Kuro (Founder)</b>
+              <span class="role">Founder • Operations</span>
+            </div>
+
+            <p class="bio">
+              Founder of Kuroveil. Managing everything from behind the veil — recruiting, systems, and growth strategy.
+            </p>
+
+            <div class="tags">
+              <span class="tag">Operations</span>
+              <span class="tag">Recruitment</span>
+              <span class="tag">Branding</span>
+              <span class="tag">Collabs</span>
+            </div>
+
+            <div class="socials" aria-label="Social links">
+              <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener" title="Twitch" aria-label="Twitch">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h15v10l-4 4h-4l-2 2H9v-2H6V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 8v5M15 8v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </a>
+              <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 15.5v-7l6 3.5-6 3.5Z" fill="currentColor"/><path d="M3.5 7.5c.4-1.5 1.6-2.7 3.1-3.1C8.4 4 12 4 12 4s3.6 0 5.4.4c1.5.4 2.7 1.6 3.1 3.1.4 1.8.4 4.5.4 4.5s0 2.7-.4 4.5c-.4 1.5-1.6 2.7-3.1 3.1-1.8.4-5.4.4-5.4.4s-3.6 0-5.4-.4c-1.5-.4-2.7-1.6-3.1-3.1C3.1 14.7 3.1 12 3.1 12s0-2.7.4-4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener" title="X" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+              <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener" title="Discord" aria-label="Discord">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 8.5c2-1.3 8-1.3 10 0M8 17c2.5 1.5 5.5 1.5 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 19c-1.2-3.7-1.2-10.3 0-14 3-1.2 8-1.2 11 0 1.2 3.7 1.2 10.3 0 14-3 1.2-8 1.2-11 0Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 12.5h.01M14.5 12.5h.01" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Talent Slots</h2>
+          <p>Consistent creators only. Collab-friendly, clip-minded, and ready to move with a team.</p>
+        </div>
+      </div>
+
+      <section class="grid">
+        <article class="member open reveal">
+          <div class="banner"><div class="avatar">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">Looking for a consistent creator with a shadow/dark aesthetic. Collab-friendly and community-minded.</p>
+            <div class="tags"><span class="tag">Gothic</span><span class="tag">Comedy</span><span class="tag">Variety</span></div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="member open reveal">
+          <div class="banner"><div class="avatar">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">Looking for a creator who loves collabs, clips, and lore-friendly content. Consistency matters most.</p>
+            <div class="tags"><span class="tag">Horror</span><span class="tag">Story</span><span class="tag">Events</span></div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="member open reveal">
+          <div class="banner"><div class="avatar">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">A strong theme + consistent output. We’ll help tighten branding and build a clip pipeline.</p>
+            <div class="tags"><span class="tag">Lore</span><span class="tag">Clips</span><span class="tag">Growth</span></div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask</a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
+        <div style="display:flex; gap:12px;">
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // ===== PARTICLES (NEW) =====
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+      let particles = [];
+      let rafId = null;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.8,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.18 + Math.random() * 0.28,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // subtle connections
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120){
+              const t = 1 - dist / 120;
+              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+  </script>
+  <button class="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
+    </svg>
+  </button>
+  
+  <script>
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+  
+    const bar = document.querySelector('.scrollProgress');
+    const toTop = document.querySelector('.toTop');
+  
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  
+      if (bar) bar.style.width = pct.toFixed(2) + '%';
+  
+      if (toTop){
+        if (scrollTop > 420) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      }
+    }
+  
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  
+    if (toTop){
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+  
+</body>
+</html>
