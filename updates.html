@@ -9,13 +9,14 @@
   <meta property="og:title" content="Kuroveil" />
   <meta property="og:description" content="Enter the Abyss. Build the Veil." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="roster.html" />
-  <meta property="og:image" content="og-kuroveil.jpg" />
+  <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/updates.html" />
+  <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
   
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kuroveil" />
   <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
-  <meta name="twitter:image" content="og-kuroveil.jpg" />
+  <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
+  
   
 
 
@@ -717,6 +718,78 @@ body.is-loaded{
   border-color: var(--glass-border-hover) !important;
   box-shadow: var(--glass-shadow-hover) !important;
   filter: brightness(0.95);
+}
+
+/* ===== MOBILE FIXES ===== */
+@media (max-width: 600px){
+
+.wrap{
+  padding: 0 14px;
+}
+
+h1{
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.hero{
+  padding: 18px 0 24px;
+}
+
+.heroInner{
+  padding: 20px;
+  gap: 14px;
+  min-height: auto;
+}
+
+.heroBanner{
+  min-height: auto;
+}
+
+.heroBtns{
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.heroBtns .btn{
+  width: 100%;
+  justify-content: center;
+}
+
+.stats{
+  grid-template-columns: 1fr;
+}
+
+.section{
+  padding: 40px 0;
+}
+
+.veilCard{
+  padding: 18px;
+  gap: 14px;
+}
+
+.veilText h2{
+  font-size: 22px;
+}
+
+.veilEmblem{
+  width: 70px;
+  height: 70px;
+}
+
+.topbar{
+  padding: 10px 0;
+}
+
+.actions{
+  gap: 6px;
+}
+
+.btn{
+  padding: 9px 12px;
+  font-size: 13px;
+}
 }
 
 
