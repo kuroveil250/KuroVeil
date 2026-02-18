@@ -951,20 +951,31 @@
     // ✅ Total opens counter (increments once per page load)
     // NOTE: This uses a tiny public counter endpoint (CountAPI) so the number is shared across all visitors.
     (async () => {
-      const el = document.getElementById("openCount");
-      try {
-        const namespace = "kuroveil-2026"; // change to something unique
-        const key = "opens";              // change if you want
+  const el = document.getElementById("openCount");
+  if (!el) return;
 
-        const res = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`, { cache: "no-store" });
-        const data = await res.json();
+  const namespace = "kuroveil-2026";
+  const key = "opens";
 
-        if (el) el.textContent = String(data.value);
-      } catch (err) {
-        console.error(err);
-        if (el) el.textContent = "—";
-      }
-    })();
+  try {
+    el.textContent = "…";
+
+    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
+    const res = await fetch(url, { cache: "no-store" });
+
+    if (!res.ok) throw new Error("HTTP " + res.status);
+
+    const data = await res.json();
+
+    if (typeof data.value !== "number") throw new Error("Bad response");
+
+    el.textContent = String(data.value);
+  } catch (err) {
+    console.error("Counter failed:", err);
+    el.textContent = "0";
+  }
+})();
+
 
     // Particles
     (() => {
