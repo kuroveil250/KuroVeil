@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Legal • Kuroveil</title>
+  <meta name="description" content="Kuroveil Legal — Terms, Privacy, Talent Agreement, and Community Guidelines." />
+
+  <meta property="og:title" content="Kuroveil • Legal" />
+  <meta property="og:description" content="Terms, Privacy, Talent Agreement, and Community Guidelines." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/legal.html" />
+  <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kuroveil • Legal" />
+  <meta name="twitter:description" content="Terms, Privacy, Talent Agreement, and Community Guidelines." />
+  <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.55);
+      --max: 1100px;
+
+      --kv-ease: cubic-bezier(.2,.8,.2,1);
+
+      /* Roster-smooth glass */
+      --glass-bg: rgba(0,0,0,0.34);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-hover: rgba(177,108,255,0.34);
+      --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --glass-shadow-hover:
+        0 34px 95px rgba(0,0,0,0.75),
+        0 0 0 1px rgba(177,108,255,0.16),
+        0 0 40px rgba(138,43,226,0.22);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(177,108,255,0.25), transparent 60%),
+        radial-gradient(900px 500px at 15% 15%, rgba(138,43,226,0.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+
+      opacity:0;
+      transition: opacity 1s ease;
+    }
+    body.is-loaded{opacity:1}
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* Subtle grain */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+      z-index:0;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* Header (site nav) */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .topbar{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 0; gap:12px;
+    }
+    .brand{
+      font-weight:800; letter-spacing:0.6px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .sigil{
+      width: 34px; height:34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.12));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 18px rgba(177,108,255,0.25);
+      position:relative;
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+    nav{display:flex; gap:16px; font-size:14px; color: var(--muted)}
+    nav a{ text-decoration:none; opacity:0.9; position:relative; padding-bottom:10px; }
+    nav a.active{opacity:1; color: var(--text)}
+    nav a.active::after{
+      content:""; position:absolute; left:0; bottom:0;
+      width:26px; height:2px; border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
+    }
+    nav a:hover{opacity:1; color: var(--text)}
+    nav a:hover::after{
+      content:""; position:absolute; left:0; bottom:0;
+      width:26px; height:2px; border-radius:999px;
+      background: linear-gradient(to right, rgba(177,108,255,0.65), transparent);
+      opacity:0.9;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:12px;
+      font-weight:600; text-decoration:none;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      transition: transform .18s var(--kv-ease), background .18s var(--kv-ease),
+        box-shadow .18s var(--kv-ease), border-color .18s var(--kv-ease), filter .18s var(--kv-ease);
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+      border-color: rgba(177,108,255,0.30);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 26px rgba(177,108,255,0.35);
+    }
+
+    /* Glass boxes */
+    .kvBox{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      position:relative;
+      overflow:hidden;
+      transform: translateY(0);
+      will-change: transform, box-shadow, border-color, filter;
+      transition:
+        transform .26s var(--kv-ease),
+        box-shadow .26s var(--kv-ease),
+        border-color .26s var(--kv-ease),
+        filter .26s var(--kv-ease);
+    }
+    .kvBox:hover{
+      transform: translateY(-7px) scale(1.01);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--glass-shadow-hover);
+      filter: brightness(0.95);
+    }
+    .kvBox::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      pointer-events:none;
+      z-index:0;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.22),
+        rgba(255,255,255,0.08),
+        transparent 60%
+      );
+      transform: translateX(-30%) rotate(12deg);
+      opacity:0;
+      transition: opacity .25s ease, transform .55s var(--kv-ease);
+    }
+    .kvBox:hover::before{
+      opacity:1;
+      transform: translateX(30%) rotate(12deg);
+    }
+    .kvBox > *{ position:relative; z-index:1; }
+
+    /* Hero */
+    .hero{ padding: 18px 0 12px; margin-top: 18px; position:relative; z-index:2; }
+    .heroInner{
+      padding: 22px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    h1{ margin: 8px 0 8px; font-size: clamp(30px, 3.8vw, 44px); letter-spacing:-0.7px; }
+    .sub{ margin:0; color: var(--muted); line-height:1.7; max-width: 90ch; }
+
+    .pillRow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .pill{
+      font-size: 12px; color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 7px 10px; border-radius: 999px;
+      user-select:none;
+    }
+
+    /* Sticky section switcher */
+    .switcherWrap{
+      position: sticky;
+      top: 68px; /* below site header */
+      z-index: 40;
+      margin-top: 14px;
+    }
+    .switcher{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding: 10px;
+    }
+    .switcher a{
+      text-decoration:none;
+      font-size:12px;
+      color: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 9px 12px;
+      border-radius: 999px;
+      transition: transform .18s var(--kv-ease), border-color .18s var(--kv-ease), background .18s var(--kv-ease);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .switcher a:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,0.35);
+      background: rgba(255,255,255,0.05);
+    }
+    .switcher a.active{
+      color: rgba(255,255,255,0.92);
+      border-color: rgba(177,108,255,0.40);
+      background: rgba(177,108,255,0.10);
+      box-shadow: 0 0 18px rgba(177,108,255,0.12);
+    }
+    .chipDot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(177,108,255,0.9);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+    }
+
+    /* Sections */
+    .sections{
+      margin: 14px 0 40px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      position:relative;
+      z-index:2;
+    }
+
+    .doc{
+      padding: 18px;
+    }
+    .docHeader{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      margin-bottom: 10px;
+    }
+    .docHeader h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:-0.2px;
+    }
+    .docMeta{
+      font-size: 12px;
+      color: var(--muted2);
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .docMeta .tagMini{
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.72);
+    }
+
+    .legalText{
+      margin-top: 12px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+    }
+    .legalText h3{ margin: 14px 0 6px; font-size: 14px; }
+    .legalText p{ margin: 0; color: rgba(255,255,255,0.72); line-height: 1.7; }
+    .legalText ul{ margin: 10px 0 0; padding-left: 18px; color: rgba(255,255,255,0.72); line-height: 1.9; }
+    .legalText .note{
+      margin-top: 12px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(177,108,255,0.20);
+      background: rgba(177,108,255,0.08);
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Divider line glow */
+    .divider{
+      height:1px;
+      background: linear-gradient(to right, transparent, rgba(177,108,255,0.28), transparent);
+      opacity:0.8;
+      margin: 8px 0 0;
+    }
+
+    footer{
+      padding: 40px 0;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 10px;
+      position:relative;
+      z-index:2;
+    }
+
+    @media (max-width: 900px){
+      nav{display:none}
+      .heroInner{grid-template-columns: 1fr;}
+      .switcherWrap{ top: 62px; }
+      .wrap{ padding: 0 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand"><div class="sigil"></div><div>KUROVEIL</div></div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="roster.html">Roster</a>
+          <a href="updates.html">Updates</a>
+          <a href="apply.html">Apply</a>
+          <a href="about.html">About</a>
+          <a class="active" href="legal.html" aria-current="page">Legal</a>
+        </nav>
+
+        <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="kvBox">
+        <div class="heroInner">
+          <div>
+            <div class="pillRow">
+              <span class="pill">Terms</span>
+              <span class="pill">Privacy</span>
+              <span class="pill">Talent</span>
+              <span class="pill">Guidelines</span>
+            </div>
+            <h1>Legal Center</h1>
+            <p class="sub">
+              One page. Clear expectations. If you apply or join Kuroveil, these policies define the rules, privacy, and how the collective operates.
+            </p>
+            <div class="divider"></div>
+            <p class="sub" style="margin-top:10px;">
+              Tip: link applicants directly to <b>legal.html#talent</b> and <b>legal.html#privacy</b>.
+            </p>
+          </div>
+
+          <div class="kvBox" style="padding:16px; box-shadow:none;">
+            <b style="display:block; font-size:14px;">Fast Links</b>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+              <a class="btn primary" href="apply.html">Apply</a>
+              <a class="btn" href="updates.html">Updates</a>
+              <a class="btn" href="roster.html">Roster</a>
+            </div>
+            <p style="margin-top:10px; color: rgba(255,255,255,0.72); font-size:13px; line-height:1.6;">
+              Put these links in your footer on every page: Terms • Privacy • Talent • Guidelines.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STICKY SWITCHER -->
+      <div class="switcherWrap">
+        <div class="kvBox switcher" id="switcher">
+          <a href="#terms" data-target="terms"><span class="chipDot"></span> Terms</a>
+          <a href="#privacy" data-target="privacy"><span class="chipDot"></span> Privacy</a>
+          <a href="#talent" data-target="talent"><span class="chipDot"></span> Talent</a>
+          <a href="#guidelines" data-target="guidelines"><span class="chipDot"></span> Guidelines</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTIONS -->
+    <section class="sections">
+      <!-- TERMS -->
+      <article id="terms" class="kvBox doc">
+        <div class="docHeader">
+          <h2>Website Terms of Service</h2>
+          <div class="docMeta">
+            <span class="tagMini">Applies to: Site visitors</span>
+            <span class="tagMini">Last updated: YYYY-MM-DD</span>
+          </div>
+        </div>
+
+        <p class="sub">
+          These terms cover use of the Kuroveil website and related pages.
+        </p>
+
+        <div class="legalText">
+          <h3>1) Acceptance</h3>
+          <p>By accessing this site, you agree to these Terms.</p>
+
+          <h3>2) Allowed use</h3>
+          <ul>
+            <li>Do not abuse, attack, or attempt to disrupt the site.</li>
+            <li>No unlawful use, impersonation, or harmful automation.</li>
+          </ul>
+
+          <h3>3) Content & branding</h3>
+          <p>Kuroveil branding and site content may not be copied or misrepresented.</p>
+
+          <h3>4) Third-party services</h3>
+          <p>We link to platforms like Discord, Google Forms, YouTube, X, Twitch. Their terms apply.</p>
+
+          <h3>5) Changes</h3>
+          <p>We may update these terms at any time; the “Last updated” date will change.</p>
+        </div>
+      </article>
+
+      <!-- PRIVACY -->
+      <article id="privacy" class="kvBox doc">
+        <div class="docHeader">
+          <h2>Privacy Policy</h2>
+          <div class="docMeta">
+            <span class="tagMini">Applies to: Visitors + Applicants</span>
+            <span class="tagMini">Last updated: YYYY-MM-DD</span>
+          </div>
+        </div>
+
+        <p class="sub">
+          We keep data collection minimal. This explains what’s collected and why.
+        </p>
+
+        <div class="legalText">
+          <h3>1) What we collect</h3>
+          <ul>
+            <li>Application form information (links, handles, experience, goals)</li>
+            <li>Messages you send via Discord</li>
+          </ul>
+
+          <h3>2) What we use it for</h3>
+          <ul>
+            <li>Reviewing applications and contacting shortlisted applicants</li>
+            <li>Onboarding and coordination if accepted</li>
+          </ul>
+
+          <h3>3) Third-party tools</h3>
+          <p>Google Forms and Discord process your data according to their own policies.</p>
+
+          <h3>4) Retention & deletion</h3>
+          <p>We retain application data as needed for review and records. You can request deletion via Discord.</p>
+
+          <div class="note">
+            If you add analytics later (like Google Analytics), update this section and disclose cookies/tracking.
+          </div>
+        </div>
+      </article>
+
+      <!-- TALENT -->
+      <article id="talent" class="kvBox doc">
+        <div class="docHeader">
+          <h2>Talent Agreement</h2>
+          <div class="docMeta">
+            <span class="tagMini">Applies to: Talent / Members</span>
+            <span class="tagMini">Last updated: YYYY-MM-DD</span>
+          </div>
+        </div>
+
+        <p class="sub">
+          This defines membership expectations, branding rights, content ownership, conduct, and what happens if someone leaves.
+        </p>
+
+        <div class="legalText">
+          <h3>1) Ownership</h3>
+          <p><b>Default:</b> You own your character, model, and content unless a separate written agreement says otherwise.</p>
+
+          <h3>2) Kuroveil branding</h3>
+          <ul>
+            <li>You may use Kuroveil branding while a member.</li>
+            <li>Kuroveil name/logo/brand stay with Kuroveil.</li>
+            <li>On departure, remove Kuroveil branding from your profiles and panels within a reasonable timeframe.</li>
+          </ul>
+
+          <h3>3) Activity expectations</h3>
+          <ul>
+            <li>Minimum: <b>1 stream or upload per week</b> (unless approved hiatus)</li>
+            <li>Communicate clearly and stay active in Discord</li>
+            <li>Participate in collabs/events when scheduled (with notice)</li>
+          </ul>
+
+          <h3>4) Conduct</h3>
+          <ul>
+            <li>No harassment, hate, doxxing, threats, or targeted drama.</li>
+            <li>No “bait applications”, ghosting during onboarding, or bad-faith participation.</li>
+          </ul>
+
+          <h3>5) Leaving / removal</h3>
+          <p>
+            Talent may leave at any time. Kuroveil may remove members for inactivity, conduct, or breaking rules.
+            Removal includes roster delist + role removal.
+          </p>
+
+          <h3>6) Collab content</h3>
+          <p>
+            Collab VODs/clips remain on the uploader’s channel. Members agree to reasonable use of collab clips for promotion.
+          </p>
+        </div>
+      </article>
+
+      <!-- GUIDELINES -->
+      <article id="guidelines" class="kvBox doc">
+        <div class="docHeader">
+          <h2>Community Guidelines</h2>
+          <div class="docMeta">
+            <span class="tagMini">Applies to: Discord / Community</span>
+            <span class="tagMini">Last updated: YYYY-MM-DD</span>
+          </div>
+        </div>
+
+        <p class="sub">
+          These rules keep the server clean, safe, and focused on growth.
+        </p>
+
+        <div class="legalText">
+          <h3>Core rules</h3>
+          <ul>
+            <li>Respect others. No harassment, slurs, or targeted attacks.</li>
+            <li>No doxxing, threats, or calls for harassment.</li>
+            <li>No spam, raids, or disruptive behavior.</li>
+          </ul>
+
+          <h3>Moderation</h3>
+          <p>Moderation actions may include warnings, timeouts, and bans. Appeals go through staff.</p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="legal.html#terms">Terms</a>
+          <a href="legal.html#privacy">Privacy</a>
+          <a href="legal.html#talent">Talent</a>
+          <a href="legal.html#guidelines">Guidelines</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
+    // Highlight active section in the switcher (smooth + lightweight)
+    const links = Array.from(document.querySelectorAll('#switcher a'));
+    const sections = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+
+    const setActive = (id) => {
+      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      // choose the most visible entry
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActive(visible.target.id);
+    }, { threshold: [0.2, 0.35, 0.5, 0.65] });
+
+    sections.forEach(sec => io.observe(sec));
+
+    // If loaded with a hash, set it immediately
+    if (location.hash){
+      const id = location.hash.replace('#','');
+      setActive(id);
+    } else {
+      setActive('terms');
+    }
+  </script>
+</body>
+</html>
