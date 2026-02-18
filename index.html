@@ -948,36 +948,39 @@
       });
     }
 
-// ✅ Total opens counter (increments once per page load)
-// Uses CountAPI (shared counter). Shows a clear status + logs the real error.
+// ✅ Total opens counter (Google Apps Script endpoint)
 (() => {
   const el = document.getElementById("openCount");
   if (!el) return;
 
-  const namespace = "kuroveil-2026";
-  const key = "opens";
-
   el.textContent = "…";
 
-  const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}?ts=${Date.now()}`;
+  // 🔥 paste your Apps Script URL here
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyya-0BsMOCj8k77HkL4dGuVX5zgu8WnxKoxjAI9tXz3aP_xNAexhcMHmRnadI4K8XjqA/exec";
 
-  fetch(url, { cache: "no-store", mode: "cors" })
-    .then((res) => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    })
-    .then((data) => {
-      if (!data || typeof data.value !== "number") {
-        throw new Error("Bad response: " + JSON.stringify(data));
-      }
-      el.textContent = String(data.value);
-    })
-    .catch((err) => {
-      // If you see 0, it means the request failed (blocked / file:// / extension / network)
-      console.error("Counter failed:", err);
-      el.textContent = "0";
-    });
+  const cbName = "__kvOpenCount_" + Math.random().toString(36).slice(2);
+
+  window[cbName] = (data) => {
+    try {
+      if (data && typeof data.value === "number") el.textContent = String(data.value);
+      else el.textContent = "0";
+    } finally {
+      delete window[cbName];
+      script.remove();
+    }
+  };
+
+  const script = document.createElement("script");
+  script.src = `${ENDPOINT}?callback=${cbName}&ts=${Date.now()}`;
+  script.onerror = () => {
+    console.error("Counter failed: endpoint blocked");
+    el.textContent = "0";
+    delete window[cbName];
+  };
+
+  document.head.appendChild(script);
 })();
+
 
 
 // Particles
