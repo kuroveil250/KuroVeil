@@ -4,17 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About • Kuroveil</title>
-  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective." />
 
-  <meta property="og:title" content="Kuroveil" />
-  <meta property="og:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="description" content="About Kuroveil — a shadow-themed VTuber collective built for consistency, collabs, and long-term growth." />
+
+  <meta property="og:title" content="About • Kuroveil" />
+  <meta property="og:description" content="What Kuroveil is — and what it isn’t." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/about.html" />
   <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Kuroveil" />
-  <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
+  <meta name="twitter:title" content="About • Kuroveil" />
+  <meta name="twitter:description" content="What Kuroveil is — and what it isn’t." />
   <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
 
   <link rel="icon" type="image/png" href="favicon.png">
@@ -165,10 +166,7 @@
       transition: opacity .18s ease, transform .18s ease;
       z-index: 9998;
     }
-    .toTop.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .toTop.show{ opacity: 1; transform: translateY(0); }
 
     /* Header */
     header{
@@ -307,7 +305,6 @@
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(14px) saturate(120%);
       -webkit-backdrop-filter: blur(14px) saturate(120%);
-
       position: relative;
       overflow: hidden;
 
@@ -418,7 +415,7 @@
     h1{
       margin: 10px 0 10px;
       font-size: clamp(30px, 3.6vw, 44px);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
       line-height: 1.05;
       text-shadow: 0 0 20px rgba(177,108,255,0.18);
     }
@@ -477,7 +474,8 @@
       margin:0;
       color: var(--muted);
       font-size: 13px;
-      max-width: 80ch;
+      max-width: 84ch;
+      line-height:1.6;
     }
 
     .grid3{
@@ -565,7 +563,7 @@
       background: linear-gradient(135deg, rgba(138,43,226,0.18), rgba(255,255,255,0.04));
       border: 1px solid rgba(177,108,255,0.22);
     }
-    .applyBox p{ margin:0; color: var(--muted); font-size: 13px; max-width: 70ch; }
+    .applyBox p{ margin:0; color: var(--muted); font-size: 13px; max-width: 72ch; line-height:1.6; }
 
     footer{
       padding: 50px 0;
@@ -613,8 +611,18 @@
       <div class="veilCard kvBox">
         <div class="veilText">
           <h2>The Veil Watches</h2>
-          <p>Kuroveil grows from the shadows — guided, structured, and always moving forward.</p>
-          <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+          <p>
+            Kuroveil grows from the shadows — structured collabs, consistent output, and a real system behind the scenes.
+          </p>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+            <a class="btn" href="legal.html#terms">Policies</a>
+          </div>
+
+          <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size: 12px; line-height:1.6;">
+            By applying, you agree to the <a href="legal.html#talent">Talent Agreement</a> and <a href="legal.html#privacy">Privacy Policy</a>.
+          </p>
         </div>
         <div class="veilEmblem" aria-hidden="true"></div>
       </div>
@@ -635,6 +643,7 @@
           <a href="updates.html">Updates</a>
           <a href="apply.html">Apply</a>
           <a class="active" href="about.html" aria-current="page">About</a>
+          <a href="legal.html">Legal</a>
         </nav>
 
         <div class="actions">
@@ -655,12 +664,13 @@
             <h1>What Kuroveil is — and what it isn’t.</h1>
             <p class="sub">
               Kuroveil is a shadow-themed VTuber collective built for consistency, collabs, and long-term growth.
-              It’s structured like a real team: standards, feedback, and momentum — not chaos.
+              It’s structured like a real team: standards, feedback loops, and momentum — not chaos.
             </p>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
               <a class="btn primary" href="#mission">Mission</a>
-              <a class="btn" href="#plan">The Plan</a>
+              <a class="btn" href="#systems">Systems</a>
+              <a class="btn" href="#roadmap">Roadmap</a>
               <a class="btn" href="#lore">Lore</a>
               <a class="btn" href="#faq">FAQ</a>
             </div>
@@ -688,6 +698,9 @@
                 <a class="btn" href="updates.html">Read Updates</a>
                 <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
               </div>
+              <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+                Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a> • <a href="legal.html#talent">Talent</a>
+              </p>
             </div>
           </div>
         </div>
@@ -699,26 +712,28 @@
       <div class="sectionHead">
         <div>
           <h2>Mission</h2>
-          <p>A collective built to scale — not a temporary hangout server. We help creators grow, stay active, and ship better content together.</p>
+          <p>
+            Build a collective that stays active, grows together, and ships content with intent.
+            We’re here to turn “I’ll post soon” into consistent output — with collabs that actually travel.
+          </p>
         </div>
       </div>
 
       <div class="grid3">
         <div class="kvBox" style="padding:18px;">
-          <h3 style="margin:0 0 8px; font-size:16px;">Growth With Structure</h3>
+          <h3 style="margin:0 0 8px; font-size:16px;">Structure Over Hype</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            We build momentum through weekly cadence: content goals, check-ins, and feedback that actually gets used.
-            You don’t need to be perfect — you need to be consistent.
+            Systems beat motivation. We build weekly cadence, clear expectations, and simple standards that keep the server alive.
           </p>
           <div class="tagRow">
-            <span class="tag">Cadence</span><span class="tag">Feedback</span><span class="tag">Accountability</span>
+            <span class="tag">Cadence</span><span class="tag">Standards</span><span class="tag">Momentum</span>
           </div>
         </div>
 
         <div class="kvBox" style="padding:18px;">
-          <h3 style="margin:0 0 8px; font-size:16px;">Collabs That Convert</h3>
+          <h3 style="margin:0 0 8px; font-size:16px;">Collabs With Purpose</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            Collabs aren’t random. We plan them like releases: themes, pairings, schedules, and clip prompts so the content travels.
+            Collabs are planned like releases: formats, themes, and clip prompts so content gets discovered beyond your circle.
           </p>
           <div class="tagRow">
             <span class="tag">Duos</span><span class="tag">Group Nights</span><span class="tag">Clip Prompts</span>
@@ -726,23 +741,25 @@
         </div>
 
         <div class="kvBox" style="padding:18px;">
-          <h3 style="margin:0 0 8px; font-size:16px;">Community With Standards</h3>
+          <h3 style="margin:0 0 8px; font-size:16px;">A Clean Culture</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            The aesthetic is dark — the culture is clean. No drama, no spam, no dead channels. If it kills momentum, it doesn’t stay.
+            The vibe is dark — the culture is stable. No harassment, no drama farming, no chaos that kills momentum.
           </p>
           <div class="tagRow">
-            <span class="tag">No Drama</span><span class="tag">Moderation</span><span class="tag">Longevity</span>
+            <span class="tag">Respect</span><span class="tag">Moderation</span><span class="tag">Longevity</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHAT WE DO -->
-    <section class="section reveal" id="whatwedo">
+    <!-- SYSTEMS -->
+    <section class="section reveal" id="systems">
       <div class="sectionHead">
         <div>
-          <h2>What we do</h2>
-          <p>Here’s what “being in Kuroveil” actually looks like week-to-week — and why it works.</p>
+          <h2>The systems</h2>
+          <p>
+            What “being in Kuroveil” actually looks like: weekly targets, collab beats, and simple feedback loops.
+          </p>
         </div>
       </div>
 
@@ -750,51 +767,51 @@
         <div class="panel kvBox">
           <h3>Weekly cadence</h3>
           <p>
-            Kuroveil runs on a simple idea: momentum is built, not wished for.
-            Each week, members choose a manageable target (stream hours, posts, shorts, edits, clip quota, etc.),
-            then we follow through with light structure and real support.
+            Kuroveil runs on momentum. Each week, members set a realistic target (streams, posts, shorts, clips, edits),
+            then we follow through with light structure and real accountability.
           </p>
           <p>
-            The goal is not to pressure you — it’s to prevent the “I’ll post soon” spiral that kills most groups.
-            When everyone ships something each week, the server stays alive, the roster stays relevant, and growth becomes predictable.
+            The goal isn’t pressure — it’s consistency. When everyone ships something weekly, the server stays alive and growth becomes predictable.
           </p>
 
           <ul class="list">
-            <li class="li"><b>Weekly Targets</b><span>Pick a goal you can actually hit (and scale it later).</span></li>
-            <li class="li"><b>Clip Mindset</b><span>We design moments worth clipping — then we make sure they get clipped.</span></li>
-            <li class="li"><b>Feedback Loops</b><span>Quick notes on thumbnails, pacing, titles, and hooks — not vague “nice stream” replies.</span></li>
-            <li class="li"><b>Collab Scheduling</b><span>Planned pairings + themes so events don’t collapse last minute.</span></li>
+            <li class="li"><b>Weekly Targets</b><span>Pick a goal you can hit. Scale later.</span></li>
+            <li class="li"><b>Clip Mindset</b><span>Plan moments worth clipping — then push them.</span></li>
+            <li class="li"><b>Feedback Loops</b><span>Hooks, pacing, titles, thumbnails. Practical notes only.</span></li>
+            <li class="li"><b>Collab Scheduling</b><span>Formats + pairings so events don’t collapse last minute.</span></li>
           </ul>
         </div>
 
         <div class="panel kvBox">
-          <h3>Support systems (what you get)</h3>
+          <h3>Support (what you get)</h3>
           <p>
-            This is a collective, not a solo grind room. We want members to improve faster than they would alone —
-            and we do that by focusing on the parts that actually move the needle: consistency, packaging, and collabs.
+            This is a collective, not a solo grind room. We focus on what moves the needle:
+            consistency, packaging, and collabs.
           </p>
 
           <ul class="list">
-            <li class="li"><b>Collab Formats</b><span>Duos, trios, “Shadow Trials,” themed nights, and rotating group events.</span></li>
-            <li class="li"><b>Content Prompts</b><span>Ready-to-run ideas that match the Kuroveil vibe and encourage interaction.</span></li>
-            <li class="li"><b>Onboarding</b><span>Clear expectations + roles so you know how to start immediately.</span></li>
-            <li class="li"><b>Standards</b><span>Simple rules that protect the culture and keep the server moving.</span></li>
+            <li class="li"><b>Collab Formats</b><span>Duos, trios, “Shadow Trials,” themed nights, rotating events.</span></li>
+            <li class="li"><b>Content Prompts</b><span>Ready-to-run ideas that fit the Kuroveil tone.</span></li>
+            <li class="li"><b>Onboarding</b><span>Clear expectations + roles so you start immediately.</span></li>
+            <li class="li"><b>Standards</b><span>Simple rules to protect culture and momentum.</span></li>
           </ul>
 
           <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn" href="roster.html">View Roster</a>
-            <a class="btn primary" href="updates.html">See the Proof</a>
+            <a class="btn" href="updates.html">Read Updates</a>
+            <a class="btn primary" href="apply.html">Requirements</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- THE PLAN / ROADMAP -->
-    <section class="section reveal" id="plan">
+    <!-- ROADMAP -->
+    <section class="section reveal" id="roadmap">
       <div class="sectionHead">
         <div>
-          <h2>The plan</h2>
-          <p>We’re building in phases so it scales cleanly: stable core → consistent output → bigger events → expansion.</p>
+          <h2>Roadmap</h2>
+          <p>
+            We build in phases so it scales cleanly: stable core → consistent output → bigger events → expansion.
+          </p>
         </div>
       </div>
 
@@ -802,8 +819,7 @@
         <div class="kvBox" style="padding:18px;">
           <h3 style="margin:0 0 8px; font-size:16px;">Phase I — Founding Generation</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            Select a small roster of consistent creators. Establish the culture, standards, and weekly cadence.
-            Build the “always active” feeling first.
+            Small roster. Strong standards. Establish cadence and culture first.
           </p>
           <div class="tagRow">
             <span class="tag">Roster</span><span class="tag">Onboarding</span><span class="tag">Cadence</span>
@@ -813,7 +829,7 @@
         <div class="kvBox" style="padding:18px;">
           <h3 style="margin:0 0 8px; font-size:16px;">Phase II — Collab Engine</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            Launch recurring events with formats that are easy to repeat and clip. Pair members strategically and keep scheduling simple.
+            Recurring formats that are easy to repeat and clip. Less randomness, more results.
           </p>
           <div class="tagRow">
             <span class="tag">Events</span><span class="tag">Formats</span><span class="tag">Clips</span>
@@ -823,7 +839,7 @@
         <div class="kvBox" style="padding:18px;">
           <h3 style="margin:0 0 8px; font-size:16px;">Phase III — Expansion</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            Add new talent only when the system is stable. Expand the roster without diluting quality: more creators, same standards.
+            Add talent only when the system is stable. More creators, same standards.
           </p>
           <div class="tagRow">
             <span class="tag">Scale</span><span class="tag">Quality</span><span class="tag">Long-term</span>
@@ -835,21 +851,19 @@
         <div class="panel kvBox">
           <h3>What we will never be</h3>
           <p>
-            Kuroveil isn’t a “join and disappear” server. It’s not a clout farm, a drama magnet, or a free-for-all.
-            The Veil stays alive because we protect momentum.
+            Not a clout farm. Not a drama magnet. Not a collector roster. If it kills momentum, it doesn’t stay.
           </p>
           <ul class="list">
             <li class="li"><b>No dead channels</b><span>We keep only what gets used.</span></li>
             <li class="li"><b>No chaos culture</b><span>Respect and stability are non-negotiable.</span></li>
-            <li class="li"><b>No collector rosters</b><span>We recruit active creators, not profile pictures.</span></li>
+            <li class="li"><b>No “join and vanish”</b><span>We recruit active creators, not profile pictures.</span></li>
           </ul>
         </div>
 
         <div class="panel kvBox">
           <h3>What we’re building toward</h3>
           <p>
-            A collective that feels like a world: lore, identity, and consistent output — with real teamwork behind it.
-            The goal is for viewers to recognize “Kuroveil” as a presence.
+            A collective that feels like a world: identity, events, and consistent output — with real teamwork behind it.
           </p>
           <ul class="list">
             <li class="li"><b>Recognizable events</b><span>Recurring formats people come back for.</span></li>
@@ -864,8 +878,10 @@
     <section class="section reveal" id="lore">
       <div class="sectionHead">
         <div>
-          <h2>The lore of Kuroveil</h2>
-          <p>Optional, but powerful: lore gives identity. It turns “a server” into a world.</p>
+          <h2>Lore</h2>
+          <p>
+            Optional, but powerful: lore gives identity. It turns “a server” into a world.
+          </p>
         </div>
       </div>
 
@@ -873,27 +889,27 @@
         <div class="panel kvBox">
           <h3>Origin: The Veil</h3>
           <p>
-            In the old city, there were streets that never made it onto maps — alleys where light thinned out and sound faded.
-            People called it coincidence. The ones who paid attention called it the Veil.
+            There are streets that never make it onto maps — alleys where light thins out and sound fades.
+            People call it coincidence. The ones who pay attention call it the Veil.
           </p>
           <p>
             The Veil isn’t evil. It’s a filter. It keeps noise out and lets intent through.
-            Those who walk beneath it aren’t chosen by luck — they’re chosen by consistency.
             If you return again and again, the Veil notices.
           </p>
         </div>
 
         <div class="panel kvBox">
-          <h3>Kuroveil’s meaning</h3>
+          <h3>What “Kuroveil” means</h3>
           <p>
             “Kuro” is shadow. “Veil” is the boundary. Together, it’s the space where creators build without needing permission —
             where growth isn’t about being loud, it’s about being relentless.
           </p>
+
           <ul class="list">
             <li class="li"><b>The Abyss</b><span>The unknown — new viewers, new skills, new stages.</span></li>
             <li class="li"><b>The Veil Watches</b><span>Momentum gets noticed. Consistency draws power.</span></li>
             <li class="li"><b>Shadows</b><span>Members of the collective — quiet force, loud impact.</span></li>
-            <li class="li"><b>Founding Gen</b><span>The first to form the rules and set the tone.</span></li>
+            <li class="li"><b>Founding Gen</b><span>The first to set standards and define the tone.</span></li>
           </ul>
         </div>
       </div>
@@ -901,13 +917,13 @@
       <div class="panel kvBox" style="margin-top:14px;">
         <h3>How lore shows up</h3>
         <p>
-          Lore is a layer, not a requirement. It can be as subtle as slogans, titles, and event names —
-          or as deep as character arcs and “missions.” The key is to keep it clean and consistent.
+          Lore is a layer, not a requirement. It can be subtle (event names, slogans, titles) or deep (missions, arcs).
+          Keep it consistent and clean.
         </p>
         <ul class="list">
           <li class="li"><b>Event names</b><span>“Shadow Trials,” “Veil Rites,” “Abyss Runs,” “The Watch.”</span></li>
           <li class="li"><b>Roles</b><span>Recruit → Initiate → Shade → Warden → Sentinel (example ladder).</span></li>
-          <li class="li"><b>Community language</b><span>Short, repeatable lines that feel like a brand.</span></li>
+          <li class="li"><b>Language</b><span>Short repeatable lines that feel like a brand.</span></li>
         </ul>
       </div>
     </section>
@@ -917,7 +933,7 @@
       <div class="sectionHead">
         <div>
           <h2>FAQ</h2>
-          <p>Everything people usually ask before joining. Clear answers, no mystery.</p>
+          <p>Clear answers, no mystery.</p>
         </div>
       </div>
 
@@ -931,8 +947,8 @@
             <p>Three things: <b>consistency</b>, <b>communication</b>, and <b>collab readiness</b>.</p>
             <ul>
               <li>Be active weekly (streams/posts/shorts/Discord participation).</li>
-              <li>Show up for planned collabs if you say you will.</li>
-              <li>Respect the culture: no drama, no chaos, no harassment.</li>
+              <li>Show up for planned collabs if you commit.</li>
+              <li>Respect the culture: no drama, no harassment, no chaos.</li>
             </ul>
           </div>
         </details>
@@ -958,7 +974,7 @@
               <li>Apply with your content links.</li>
               <li>We review and shortlist.</li>
               <li>Shortlisted applicants are contacted via Discord.</li>
-              <li>Onboarding = roles, expectations, and collab planning.</li>
+              <li>Onboarding = roles, expectations, collab planning.</li>
             </ul>
           </div>
         </details>
@@ -969,17 +985,17 @@
             <span class="chev">›</span>
           </summary>
           <div class="faqA">
-            <p>No. It’s a <b>collective</b> — systems + collabs without the corporate vibe.</p>
+            <p>No — it’s a <b>collective</b>: systems + collabs without the corporate vibe.</p>
           </div>
         </details>
 
         <details class="faqItem kvBox">
           <summary class="faqQ">
-            Where do I start if I want in?
+            Where do I start?
             <span class="chev">›</span>
           </summary>
           <div class="faqA">
-            <p>Join the Discord, read the requirements, and apply. If you have questions, ask.</p>
+            <p>Join the Discord, read requirements, and apply. If you’re unsure, ask in Discord.</p>
           </div>
         </details>
       </div>
@@ -1004,6 +1020,10 @@
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
         <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="legal.html#terms">Terms</a>
+          <a href="legal.html#privacy">Privacy</a>
+          <a href="legal.html#talent">Talent</a>
+          <a href="legal.html#guidelines">Guidelines</a>
           <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
           <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
           <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>

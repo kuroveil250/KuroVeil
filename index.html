@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kuroveil</title>
 
-  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective built for consistency." />
+  <meta name="description" content="Kuroveil — a shadow-themed VTuber collective built for consistency, collabs, and real growth systems." />
 
   <meta property="og:title" content="Kuroveil" />
   <meta property="og:description" content="Enter the Abyss. Build the Veil." />
@@ -19,7 +19,6 @@
   <meta name="twitter:image" content="https://kuroveil.com/og-kuroveil.jpg" />
 
   <link rel="icon" type="image/png" href="favicon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -322,7 +321,6 @@
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(14px) saturate(120%);
       -webkit-backdrop-filter: blur(14px) saturate(120%);
-
       position: relative;
       overflow: hidden;
 
@@ -363,10 +361,7 @@
       opacity: 1;
       transform: translateX(30%) rotate(12deg);
     }
-    .kvBox > *{
-      position: relative;
-      z-index: 1;
-    }
+    .kvBox > *{ position: relative; z-index: 1; }
 
     /* Top CTA Bar */
     .veilBar{ padding: 18px 0 10px; }
@@ -400,16 +395,17 @@
 
     /* HERO */
     .open-slots{
-      color: #b16cff;
-      margin: 16px 0 0;
-      font-weight: 600;
-      letter-spacing: 1px;
+      margin: 18px 0 0;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: rgba(177,108,255,0.95);
+      text-shadow: 0 0 18px rgba(177,108,255,0.20);
     }
 
     .hero{
-      padding: 26px 0 40px;
+      padding: 22px 0 42px;
       position:relative;
-      margin-top: 22px;
+      margin-top: 18px;
     }
     .heroBanner{
       border-radius: 24px;
@@ -420,7 +416,7 @@
       min-height: 360px;
       isolation:isolate;
       background:
-        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.70)),
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.74)),
         radial-gradient(700px 250px at 20% 20%, rgba(177,108,255,0.22), transparent 60%),
         url("kuroveil-hero.jpg") center/cover no-repeat;
       transition:
@@ -441,7 +437,7 @@
     .heroBanner .fadeBottom{
       position:absolute;
       left:0; right:0; bottom:0;
-      height: 150px;
+      height: 160px;
       pointer-events:none;
       background: linear-gradient(to bottom, rgba(13,0,24,0), rgba(13,0,24,1));
       z-index:1;
@@ -454,7 +450,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(255,255,255,0.90);
       background: rgba(0,0,0,0.35);
       border: 1px solid rgba(255,255,255,0.12);
@@ -467,17 +463,6 @@
       border-radius:999px;
       background: rgba(177,108,255,0.95);
       box-shadow: 0 0 16px rgba(177,108,255,0.80);
-    }
-
-    .heroInner{
-      position: relative;
-      z-index: 2;
-      padding: 34px;
-      display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 16px;
-      align-items:end;
-      min-height: 360px;
     }
 
     .kicker{
@@ -497,19 +482,30 @@
       box-shadow: 0 0 18px rgba(177,108,255,0.75);
     }
 
+    .heroInner{
+      position: relative;
+      z-index: 2;
+      padding: 34px;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      align-items:end;
+      min-height: 360px;
+    }
+
     h1{
       margin: 10px 0 10px;
       font-size: clamp(34px, 4vw, 54px);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
       line-height: 1.05;
-      text-shadow: 0 0 20px rgba(177,108,255,0.25);
+      text-shadow: 0 0 22px rgba(177,108,255,0.22);
     }
     .lead{
       margin: 0;
       color: rgba(255,255,255,0.80);
       font-size: 16px;
       line-height: 1.6;
-      max-width: 62ch;
+      max-width: 64ch;
     }
     .heroBtns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px; }
 
@@ -539,7 +535,7 @@
 
     /* Sections */
     .section{
-      padding: 70px 0;
+      padding: 68px 0;
       position: relative;
     }
     .section:before{
@@ -591,7 +587,8 @@
       margin:0;
       color: var(--muted);
       font-size: 13px;
-      max-width: 70ch;
+      max-width: 78ch;
+      line-height:1.6;
     }
 
     /* About cards */
@@ -606,34 +603,34 @@
 
     /* Teasers */
     .teasers{
-      padding: 80px 0;
+      padding: 72px 0;
       text-align: center;
     }
-    .teaser-container{ max-width: 1100px; margin: 0 auto; }
-    .teaser-sub{ color: rgba(255,255,255,0.6); margin-bottom: 40px; }
+    .teaser-sub{ color: rgba(255,255,255,0.6); margin: 8px 0 26px; }
     .teaser-grid{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
+      gap: 14px;
     }
-    .teaser-card{
-      padding: 20px;
-      border-radius: 20px;
-    }
+    .teaser-card{ padding: 18px; border-radius: 20px; }
     .teaser-img{
       height: 180px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      background: radial-gradient(circle at center, #8a2be2, #0d0018);
-      opacity: 0.6;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(177,108,255,0.35), rgba(13,0,24,0.0)),
+        radial-gradient(circle at 70% 70%, rgba(138,43,226,0.22), rgba(13,0,24,0.0)),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.10);
+      opacity: 0.9;
     }
 
     footer{
-      padding: 50px 0;
+      padding: 46px 0;
       color: rgba(255,255,255,0.55);
       font-size: 12px;
       border-top: 1px solid rgba(255,255,255,0.06);
-      margin-top: 30px;
+      margin-top: 26px;
     }
 
     /* Scroll reveal */
@@ -643,10 +640,7 @@
       transition: opacity .7s ease, transform .7s ease;
       will-change: opacity, transform;
     }
-    .reveal.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.show{ opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce){
       .reveal{ opacity:1; transform:none; transition:none; }
     }
@@ -678,9 +672,15 @@
         <div class="veilText">
           <h2>The Veil Watches</h2>
           <p>
-            Kuroveil is not built from the spotlight. It grows from the shadows — guided, structured, and always moving forward.
+            Kuroveil grows in the shadows — structured collabs, consistent output, and a real system behind the scenes.
           </p>
-          <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="apply.html">Join the Founding Generation</a>
+            <a class="btn" href="legal.html#talent">Read Talent Terms</a>
+          </div>
+          <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size: 12px; line-height:1.6;">
+            By applying, you agree to the <a href="legal.html#talent">Talent Agreement</a> and <a href="legal.html#privacy">Privacy Policy</a>.
+          </p>
         </div>
         <div class="veilEmblem" aria-hidden="true"></div>
       </div>
@@ -701,6 +701,7 @@
           <a href="updates.html">Updates</a>
           <a href="apply.html">Apply</a>
           <a href="about.html">About</a>
+          <a href="legal.html">Legal</a>
         </nav>
 
         <div class="actions">
@@ -729,14 +730,14 @@
 
             <h1>Enter the Abyss.<br/>Build the Veil.</h1>
             <p class="lead">
-              Kuroveil is a shadow-themed VTuber collective focused on growth, collabs, and community.
-              Built and managed from behind the veil — structured, active, and designed to scale.
+              A shadow-themed VTuber collective built for consistency, collabs, and real growth.
+              Managed from behind the veil — structure first, hype second.
             </p>
 
             <div class="heroBtns">
               <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
+              <a class="btn" href="apply.html">Requirements</a>
               <a class="btn" href="updates.html">Latest Updates</a>
-              <a class="btn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">Watch</a>
               <a class="btn" href="#about">About</a>
             </div>
           </div>
@@ -744,28 +745,24 @@
           <div class="heroPanel kvBox">
             <div class="panelTitle">Recruitment Status</div>
             <div class="mini">
-              Reviews are rolling. Shortlisted applicants will be contacted via Discord.
+              Reviews are rolling. Shortlisted applicants are contacted via Discord.
             </div>
 
             <div class="stats">
-              <div class="stat">
-                <b>Open</b><span>Applications</span>
-              </div>
-              <div class="stat">
-                <b>Rolling</b><span>Review Cycle</span>
-              </div>
-              <div class="stat">
-                <b>Forming</b><span>Founding Gen</span>
-              </div>
-              <div class="stat">
-                <b>Next</b><span>Collab Planning</span>
-              </div>
+              <div class="stat"><b>Open</b><span>Applications</span></div>
+              <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
+              <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
+              <div class="stat"><b>Next</b><span>Collab Planning</span></div>
             </div>
 
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
               <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Enter Discord</a>
-              <a class="btn" href="apply.html">Read Requirements</a>
+              <a class="btn" href="legal.html#talent">Talent Terms</a>
             </div>
+
+            <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+              Site policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a>
+            </p>
           </div>
         </div>
       </div>
@@ -773,27 +770,40 @@
 
     <!-- TEASERS -->
     <section class="teasers reveal">
-      <div class="teaser-container">
-        <h2>Founding Generation</h2>
-        <p class="teaser-sub">The first shadows are forming…</p>
+      <h2 style="margin:0; font-size:22px; letter-spacing:-0.2px;">Founding Generation</h2>
+      <p class="teaser-sub">The first shadows are forming…</p>
 
-        <div class="teaser-grid">
-          <div class="teaser-card kvBox">
-            <div class="teaser-img"></div>
-            <h3>???</h3>
-            <p style="margin:0; color: var(--muted);">Debut Soon</p>
+      <div class="teaser-grid">
+        <div class="teaser-card kvBox">
+          <div class="teaser-img" aria-hidden="true"></div>
+          <h3 style="margin:0 0 6px;">???</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px;">Debut Soon</p>
+        </div>
+
+        <div class="teaser-card kvBox">
+          <div class="teaser-img" aria-hidden="true"></div>
+          <h3 style="margin:0 0 6px;">???</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px;">Debut Soon</p>
+        </div>
+
+        <div class="teaser-card kvBox">
+          <div class="teaser-img" aria-hidden="true"></div>
+          <h3 style="margin:0 0 6px;">???</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px;">Debut Soon</p>
+        </div>
+      </div>
+
+      <div class="kvBox" style="margin-top:14px; padding:16px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div>
+            <b style="display:block;">Want your slot here?</b>
+            <span style="color: rgba(255,255,255,0.72); font-size:13px; line-height:1.6;">
+              Apply → rolling review → Discord chat → onboarding → first collab plan.
+            </span>
           </div>
-
-          <div class="teaser-card kvBox">
-            <div class="teaser-img"></div>
-            <h3>???</h3>
-            <p style="margin:0; color: var(--muted);">Debut Soon</p>
-          </div>
-
-          <div class="teaser-card kvBox">
-            <div class="teaser-img"></div>
-            <h3>???</h3>
-            <p style="margin:0; color: var(--muted);">Debut Soon</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Open Application</a>
+            <a class="btn" href="apply.html">Read Requirements</a>
           </div>
         </div>
       </div>
@@ -804,7 +814,10 @@
       <div class="sectionHead">
         <div>
           <h2>About Kuroveil</h2>
-          <p>A shadow-themed collective with structure, standards, and a real growth plan — not hype.</p>
+          <p>
+            A shadow-themed collective with structure, standards, and a growth system.
+            Built to scale — not just to look cool.
+          </p>
         </div>
       </div>
 
@@ -812,8 +825,8 @@
         <div class="card kvBox reveal">
           <h3>Presence + Identity</h3>
           <p>
-            Built from the shadows: a strong theme, consistent output, and an identity people recognize.
-            Lore is optional — presence is required.
+            A clear theme, consistent output, and an identity people recognize.
+            Lore is optional — presence is not.
           </p>
           <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
             <span class="pill">Shadow Aesthetic</span>
@@ -825,7 +838,8 @@
         <div class="card kvBox reveal">
           <h3>Growth System</h3>
           <p>
-            Weekly momentum: goals, feedback loops, and a clip-first mindset that improves discoverability over time.
+            Weekly momentum: goals, feedback loops, and a clip-first mindset
+            that improves discoverability over time.
           </p>
           <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
             <span class="pill">Weekly Goals</span>
@@ -837,7 +851,8 @@
         <div class="card kvBox reveal">
           <h3>Collabs & Events</h3>
           <p>
-            Regular collabs that push reach: group streams, duos, themed nights, and planned beats for content.
+            Regular collabs that push reach: duos, group streams, and themed nights
+            with planned beats for content.
           </p>
           <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
             <span class="pill">Duos</span>
@@ -851,13 +866,16 @@
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
           <div>
             <h3 style="margin:0 0 6px; font-size:16px;">How to Join</h3>
-            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6; max-width:80ch;">
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6; max-width:82ch;">
               Apply → rolling review → short Discord chat → onboarding → first collab plan.
               Shortlisted applicants are contacted via Discord.
             </p>
+            <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+              Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a> • <a href="legal.html#talent">Talent</a>
+            </p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Open Application</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
             <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
           </div>
         </div>
@@ -868,6 +886,10 @@
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
         <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="legal.html#terms">Terms</a>
+          <a href="legal.html#privacy">Privacy</a>
+          <a href="legal.html#talent">Talent</a>
+          <a href="legal.html#guidelines">Guidelines</a>
           <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
           <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
           <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
