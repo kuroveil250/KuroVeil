@@ -18,10 +18,8 @@
   <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
   <meta name="twitter:image" content="https://kuroveil.com/og-kuroveil.jpg" />
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -30,20 +28,32 @@
     :root{
       --bg0:#050505;
       --bg1:#0d0018;
-      --card: rgba(255,255,255,0.06);
-      --stroke: rgba(255,255,255,0.10);
+
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
       --muted2: rgba(255,255,255,0.55);
+
       --purple:#8a2be2;
       --purple2:#b16cff;
-      --shadow: 0 12px 35px rgba(0,0,0,0.45);
-      --radius: 16px;
+
       --max: 1100px;
+
+      /* Smooth box system (roster-like) */
+      --kv-ease: cubic-bezier(.2,.8,.2,1);
+      --glass-bg: rgba(0,0,0,0.34);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-hover: rgba(177,108,255,0.34);
+
+      --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --glass-shadow-hover:
+        0 34px 95px rgba(0,0,0,0.75),
+        0 0 0 1px rgba(177,108,255,0.16),
+        0 0 40px rgba(138,43,226,0.22);
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    a{ color:inherit; }
 
     body{
       margin:0;
@@ -56,14 +66,12 @@
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
 
-      /* Fade-in on load */
       opacity: 0;
       transition: opacity 1s ease;
     }
     body.is-loaded{ opacity: 1; }
 
-    a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
 
     /* ===== PARTICLES ===== */
     #veilParticles{
@@ -76,10 +84,10 @@
       opacity:0.65;
     }
     @media (prefers-reduced-motion: reduce){
-      #veilParticles{display:none;}
+      #veilParticles{ display:none; }
     }
 
-    /* subtle moving grain */
+    /* Grain */
     .grain{
       pointer-events:none;
       position:fixed;
@@ -88,6 +96,7 @@
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       transform:translateZ(0);
       animation: grainMove 10s steps(10) infinite;
+      z-index:-2;
     }
     @keyframes grainMove{
       0%{transform:translate(0,0)}
@@ -103,7 +112,7 @@
       100%{transform:translate(0,0)}
     }
 
-    /* ===== Background bloom ===== */
+    /* Background bloom */
     body::before{
       content:"";
       position:fixed;
@@ -114,14 +123,13 @@
         radial-gradient(800px 560px at 8% 45%, rgba(177,108,255,0.20), transparent 60%),
         radial-gradient(520px 420px at 12% 55%, rgba(138,43,226,0.16), transparent 65%);
     }
-
     body::after{
       content:"";
       position:fixed;
       inset:0;
-      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
       pointer-events:none;
       z-index:-1;
+      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
     }
 
     /* Scroll progress bar */
@@ -137,7 +145,7 @@
       pointer-events:none;
     }
 
-    /* Back to top button */
+    /* Back to top */
     .toTop{
       position: fixed;
       right: 18px;
@@ -148,6 +156,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 14px 34px rgba(0,0,0,0.45);
       display: grid;
       place-items: center;
@@ -164,19 +173,26 @@
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:10;
+      position:sticky;
+      top:0;
+      z-index:10;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       background: rgba(0,0,0,0.45);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       margin-top: 10px;
     }
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       padding: 14px 0;
       gap: 16px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       font-weight:800;
       letter-spacing:0.6px;
     }
@@ -195,14 +211,17 @@
     }
     .sigil:after{
       content:"";
-      position:absolute; inset:8px;
+      position:absolute;
+      inset:8px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.10);
       transform: rotate(12deg);
     }
 
     nav{
-      display:flex; align-items:center; gap: 18px;
+      display:flex;
+      align-items:center;
+      gap: 18px;
       font-size: 14px;
       color: var(--muted);
     }
@@ -212,7 +231,10 @@
       position:relative;
       padding-bottom: 10px;
     }
-    nav a:hover{opacity:1; color: var(--text)}
+    nav a:hover{
+      opacity:1;
+      color: var(--text);
+    }
     nav a:hover::after{
       content:"";
       position:absolute;
@@ -239,18 +261,25 @@
       background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
     }
 
-    .actions{display:flex; gap:10px; align-items:center}
+    .actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
     /* Buttons */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 600;
       text-decoration:none;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.04);
-      transition: transform .12s ease, background .12s ease, box-shadow .12s ease, border-color .12s ease, filter .12s ease;
+      transition:
+        transform .18s var(--kv-ease),
+        background .18s var(--kv-ease),
+        box-shadow .18s var(--kv-ease),
+        border-color .18s var(--kv-ease),
+        filter .18s var(--kv-ease);
       white-space:nowrap;
     }
     .btn.primary{
@@ -266,7 +295,9 @@
     }
     .btn.primary:hover{
       filter: brightness(0.92);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 26px rgba(177,108,255,0.35);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.45),
+        0 0 26px rgba(177,108,255,0.35);
       border-color: rgba(177,108,255,0.45);
     }
 
@@ -281,13 +312,105 @@
       user-select:none;
     }
 
+    /* =====================================================
+       SMOOTH BOX BASE (roster-like) — use .kvBox
+       ===================================================== */
+    .kvBox{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+      position: relative;
+      overflow: hidden;
+
+      transform: translateY(0);
+      will-change: transform, box-shadow, border-color, filter;
+      transition:
+        transform .26s var(--kv-ease),
+        box-shadow .26s var(--kv-ease),
+        border-color .26s var(--kv-ease),
+        filter .26s var(--kv-ease);
+    }
+    .kvBox:hover{
+      transform: translateY(-7px) scale(1.01);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--glass-shadow-hover);
+      filter: brightness(0.95);
+    }
+
+    /* Sheen sweep */
+    .kvBox::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      pointer-events:none;
+      z-index:0;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.22),
+        rgba(255,255,255,0.08),
+        transparent 60%
+      );
+      transform: translateX(-30%) rotate(12deg);
+      opacity: 0;
+      transition: opacity .25s ease, transform .55s var(--kv-ease);
+    }
+    .kvBox:hover::before{
+      opacity: 1;
+      transform: translateX(30%) rotate(12deg);
+    }
+    .kvBox > *{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top CTA Bar */
+    .veilBar{ padding: 18px 0 10px; }
+    .veilCard{
+      padding: 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 18px;
+    }
+    .veilText{ max-width: 78ch; }
+    .veilText h2{
+      margin:0 0 6px;
+      font-size: 30px;
+      letter-spacing:-0.6px;
+    }
+    .veilText p{
+      margin:0 0 12px;
+      color: rgba(255,255,255,0.72);
+      line-height:1.6;
+    }
+    .veilEmblem{
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: radial-gradient(circle at 35% 35%, rgba(177,108,255,0.85), rgba(138,43,226,0.18));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 60px rgba(138,43,226,0.25);
+      flex: 0 0 auto;
+    }
+
     /* HERO */
+    .open-slots{
+      color: #b16cff;
+      margin: 16px 0 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
     .hero{
       padding: 26px 0 40px;
       position:relative;
       margin-top: 22px;
     }
-
     .heroBanner{
       border-radius: 24px;
       border: 1px solid rgba(255,255,255,0.12);
@@ -299,17 +422,22 @@
       background:
         linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.70)),
         radial-gradient(700px 250px at 20% 20%, rgba(177,108,255,0.22), transparent 60%),
-        url("kuroveil-hero.jpg");
-      background-size: cover;
-      background-position: center;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+        url("kuroveil-hero.jpg") center/cover no-repeat;
+      transition:
+        transform .26s var(--kv-ease),
+        box-shadow .26s var(--kv-ease),
+        border-color .26s var(--kv-ease),
+        filter .26s var(--kv-ease);
     }
     .heroBanner:hover{
       transform: translateY(-4px);
       border-color: rgba(177,108,255,0.30);
-      box-shadow: 0 32px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(177,108,255,0.14), 0 0 34px rgba(138,43,226,0.22);
+      box-shadow:
+        0 32px 90px rgba(0,0,0,0.65),
+        0 0 0 1px rgba(177,108,255,0.14),
+        0 0 34px rgba(138,43,226,0.22);
+      filter: brightness(0.97);
     }
-
     .heroBanner .fadeBottom{
       position:absolute;
       left:0; right:0; bottom:0;
@@ -331,11 +459,11 @@
       background: rgba(0,0,0,0.35);
       border: 1px solid rgba(255,255,255,0.12);
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 10px 22px rgba(0,0,0,0.25);
     }
     .badgeRecruit .pulse{
-      width:8px;
-      height:8px;
+      width:8px; height:8px;
       border-radius:999px;
       background: rgba(177,108,255,0.95);
       box-shadow: 0 0 16px rgba(177,108,255,0.80);
@@ -363,10 +491,12 @@
       margin-top: 10px;
     }
     .dot{
-      width:8px; height:8px; border-radius:999px;
+      width:8px; height:8px;
+      border-radius:999px;
       background: rgba(177,108,255,0.95);
       box-shadow: 0 0 18px rgba(177,108,255,0.75);
     }
+
     h1{
       margin: 10px 0 10px;
       font-size: clamp(34px, 4vw, 54px);
@@ -381,17 +511,17 @@
       line-height: 1.6;
       max-width: 62ch;
     }
-    .heroBtns{display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px}
+    .heroBtns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px; }
 
-    .heroPanel{
-      border-radius: 18px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.10);
-      padding: 16px;
-      backdrop-filter: blur(8px);
+    /* Right panel (inherits kvBox) */
+    .heroPanel{ padding: 16px; }
+    .panelTitle{ font-weight:800; letter-spacing:0.2px; }
+    .mini{
+      color: rgba(255,255,255,0.72);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top:8px;
     }
-    .panelTitle{font-weight:800; letter-spacing:0.2px}
-    .mini{color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px}
     .stats{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -404,11 +534,14 @@
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.08);
     }
-    .stat b{display:block; font-size: 16px}
-    .stat span{color: rgba(255,255,255,0.60); font-size: 12px}
+    .stat b{ display:block; font-size: 16px; }
+    .stat span{ color: rgba(255,255,255,0.60); font-size: 12px; }
 
     /* Sections */
-    .section{ padding: 70px 0; position: relative; }
+    .section{
+      padding: 70px 0;
+      position: relative;
+    }
     .section:before{
       content:"";
       position:absolute;
@@ -431,7 +564,9 @@
     }
 
     .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -459,29 +594,39 @@
       max-width: 70ch;
     }
 
-    /* Cards */
+    /* About cards */
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-      position: relative;
-      overflow: hidden;
+    .card{ padding: 18px; }
+    .card h3{ margin: 0 0 8px; font-size: 16px; }
+    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    /* Teasers */
+    .teasers{
+      padding: 80px 0;
+      text-align: center;
     }
-    .card:hover{
-      transform: translateY(-6px);
-      border-color: rgba(177,108,255,0.32);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.75), 0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(177,108,255,0.14), 0 0 30px rgba(138,43,226,0.18);
+    .teaser-container{ max-width: 1100px; margin: 0 auto; }
+    .teaser-sub{ color: rgba(255,255,255,0.6); margin-bottom: 40px; }
+    .teaser-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
     }
-    .card h3{margin: 0 0 8px; font-size: 16px}
-    .card p{margin:0; color: var(--muted); font-size: 13px; line-height: 1.55}
+    .teaser-card{
+      padding: 20px;
+      border-radius: 20px;
+    }
+    .teaser-img{
+      height: 180px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      background: radial-gradient(circle at center, #8a2be2, #0d0018);
+      opacity: 0.6;
+    }
 
     footer{
       padding: 50px 0;
@@ -503,93 +648,20 @@
       transform: translateY(0);
     }
     @media (prefers-reduced-motion: reduce){
-      .reveal{opacity:1; transform:none; transition:none;}
+      .reveal{ opacity:1; transform:none; transition:none; }
     }
 
-    /* Top CTA bar */
-    .veilBar{ padding: 18px 0 10px; }
-    .veilCard{
-      border-radius: 22px;
-      padding: 22px 22px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 18px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
-    }
-
-    .veilText{ position:relative; z-index:1; max-width: 78ch; }
-    .veilText h2{ margin:0 0 6px; font-size: 30px; letter-spacing:-0.6px; }
-    .veilText p{ margin:0 0 12px; color: rgba(255,255,255,0.72); line-height:1.6; }
-    .veilEmblem{
-      position:relative; z-index:1;
-      width: 96px; height: 96px;
-      border-radius: 22px;
-      background: radial-gradient(circle at 35% 35%, rgba(177,108,255,0.85), rgba(138,43,226,0.18));
-      border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: 0 0 60px rgba(138,43,226,0.25);
-    }
-
-    .open-slots{
-      color: #b16cff;
-      margin: 6px 0 0;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* Teasers */
-    .teasers{
-      padding: 80px 20px;
-      text-align: center;
-    }
-    .teaser-container{
-      max-width: 1100px;
-      margin: auto;
-    }
-    .teaser-sub{
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 40px;
-    }
-    .teaser-grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-    }
-    .teaser-card{
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 20px;
-      transition: 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .teaser-card:hover{
-      transform: translateY(-8px) scale(1.03);
-      border-color: rgba(177,108,255,0.6);
-      box-shadow: 0 10px 30px rgba(177,108,255,0.3);
-    }
-    .teaser-img{
-      height: 180px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      background: radial-gradient(circle at center, #8a2be2, #0d0018);
-      opacity: 0.6;
-    }
-
-    /* ===== MOBILE FIXES (keep this one) ===== */
+    /* Mobile */
     @media (max-width: 900px){
-      .heroInner{grid-template-columns: 1fr; min-height: auto;}
-      .grid3{grid-template-columns: 1fr}
-      nav{display:none}
-      .heroBtns{flex-direction:column; align-items:stretch;}
-      .heroBtns .btn{width:100%; justify-content:center;}
-      .stats{grid-template-columns:1fr;}
-      .wrap{padding: 0 14px;}
+      nav{ display:none; }
+      .wrap{ padding: 0 14px; }
+      .heroInner{ grid-template-columns: 1fr; min-height: auto; padding: 20px; }
+      .heroBtns{ flex-direction: column; align-items: stretch; }
+      .heroBtns .btn{ width:100%; justify-content:center; }
+      .stats{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .veilCard{ flex-direction: column; align-items: flex-start; }
+      .veilEmblem{ width: 74px; height: 74px; border-radius: 18px; }
     }
   </style>
 </head>
@@ -602,7 +674,7 @@
   <!-- TOP VEIL CTA BAR -->
   <section class="veilBar reveal">
     <div class="wrap">
-      <div class="veilCard">
+      <div class="veilCard kvBox">
         <div class="veilText">
           <h2>The Veil Watches</h2>
           <p>
@@ -624,7 +696,7 @@
         </div>
 
         <nav>
-          <a class="active" href="index.html">Home</a>
+          <a class="active" href="index.html" aria-current="page">Home</a>
           <a href="roster.html">Roster</a>
           <a href="updates.html">Updates</a>
           <a href="apply.html">Apply</a>
@@ -640,7 +712,6 @@
   </header>
 
   <main class="wrap">
-
     <p class="open-slots">Now recruiting 5–7 founding talents</p>
 
     <!-- HERO -->
@@ -670,17 +741,25 @@
             </div>
           </div>
 
-          <div class="heroPanel">
+          <div class="heroPanel kvBox">
             <div class="panelTitle">Recruitment Status</div>
             <div class="mini">
               Reviews are rolling. Shortlisted applicants will be contacted via Discord.
             </div>
 
             <div class="stats">
-              <div class="stat"><b>Open</b><span>Applications</span></div>
-              <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
-              <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
-              <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+              <div class="stat">
+                <b>Open</b><span>Applications</span>
+              </div>
+              <div class="stat">
+                <b>Rolling</b><span>Review Cycle</span>
+              </div>
+              <div class="stat">
+                <b>Forming</b><span>Founding Gen</span>
+              </div>
+              <div class="stat">
+                <b>Next</b><span>Collab Planning</span>
+              </div>
             </div>
 
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -699,22 +778,22 @@
         <p class="teaser-sub">The first shadows are forming…</p>
 
         <div class="teaser-grid">
-          <div class="teaser-card">
+          <div class="teaser-card kvBox">
             <div class="teaser-img"></div>
             <h3>???</h3>
-            <p>Debut Soon</p>
+            <p style="margin:0; color: var(--muted);">Debut Soon</p>
           </div>
 
-          <div class="teaser-card">
+          <div class="teaser-card kvBox">
             <div class="teaser-img"></div>
             <h3>???</h3>
-            <p>Debut Soon</p>
+            <p style="margin:0; color: var(--muted);">Debut Soon</p>
           </div>
 
-          <div class="teaser-card">
+          <div class="teaser-card kvBox">
             <div class="teaser-img"></div>
             <h3>???</h3>
-            <p>Debut Soon</p>
+            <p style="margin:0; color: var(--muted);">Debut Soon</p>
           </div>
         </div>
       </div>
@@ -730,7 +809,7 @@
       </div>
 
       <div class="grid3">
-        <div class="card reveal">
+        <div class="card kvBox reveal">
           <h3>Presence + Identity</h3>
           <p>
             Built from the shadows: a strong theme, consistent output, and an identity people recognize.
@@ -743,7 +822,7 @@
           </div>
         </div>
 
-        <div class="card reveal">
+        <div class="card kvBox reveal">
           <h3>Growth System</h3>
           <p>
             Weekly momentum: goals, feedback loops, and a clip-first mindset that improves discoverability over time.
@@ -755,7 +834,7 @@
           </div>
         </div>
 
-        <div class="card reveal">
+        <div class="card kvBox reveal">
           <h3>Collabs & Events</h3>
           <p>
             Regular collabs that push reach: group streams, duos, themed nights, and planned beats for content.
@@ -768,7 +847,7 @@
         </div>
       </div>
 
-      <div class="card reveal" style="margin-top:14px;">
+      <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
           <div>
             <h3 style="margin:0 0 6px; font-size:16px;">How to Join</h3>
@@ -832,7 +911,6 @@
         else toTop.classList.remove('show');
       }
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     onScroll();
@@ -869,7 +947,7 @@
 
       function seed(){
         const area = w * h;
-        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
         particles = Array.from({length: count}, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -887,6 +965,7 @@
 
         for (const p of particles){
           p.x += p.vx; p.y += p.vy;
+
           if (p.x < -10) p.x = w + 10;
           if (p.x > w + 10) p.x = -10;
           if (p.y < -10) p.y = h + 10;
@@ -905,14 +984,15 @@
           ctx.shadowBlur = 0;
         }
 
+        // subtle connections
         for (let i = 0; i < particles.length; i++){
           for (let j = i + 1; j < particles.length; j++){
             const a = particles[i], b = particles[j];
             const dx = a.x - b.x, dy = a.y - b.y;
             const dist = Math.hypot(dx, dy);
-            if (dist < 120){
-              const t = 1 - dist / 120;
-              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+            if (dist < 110){
+              const t = 1 - dist / 110;
+              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);

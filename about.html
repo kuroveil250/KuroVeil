@@ -11,15 +11,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/about.html" />
   <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
-  
+
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kuroveil" />
   <meta name="twitter:description" content="Enter the Abyss. Build the Veil." />
   <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
-  
-  
 
   <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -28,20 +27,33 @@
     :root{
       --bg0:#050505;
       --bg1:#0d0018;
-      --card: rgba(255,255,255,0.06);
-      --stroke: rgba(255,255,255,0.10);
+
       --text: rgba(255,255,255,0.92);
       --muted: rgba(255,255,255,0.70);
       --muted2: rgba(255,255,255,0.55);
+
       --purple:#8a2be2;
       --purple2:#b16cff;
-      --shadow: 0 12px 35px rgba(0,0,0,0.45);
-      --radius: 16px;
+
       --max: 1100px;
+
+      /* roster-smooth glass system */
+      --kv-ease: cubic-bezier(.2,.8,.2,1);
+      --glass-bg: rgba(0,0,0,0.34);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-hover: rgba(177,108,255,0.34);
+
+      --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --glass-shadow-hover:
+        0 34px 95px rgba(0,0,0,0.75),
+        0 0 0 1px rgba(177,108,255,0.16),
+        0 0 40px rgba(138,43,226,0.22);
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    a{ color:inherit; }
+
     body{
       margin:0;
       font-family: Inter, Arial, sans-serif;
@@ -52,9 +64,15 @@
         radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
-    }
 
-    /* ===== PARTICLES (NEW) ===== */
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    body.is-loaded{ opacity: 1; }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    /* ===== PARTICLES ===== */
     #veilParticles{
       position:fixed;
       inset:0;
@@ -65,11 +83,8 @@
       opacity:0.65;
     }
     @media (prefers-reduced-motion: reduce){
-      #veilParticles{display:none;}
+      #veilParticles{ display:none; }
     }
-
-    a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
 
     /* subtle moving grain */
     .grain{
@@ -80,7 +95,7 @@
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       transform:translateZ(0);
       animation: grainMove 10s steps(10) infinite;
-      z-index:0;
+      z-index:-2;
     }
     @keyframes grainMove{
       0%{transform:translate(0,0)}
@@ -96,7 +111,7 @@
       100%{transform:translate(0,0)}
     }
 
-    /* one single body::before (avoid duplicates across pages) */
+    /* background bloom */
     body::before{
       content:"";
       position:fixed;
@@ -111,31 +126,78 @@
       content:"";
       position:fixed;
       inset:0;
-      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
       pointer-events:none;
       z-index:-1;
+      background: radial-gradient(600px 300px at 50% 0%, rgba(177,108,255,0.15), transparent 60%);
+    }
+
+    /* Scroll progress bar */
+    .scrollProgress{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      z-index: 9999;
+      background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
+      box-shadow: 0 0 18px rgba(177,108,255,0.35);
+      pointer-events:none;
+    }
+
+    /* Back to top */
+    .toTop{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 9998;
+    }
+    .toTop.show{
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:10;
+      position:sticky;
+      top:0;
+      z-index:10;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       background: rgba(0,0,0,0.45);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       margin-top: 10px;
     }
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       padding: 14px 0;
       gap: 16px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       font-weight:800;
       letter-spacing:0.6px;
     }
     .sigil{
-      width: 34px; height:34px;
+      width: 34px;
+      height:34px;
       border-radius: 12px;
       background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.15));
       border: 1px solid rgba(255,255,255,0.12);
@@ -148,14 +210,17 @@
     }
     .sigil:after{
       content:"";
-      position:absolute; inset:8px;
+      position:absolute;
+      inset:8px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.10);
       transform: rotate(12deg);
     }
 
     nav{
-      display:flex; align-items:center; gap: 18px;
+      display:flex;
+      align-items:center;
+      gap: 18px;
       font-size: 14px;
       color: var(--muted);
     }
@@ -179,7 +244,7 @@
       border-radius: 999px;
       background: linear-gradient(to right, rgba(177,108,255,0.95), transparent);
     }
-    nav a:hover{opacity:1; color:var(--text)}
+    nav a:hover{ opacity:1; color:var(--text); }
     nav a:hover::after{
       content:"";
       position:absolute;
@@ -192,11 +257,13 @@
       opacity:0.9;
     }
 
-    .actions{display:flex; gap:10px; align-items:center}
+    .actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-    /* Buttons (apply-page style hover darken) */
+    /* Buttons */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 600;
@@ -204,11 +271,11 @@
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.04);
       transition:
-        transform .12s ease,
-        background .12s ease,
-        box-shadow .12s ease,
-        border-color .12s ease,
-        filter .12s ease;
+        transform .18s var(--kv-ease),
+        background .18s var(--kv-ease),
+        box-shadow .18s var(--kv-ease),
+        border-color .18s var(--kv-ease),
+        filter .18s var(--kv-ease);
       white-space:nowrap;
     }
     .btn.primary{
@@ -230,94 +297,108 @@
       border-color: rgba(177,108,255,0.45);
     }
 
-    /* Veil bar */
+    /* =====================================================
+       SMOOTH BOX BASE (use .kvBox everywhere)
+       ===================================================== */
+    .kvBox{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+
+      position: relative;
+      overflow: hidden;
+
+      transform: translateY(0);
+      will-change: transform, box-shadow, border-color, filter;
+      transition:
+        transform .26s var(--kv-ease),
+        box-shadow .26s var(--kv-ease),
+        border-color .26s var(--kv-ease),
+        filter .26s var(--kv-ease);
+    }
+    .kvBox:hover{
+      transform: translateY(-7px) scale(1.01);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--glass-shadow-hover);
+      filter: brightness(0.95);
+    }
+    .kvBox::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      pointer-events:none;
+      z-index:0;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(255,255,255,0.22),
+        rgba(255,255,255,0.08),
+        transparent 60%
+      );
+      transform: translateX(-30%) rotate(12deg);
+      opacity: 0;
+      transition: opacity .25s ease, transform .55s var(--kv-ease);
+    }
+    .kvBox:hover::before{
+      opacity: 1;
+      transform: translateX(30%) rotate(12deg);
+    }
+    .kvBox > *{ position: relative; z-index: 1; }
+
+    /* Pills */
+    .pillRow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      padding: 7px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+    .tagRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .tag{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+    }
+
+    /* Top CTA bar */
     .veilBar{ padding: 18px 0 10px; position:relative; z-index:1; }
     .veilCard{
-      border-radius: 22px;
-      padding: 22px 22px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      padding: 22px;
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap: 18px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
     }
-    .veilCard:hover{
-      transform: translateY(-6px);
-      border-color: rgba(177,108,255,0.30);
-      filter: brightness(0.92);
-      box-shadow:
-        0 34px 90px rgba(0,0,0,0.70),
-        0 0 0 1px rgba(177,108,255,0.14),
-        0 0 34px rgba(138,43,226,0.22);
-    }
-    .veilCard::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background: radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
-    }
-    .veilText{ position:relative; z-index:1; max-width: 78ch; }
+    .veilText{ max-width: 78ch; }
     .veilText h2{ margin:0 0 6px; font-size: 30px; letter-spacing:-0.6px; }
     .veilText p{ margin:0 0 12px; color: rgba(255,255,255,0.72); line-height:1.6; }
     .veilEmblem{
-      position:relative;
-      z-index:1;
-      width: 96px; height: 96px;
+      width: 96px;
+      height: 96px;
       border-radius: 22px;
       background: radial-gradient(circle at 35% 35%, rgba(177,108,255,0.85), rgba(138,43,226,0.18));
       border: 1px solid rgba(255,255,255,0.14);
       box-shadow: 0 0 60px rgba(138,43,226,0.25);
-      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .veilCard:hover .veilEmblem{
-      transform: translateY(-2px) scale(1.02);
-      filter: brightness(0.95);
-      border-color: rgba(177,108,255,0.35);
-      box-shadow:
-        0 0 70px rgba(138,43,226,0.28),
-        0 14px 30px rgba(0,0,0,0.35);
+      flex: 0 0 auto;
     }
 
     /* Page hero */
-    .pageHero{
-      padding: 26px 0 18px;
-      margin-top: 18px;
-      position:relative;
-      z-index:1;
-    }
-    .pageBanner{
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 28px 80px rgba(0,0,0,0.55);
-      overflow:hidden;
-      position:relative;
-      background:
-        radial-gradient(700px 240px at 20% 20%, rgba(177,108,255,0.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .pageBanner:hover{
-      transform: translateY(-4px);
-      border-color: rgba(177,108,255,0.30);
-      box-shadow:
-        0 32px 90px rgba(0,0,0,0.65),
-        0 0 0 1px rgba(177,108,255,0.14),
-        0 0 34px rgba(138,43,226,0.22);
-    }
+    .pageHero{ padding: 26px 0 18px; margin-top: 18px; position:relative; z-index:1; }
     .pageInner{
       padding: 22px;
       display:grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 14px;
       align-items:stretch;
-      position:relative;
-      z-index:2;
     }
     .kicker{
       display:inline-flex;
@@ -329,7 +410,8 @@
       text-transform: uppercase;
     }
     .dot{
-      width:8px; height:8px; border-radius:999px;
+      width:8px; height:8px;
+      border-radius:999px;
       background: rgba(177,108,255,0.95);
       box-shadow: 0 0 18px rgba(177,108,255,0.75);
     }
@@ -347,25 +429,9 @@
       max-width: 80ch;
       font-size: 14px;
     }
-    .infoCard{
-      border-radius: 18px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.10);
-      padding: 16px;
-      backdrop-filter: blur(8px);
-    }
-    .infoTitle{font-weight:800; letter-spacing:0.2px}
-    .mini{color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px}
-    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
-    .pill{
-      font-size: 12px;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      padding: 7px 10px;
-      border-radius: 999px;
-      user-select:none;
-    }
+
+    .infoTitle{ font-weight:800; letter-spacing:0.2px; }
+    .mini{ color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px; }
 
     /* Sections */
     .section{
@@ -384,7 +450,9 @@
       background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
     }
     .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -418,107 +486,37 @@
       gap: 14px;
     }
 
-    .card{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
-      opacity:0;
-      transition: opacity .3s;
-      pointer-events:none;
-    }
-    .card:hover{
-      transform: translateY(-6px);
-      border-color: rgba(177,108,255,0.32);
-      box-shadow:
-        0 28px 70px rgba(0,0,0,0.75),
-        0 12px 28px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(177,108,255,0.14),
-        0 0 30px rgba(138,43,226,0.18);
-    }
-    .card:hover:before{opacity:1;}
-    .card h3{margin: 0 0 8px; font-size: 16px}
-    .card p{margin:0; color: var(--muted); font-size: 13px; line-height: 1.65}
-    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
-    .tag{
-      font-size: 11px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--muted);
-    }
-
-    /* two-column content */
+    /* Two-column content */
     .split{
       display:grid;
       grid-template-columns: 1.05fr 0.95fr;
       gap: 14px;
       align-items:start;
     }
-    .panel{
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.10);
-      padding: 18px;
-      box-shadow: var(--shadow);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      position:relative;
-      overflow:hidden;
-    }
-    .panel:hover{
-      transform: translateY(-6px);
-      border-color: rgba(177,108,255,0.32);
-      box-shadow:
-        0 28px 70px rgba(0,0,0,0.75),
-        0 12px 28px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(177,108,255,0.14),
-        0 0 30px rgba(138,43,226,0.18);
-    }
-    .panel h3{margin:0 0 8px; font-size: 18px}
-    .panel p{margin:0; color: var(--muted); line-height:1.75}
+    .panel{ padding: 18px; }
+    .panel h3{ margin:0 0 8px; font-size: 18px; }
+    .panel p{ margin:0; color: var(--muted); line-height:1.75; }
     .panel p + p{ margin-top: 10px; }
 
-    .list{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px;}
+    .list{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
     .li{
       padding: 12px;
       border-radius: 14px;
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.08);
     }
-    .li b{display:block; font-size: 13px; color: rgba(255,255,255,0.90)}
-    .li span{display:block; font-size: 12px; color: rgba(255,255,255,0.60); margin-top:4px}
+    .li b{ display:block; font-size: 13px; color: rgba(255,255,255,0.90); }
+    .li span{ display:block; font-size: 12px; color: rgba(255,255,255,0.60); margin-top:4px; }
 
     /* FAQ */
-    .faq{
-      display:grid;
-      gap: 12px;
-    }
-    details.faqItem{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
-      overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    details.faqItem:hover{
-      transform: translateY(-4px);
-      border-color: rgba(177,108,255,0.24);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,0.45),
-        0 0 28px rgba(138,43,226,0.14);
-    }
+    .faq{ display:grid; gap: 12px; }
+    details.faqItem{ padding: 0; }
     summary.faqQ{
       cursor:pointer;
       list-style:none;
@@ -529,20 +527,23 @@
       gap: 12px;
       font-weight: 800;
       letter-spacing: -0.2px;
+      user-select:none;
     }
-    summary.faqQ::-webkit-details-marker{display:none}
+    summary.faqQ::-webkit-details-marker{ display:none; }
     .chev{
-      width: 30px; height: 30px;
+      width: 30px;
+      height: 30px;
       border-radius: 12px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       border: 1px solid rgba(255,255,255,0.10);
       background: rgba(0,0,0,0.25);
-      transition: transform .18s ease, border-color .18s ease;
+      transition: transform .18s var(--kv-ease), border-color .18s var(--kv-ease);
       flex: 0 0 auto;
     }
     details[open] .chev{ transform: rotate(90deg); border-color: rgba(177,108,255,0.35); }
+
     .faqA{
       padding: 0 16px 16px;
       color: rgba(255,255,255,0.74);
@@ -553,30 +554,18 @@
     .faqA ul{ margin: 10px 0 0; padding-left: 18px; }
     .faqA li{ margin: 6px 0; color: rgba(255,255,255,0.70); }
 
-    /* apply box */
+    /* CTA box */
     .applyBox{
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(138,43,226,0.18), rgba(255,255,255,0.04));
-      border: 1px solid rgba(177,108,255,0.22);
       padding: 18px;
-      box-shadow: var(--shadow);
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap: 12px;
       flex-wrap:wrap;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      background: linear-gradient(135deg, rgba(138,43,226,0.18), rgba(255,255,255,0.04));
+      border: 1px solid rgba(177,108,255,0.22);
     }
-    .applyBox:hover{
-      transform: translateY(-6px);
-      border-color: rgba(177,108,255,0.32);
-      box-shadow:
-        0 28px 70px rgba(0,0,0,0.75),
-        0 12px 28px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(177,108,255,0.14),
-        0 0 30px rgba(138,43,226,0.18);
-    }
-    .applyBox p{margin:0; color: var(--muted); font-size: 13px; max-width: 70ch}
+    .applyBox p{ margin:0; color: var(--muted); font-size: 13px; max-width: 70ch; }
 
     footer{
       padding: 50px 0;
@@ -597,321 +586,31 @@
     }
     .reveal.show{ opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce){
-      .reveal{opacity:1; transform:none; transition:none;}
+      .reveal{ opacity:1; transform:none; transition:none; }
+      .kvBox, .kvBox:hover{ transition:none; transform:none; }
     }
 
     @media (max-width: 900px){
-      nav{display:none}
-      .veilCard{flex-direction:column; align-items:flex-start;}
-      .veilEmblem{align-self:flex-end;}
-      .pageInner{grid-template-columns: 1fr;}
-      .grid3{grid-template-columns: 1fr}
-      .split{grid-template-columns: 1fr}
+      nav{ display:none; }
+      .wrap{ padding: 0 14px; }
+      .veilCard{ flex-direction:column; align-items:flex-start; }
+      .veilEmblem{ align-self:flex-end; width:70px; height:70px; border-radius:18px; }
+      .pageInner{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
     }
-
-/* Fade-in */
-body{
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-body.is-loaded{
-  opacity: 1;
-}
-
-/* Scroll progress bar */
-.scrollProgress{
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  z-index: 9999;
-  background: linear-gradient(to right, rgba(177,108,255,0.95), rgba(138,43,226,0.75));
-  box-shadow: 0 0 18px rgba(177,108,255,0.35);
-  pointer-events:none;
-}
-
-/* Back to top */
-.toTop{
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .18s ease, transform .18s ease;
-  z-index: 9998;
-}
-.toTop.show{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================================
-   GLOBAL "ROSTER-SMOOTH" BOX LOOK
-   Apply to cards / panels / members / etc.
-========================================= */
-
-:root{
-  --glass-bg: rgba(255,255,255,0.045);
-  --glass-border: rgba(255,255,255,0.10);
-  --glass-border-hover: rgba(177,108,255,0.26);
-  --glass-shadow: 0 18px 50px rgba(0,0,0,0.45);
-  --glass-shadow-hover:
-    0 28px 78px rgba(0,0,0,0.72),
-    0 0 0 1px rgba(177,108,255,0.12),
-    0 0 34px rgba(138,43,226,0.16);
-}
-
-/* Make ALL boxes smoother by default */
-.card,
-.panel,
-.member,
-.featureBig,
-.heroPanel,
-.applyBox,
-.veilCard,
-.genCard,
-.infoCard,
-.stat,
-.faqItem{
-  background: var(--glass-bg) !important;
-  border: 1px solid var(--glass-border) !important;
-  border-radius: 18px !important;              /* smooth corners */
-  box-shadow: var(--glass-shadow) !important;   /* softer shadow */
-  backdrop-filter: blur(10px);                  /* glass smooth */
-  -webkit-backdrop-filter: blur(10px);
-  transition:
-    transform .18s ease,
-    box-shadow .22s ease,
-    border-color .22s ease,
-    background .22s ease,
-    filter .22s ease;
-  will-change: transform;
-}
-
-/* Smooth hover (roster-style) */
-.card:hover,
-.panel:hover,
-.member:hover,
-.featureBig:hover,
-.heroPanel:hover,
-.applyBox:hover,
-.veilCard:hover,
-.genCard:hover,
-.infoCard:hover,
-.stat:hover,
-.faqItem:hover{
-  transform: translateY(-6px);
-  border-color: var(--glass-border-hover) !important;
-  box-shadow: var(--glass-shadow-hover) !important;
-  filter: brightness(0.96);
-}
-
-/* Optional: slightly smoother “shine” pass */
-.card::before,
-.panel::before,
-.member::before,
-.featureBig::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08), transparent 60%);
-  opacity:0;
-  transition: opacity .35s ease;
-  pointer-events:none;
-}
-.card:hover::before,
-.panel:hover::before,
-.member:hover::before,
-.featureBig:hover::before{
-  opacity:1;
-}
-
-/* ===== FORCE ROSTER-SMOOTH (more noticeable) ===== */
-:root{
-  /* darker glass = more “smooth” / less gray-wash */
-  --glass-bg: rgba(0,0,0,0.34);
-  --glass-border: rgba(255,255,255,0.10);
-  --glass-border-hover: rgba(177,108,255,0.34);
-
-  /* softer + deeper */
-  --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
-  --glass-shadow-hover:
-    0 34px 95px rgba(0,0,0,0.75),
-    0 0 0 1px rgba(177,108,255,0.16),
-    0 0 40px rgba(138,43,226,0.22);
-}
-
-/* apply to your actual boxes */
-.card,
-.member,
-.genCard,
-.applyBox,
-.heroPanel,
-.veilCard,
-.featureBig,
-.stat{
-  background: var(--glass-bg) !important;
-  border-color: var(--glass-border) !important;
-
-  /* smoother corners */
-  border-radius: 20px !important;
-
-  /* stronger glass blur */
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-
-  /* “smooth” transition feel (this is a big part of it) */
-  transition:
-    transform .26s cubic-bezier(.2,.8,.2,1),
-    box-shadow .26s cubic-bezier(.2,.8,.2,1),
-    border-color .26s cubic-bezier(.2,.8,.2,1),
-    filter .26s cubic-bezier(.2,.8,.2,1) !important;
-}
-
-.card:hover,
-.member:hover,
-.genCard:hover,
-.applyBox:hover,
-.heroPanel:hover,
-.veilCard:hover,
-.featureBig:hover,
-.stat:hover{
-  transform: translateY(-7px) scale(1.01);
-  border-color: var(--glass-border-hover) !important;
-  box-shadow: var(--glass-shadow-hover) !important;
-  filter: brightness(0.95);
-}
-
-/* ===== MOBILE FIXES ===== */
-@media (max-width: 600px){
-
-.wrap{
-  padding: 0 14px;
-}
-
-h1{
-  font-size: 30px;
-  line-height: 1.15;
-}
-
-.hero{
-  padding: 18px 0 24px;
-}
-
-.heroInner{
-  padding: 20px;
-  gap: 14px;
-  min-height: auto;
-}
-
-.heroBanner{
-  min-height: auto;
-}
-
-.heroBtns{
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.heroBtns .btn{
-  width: 100%;
-  justify-content: center;
-}
-
-.stats{
-  grid-template-columns: 1fr;
-}
-
-.section{
-  padding: 40px 0;
-}
-
-.veilCard{
-  padding: 18px;
-  gap: 14px;
-}
-
-.veilText h2{
-  font-size: 22px;
-}
-
-.veilEmblem{
-  width: 70px;
-  height: 70px;
-}
-
-.topbar{
-  padding: 10px 0;
-}
-
-.actions{
-  gap: 6px;
-}
-
-.btn{
-  padding: 9px 12px;
-  font-size: 13px;
-}
-}
-
-/* ===== MOBILE FIXES ===== */
-@media (max-width: 768px){
-
-.hero{
-  grid-template-columns: 1fr;
-  text-align: center;
-}
-
-.hero img{
-  max-width: 80%;
-  margin: 20px auto 0;
-}
-
-.hero-buttons{
-  flex-direction: column;
-  gap: 10px;
-}
-
-.nav{
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
-}
-
-.container{
-  padding: 20px;
-}
-
-h1{
-  font-size: 2rem;
-}
-}
-
-
   </style>
 </head>
 
 <body>
-  <!-- PARTICLES + GRAIN -->
   <canvas id="veilParticles" aria-hidden="true"></canvas>
   <div class="grain"></div>
-  <div class="scrollProgress"></div>  
+  <div class="scrollProgress"></div>
 
   <!-- TOP VEIL CTA BAR -->
-  <section class="veilBar">
+  <section class="veilBar reveal">
     <div class="wrap">
-      <div class="veilCard">
+      <div class="veilCard kvBox">
         <div class="veilText">
           <h2>The Veil Watches</h2>
           <p>Kuroveil grows from the shadows — guided, structured, and always moving forward.</p>
@@ -935,7 +634,7 @@ h1{
           <a href="roster.html">Roster</a>
           <a href="updates.html">Updates</a>
           <a href="apply.html">Apply</a>
-          <a class="active" href="about.html">About</a>
+          <a class="active" href="about.html" aria-current="page">About</a>
         </nav>
 
         <div class="actions">
@@ -947,10 +646,9 @@ h1{
   </header>
 
   <main class="wrap" style="position:relative; z-index:1;">
-
     <!-- PAGE HERO -->
     <section class="pageHero reveal" id="top">
-      <div class="pageBanner">
+      <div class="kvBox">
         <div class="pageInner">
           <div>
             <div class="kicker"><span class="dot"></span> About • The Origin of the Veil</div>
@@ -968,9 +666,10 @@ h1{
             </div>
           </div>
 
-          <div class="infoCard">
+          <div class="kvBox" style="padding:16px; box-shadow:none;">
             <div class="infoTitle">Core Principles</div>
             <div class="mini">What keeps the Veil alive (and filters out dead servers).</div>
+
             <div class="pillRow">
               <span class="pill">Consistency</span>
               <span class="pill">Collab Culture</span>
@@ -990,7 +689,6 @@ h1{
                 <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -1006,9 +704,9 @@ h1{
       </div>
 
       <div class="grid3">
-        <div class="card">
-          <h3>Growth With Structure</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Growth With Structure</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             We build momentum through weekly cadence: content goals, check-ins, and feedback that actually gets used.
             You don’t need to be perfect — you need to be consistent.
           </p>
@@ -1017,9 +715,9 @@ h1{
           </div>
         </div>
 
-        <div class="card">
-          <h3>Collabs That Convert</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Collabs That Convert</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Collabs aren’t random. We plan them like releases: themes, pairings, schedules, and clip prompts so the content travels.
           </p>
           <div class="tagRow">
@@ -1027,9 +725,9 @@ h1{
           </div>
         </div>
 
-        <div class="card">
-          <h3>Community With Standards</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Community With Standards</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             The aesthetic is dark — the culture is clean. No drama, no spam, no dead channels. If it kills momentum, it doesn’t stay.
           </p>
           <div class="tagRow">
@@ -1049,7 +747,7 @@ h1{
       </div>
 
       <div class="split">
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>Weekly cadence</h3>
           <p>
             Kuroveil runs on a simple idea: momentum is built, not wished for.
@@ -1069,7 +767,7 @@ h1{
           </ul>
         </div>
 
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>Support systems (what you get)</h3>
           <p>
             This is a collective, not a solo grind room. We want members to improve faster than they would alone —
@@ -1101,9 +799,9 @@ h1{
       </div>
 
       <div class="grid3">
-        <div class="card">
-          <h3>Phase I — Founding Generation</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Phase I — Founding Generation</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Select a small roster of consistent creators. Establish the culture, standards, and weekly cadence.
             Build the “always active” feeling first.
           </p>
@@ -1112,9 +810,9 @@ h1{
           </div>
         </div>
 
-        <div class="card">
-          <h3>Phase II — Collab Engine</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Phase II — Collab Engine</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Launch recurring events with formats that are easy to repeat and clip. Pair members strategically and keep scheduling simple.
           </p>
           <div class="tagRow">
@@ -1122,9 +820,9 @@ h1{
           </div>
         </div>
 
-        <div class="card">
-          <h3>Phase III — Expansion</h3>
-          <p>
+        <div class="kvBox" style="padding:18px;">
+          <h3 style="margin:0 0 8px; font-size:16px;">Phase III — Expansion</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Add new talent only when the system is stable. Expand the roster without diluting quality: more creators, same standards.
           </p>
           <div class="tagRow">
@@ -1134,7 +832,7 @@ h1{
       </div>
 
       <div class="split" style="margin-top:14px;">
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>What we will never be</h3>
           <p>
             Kuroveil isn’t a “join and disappear” server. It’s not a clout farm, a drama magnet, or a free-for-all.
@@ -1147,7 +845,7 @@ h1{
           </ul>
         </div>
 
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>What we’re building toward</h3>
           <p>
             A collective that feels like a world: lore, identity, and consistent output — with real teamwork behind it.
@@ -1172,7 +870,7 @@ h1{
       </div>
 
       <div class="split">
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>Origin: The Veil</h3>
           <p>
             In the old city, there were streets that never made it onto maps — alleys where light thinned out and sound faded.
@@ -1185,7 +883,7 @@ h1{
           </p>
         </div>
 
-        <div class="panel">
+        <div class="panel kvBox">
           <h3>Kuroveil’s meaning</h3>
           <p>
             “Kuro” is shadow. “Veil” is the boundary. Together, it’s the space where creators build without needing permission —
@@ -1200,7 +898,7 @@ h1{
         </div>
       </div>
 
-      <div class="panel" style="margin-top:14px;">
+      <div class="panel kvBox" style="margin-top:14px;">
         <h3>How lore shows up</h3>
         <p>
           Lore is a layer, not a requirement. It can be as subtle as slogans, titles, and event names —
@@ -1224,7 +922,7 @@ h1{
       </div>
 
       <div class="faq">
-        <details class="faqItem">
+        <details class="faqItem kvBox">
           <summary class="faqQ">
             What do you expect from members?
             <span class="chev">›</span>
@@ -1239,7 +937,7 @@ h1{
           </div>
         </details>
 
-        <details class="faqItem">
+        <details class="faqItem kvBox">
           <summary class="faqQ">
             Do I need a huge following to join?
             <span class="chev">›</span>
@@ -1249,7 +947,7 @@ h1{
           </div>
         </details>
 
-        <details class="faqItem">
+        <details class="faqItem kvBox">
           <summary class="faqQ">
             How does recruitment work?
             <span class="chev">›</span>
@@ -1265,7 +963,7 @@ h1{
           </div>
         </details>
 
-        <details class="faqItem">
+        <details class="faqItem kvBox">
           <summary class="faqQ">
             Is Kuroveil an agency?
             <span class="chev">›</span>
@@ -1275,7 +973,7 @@ h1{
           </div>
         </details>
 
-        <details class="faqItem">
+        <details class="faqItem kvBox">
           <summary class="faqQ">
             Where do I start if I want in?
             <span class="chev">›</span>
@@ -1289,7 +987,7 @@ h1{
 
     <!-- CTA -->
     <section class="section reveal">
-      <div class="applyBox">
+      <div class="applyBox kvBox">
         <div>
           <h2 style="margin:0 0 8px;">Step into the shadows.</h2>
           <p>If you’re consistent, collab-friendly, and serious about growth — the Veil will notice.</p>
@@ -1315,7 +1013,16 @@ h1{
     </footer>
   </main>
 
+  <button class="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
+    </svg>
+  </button>
+
   <script>
+    // Fade-in
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
@@ -1323,7 +1030,34 @@ h1{
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
 
-    // ===== PARTICLES (NEW) =====
+    // Scroll progress + back-to-top
+    const bar = document.querySelector('.scrollProgress');
+    const toTop = document.querySelector('.toTop');
+
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+      if (bar) bar.style.width = pct.toFixed(2) + '%';
+
+      if (toTop){
+        if (scrollTop > 420) toTop.classList.add('show');
+        else toTop.classList.remove('show');
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', onScroll, { passive:true });
+    onScroll();
+
+    if (toTop){
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Particles
     (() => {
       const canvas = document.getElementById("veilParticles");
       if (!canvas) return;
@@ -1334,7 +1068,6 @@ h1{
       const ctx = canvas.getContext("2d");
       let w, h, dpr;
       let particles = [];
-      let rafId = null;
 
       function resize(){
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1350,7 +1083,7 @@ h1{
 
       function seed(){
         const area = w * h;
-        const count = Math.max(35, Math.min(120, Math.floor(area * 0.00005)));
+        const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
         particles = Array.from({length: count}, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -1366,10 +1099,8 @@ h1{
       function step(){
         ctx.clearRect(0, 0, w, h);
 
-        // dots
         for (const p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
+          p.x += p.vx; p.y += p.vy;
 
           if (p.x < -10) p.x = w + 10;
           if (p.x > w + 10) p.x = -10;
@@ -1389,15 +1120,14 @@ h1{
           ctx.shadowBlur = 0;
         }
 
-        // connecting lines
         for (let i = 0; i < particles.length; i++){
           for (let j = i + 1; j < particles.length; j++){
             const a = particles[i], b = particles[j];
             const dx = a.x - b.x, dy = a.y - b.y;
             const dist = Math.hypot(dx, dy);
-            if (dist < 120){
-              const t = 1 - dist / 120;
-              ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+            if (dist < 110){
+              const t = 1 - dist / 110;
+              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
@@ -1407,49 +1137,13 @@ h1{
           }
         }
 
-        rafId = requestAnimationFrame(step);
+        requestAnimationFrame(step);
       }
 
       window.addEventListener("resize", resize, { passive:true });
       resize();
       step();
     })();
-  </script>
-  <button class="toTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
-    </svg>
-  </button>
-  
-  <script>
-    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
-  
-    const bar = document.querySelector('.scrollProgress');
-    const toTop = document.querySelector('.toTop');
-  
-    function onScroll(){
-      const doc = document.documentElement;
-      const scrollTop = doc.scrollTop || document.body.scrollTop;
-      const scrollHeight = doc.scrollHeight - doc.clientHeight;
-      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-  
-      if (bar) bar.style.width = pct.toFixed(2) + '%';
-  
-      if (toTop){
-        if (scrollTop > 420) toTop.classList.add('show');
-        else toTop.classList.remove('show');
-      }
-    }
-  
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    onScroll();
-  
-    if (toTop){
-      toTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
   </script>
 </body>
 </html>
