@@ -752,7 +752,12 @@
               <div class="stat"><b>Open</b><span>Applications</span></div>
               <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
               <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
-              <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+
+              <!-- ✅ NEW: Total Opens Counter (increments each time the page is opened) -->
+              <div class="stat">
+                <b id="openCount">—</b>
+                <span>Site opens</span>
+              </div>
             </div>
 
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -942,6 +947,24 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
+
+    // ✅ Total opens counter (increments once per page load)
+    // NOTE: This uses a tiny public counter endpoint (CountAPI) so the number is shared across all visitors.
+    (async () => {
+      const el = document.getElementById("openCount");
+      try {
+        const namespace = "kuroveil-2026"; // change to something unique
+        const key = "opens";              // change if you want
+
+        const res = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`, { cache: "no-store" });
+        const data = await res.json();
+
+        if (el) el.textContent = String(data.value);
+      } catch (err) {
+        console.error(err);
+        if (el) el.textContent = "—";
+      }
+    })();
 
     // Particles
     (() => {
