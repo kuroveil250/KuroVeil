@@ -948,123 +948,126 @@
       });
     }
 
-    // ✅ Total opens counter (increments once per page load)
-    // NOTE: This uses a tiny public counter endpoint (CountAPI) so the number is shared across all visitors.
-    (async () => {
+// ✅ Total opens counter (increments once per page load)
+// Uses CountAPI (shared counter). Shows a clear status + logs the real error.
+(() => {
   const el = document.getElementById("openCount");
   if (!el) return;
 
   const namespace = "kuroveil-2026";
   const key = "opens";
 
-  try {
-    el.textContent = "…";
+  el.textContent = "…";
 
-    const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}`;
-    const res = await fetch(url, { cache: "no-store" });
+  const url = `https://api.countapi.xyz/hit/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}?ts=${Date.now()}`;
 
-    if (!res.ok) throw new Error("HTTP " + res.status);
-
-    const data = await res.json();
-
-    if (typeof data.value !== "number") throw new Error("Bad response");
-
-    el.textContent = String(data.value);
-  } catch (err) {
-    console.error("Counter failed:", err);
-    el.textContent = "0";
-  }
+  fetch(url, { cache: "no-store", mode: "cors" })
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then((data) => {
+      if (!data || typeof data.value !== "number") {
+        throw new Error("Bad response: " + JSON.stringify(data));
+      }
+      el.textContent = String(data.value);
+    })
+    .catch((err) => {
+      // If you see 0, it means the request failed (blocked / file:// / extension / network)
+      console.error("Counter failed:", err);
+      el.textContent = "0";
+    });
 })();
 
 
-    // Particles
-    (() => {
-      const canvas = document.getElementById("veilParticles");
-      if (!canvas) return;
+// Particles
+(() => {
+  const canvas = document.getElementById("veilParticles");
+  if (!canvas) return;
 
-      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduceMotion) return;
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) return;
 
-      const ctx = canvas.getContext("2d");
-      let w, h, dpr;
-      let particles = [];
+  const ctx = canvas.getContext("2d");
+  let w, h, dpr;
+  let particles = [];
 
-      function resize(){
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = Math.floor(window.innerWidth);
-        h = Math.floor(window.innerHeight);
-        canvas.width = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        seed();
-      }
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = Math.floor(window.innerWidth);
+    h = Math.floor(window.innerHeight);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
 
-      function seed(){
-        const area = w * h;
-        const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
-        particles = Array.from({length: count}, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: 0.7 + Math.random() * 1.8,
-          vx: (-0.18 + Math.random() * 0.36),
-          vy: (-0.10 + Math.random() * 0.20),
-          a: 0.18 + Math.random() * 0.28,
-          tw: Math.random() * Math.PI * 2,
-          tws: 0.006 + Math.random() * 0.012
-        }));
-      }
+  function seed(){
+    const area = w * h;
+    const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
+    particles = Array.from({length: count}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: 0.7 + Math.random() * 1.8,
+      vx: (-0.18 + Math.random() * 0.36),
+      vy: (-0.10 + Math.random() * 0.20),
+      a: 0.18 + Math.random() * 0.28,
+      tw: Math.random() * Math.PI * 2,
+      tws: 0.006 + Math.random() * 0.012
+    }));
+  }
 
-      function step(){
-        ctx.clearRect(0, 0, w, h);
+  function step(){
+    ctx.clearRect(0, 0, w, h);
 
-        for (const p of particles){
-          p.x += p.vx; p.y += p.vy;
+    for (const p of particles){
+      p.x += p.vx; p.y += p.vy;
 
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
 
-          p.tw += p.tws;
-          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
-          const alpha = p.a * twinkle;
+      p.tw += p.tws;
+      const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+      const alpha = p.a * twinkle;
 
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+      ctx.shadowColor = "rgba(177,108,255,0.6)";
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    // subtle connections
+    for (let i = 0; i < particles.length; i++){
+      for (let j = i + 1; j < particles.length; j++){
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 110){
+          const t = 1 - dist / 110;
+          ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
+          ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
-          ctx.shadowColor = "rgba(177,108,255,0.6)";
-          ctx.shadowBlur = 10;
-          ctx.fill();
-          ctx.shadowBlur = 0;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
-
-        // subtle connections
-        for (let i = 0; i < particles.length; i++){
-          for (let j = i + 1; j < particles.length; j++){
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < 110){
-              const t = 1 - dist / 110;
-              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(step);
       }
+    }
 
-      window.addEventListener("resize", resize, { passive:true });
-      resize();
-      step();
-    })();
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener("resize", resize, { passive:true });
+  resize();
+  step();
+})();
   </script>
 </body>
 </html>
