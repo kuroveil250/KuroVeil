@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Legal • Kuroveil</title>
   <meta name="description" content="Kuroveil Legal — Terms, Privacy, Talent Agreement, and Community Guidelines." />
+  <meta name="theme-color" content="#0d0018" />
 
   <meta property="og:title" content="Kuroveil • Legal" />
   <meta property="og:description" content="Terms, Privacy, Talent Agreement, and Community Guidelines." />
@@ -42,10 +43,14 @@
         0 34px 95px rgba(0,0,0,0.75),
         0 0 0 1px rgba(177,108,255,0.16),
         0 0 40px rgba(138,43,226,0.22);
+
+      --ring: 0 0 0 3px rgba(177,108,255,0.35);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
+    a{color:inherit}
+
     body{
       margin:0;
       font-family: Inter, Arial, sans-serif;
@@ -58,11 +63,32 @@
       overflow-x:hidden;
 
       opacity:0;
-      transition: opacity 1s ease;
+      transition: opacity .9s ease;
     }
     body.is-loaded{opacity:1}
-    a{color:inherit}
+
+    :focus-visible{
+      outline:none;
+      box-shadow: var(--ring);
+      border-radius: 12px;
+    }
+
     .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    /* Skip link */
+    .skip{
+      position:absolute;
+      left:14px; top:14px;
+      transform: translateY(-200%);
+      padding:10px 12px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      text-decoration:none;
+      z-index: 10000;
+      transition: transform .18s ease;
+    }
+    .skip:focus{ transform: translateY(0); }
 
     /* Subtle grain */
     .grain{
@@ -104,6 +130,7 @@
     .brand{
       font-weight:800; letter-spacing:0.6px;
       display:flex; align-items:center; gap:10px;
+      text-decoration:none;
     }
     .sigil{
       width: 34px; height:34px;
@@ -112,6 +139,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 0 18px rgba(177,108,255,0.25);
       position:relative;
+      flex: 0 0 auto;
     }
     .sigil:after{
       content:"";
@@ -184,7 +212,7 @@
       transform: translateY(-7px) scale(1.01);
       border-color: var(--glass-border-hover);
       box-shadow: var(--glass-shadow-hover);
-      filter: brightness(0.95);
+      filter: brightness(0.96);
     }
     .kvBox::before{
       content:"";
@@ -283,9 +311,7 @@
       z-index:2;
     }
 
-    .doc{
-      padding: 18px;
-    }
+    .doc{ padding: 18px; }
     .docHeader{
       display:flex;
       justify-content:space-between;
@@ -325,6 +351,7 @@
     .legalText h3{ margin: 14px 0 6px; font-size: 14px; }
     .legalText p{ margin: 0; color: rgba(255,255,255,0.72); line-height: 1.7; }
     .legalText ul{ margin: 10px 0 0; padding-left: 18px; color: rgba(255,255,255,0.72); line-height: 1.9; }
+
     .legalText .note{
       margin-top: 12px;
       padding: 10px 10px;
@@ -342,6 +369,18 @@
       background: linear-gradient(to right, transparent, rgba(177,108,255,0.28), transparent);
       opacity:0.8;
       margin: 8px 0 0;
+    }
+
+    /* Disclaimer bar */
+    .disclaimer{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
     footer{
@@ -364,14 +403,18 @@
 </head>
 
 <body>
-  <div class="grain"></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
 
   <header>
     <div class="wrap">
       <div class="topbar">
-        <div class="brand"><div class="sigil"></div><div>KUROVEIL</div></div>
+        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+          <div class="sigil" aria-hidden="true"></div>
+          <div>KUROVEIL</div>
+        </a>
 
-        <nav>
+        <nav aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="roster.html">Roster</a>
           <a href="updates.html">Updates</a>
@@ -380,31 +423,36 @@
           <a class="active" href="legal.html" aria-current="page">Legal</a>
         </nav>
 
-        <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+        <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap" tabindex="-1">
     <!-- HERO -->
     <section class="hero">
       <div class="kvBox">
         <div class="heroInner">
           <div>
-            <div class="pillRow">
+            <div class="pillRow" aria-label="Sections">
               <span class="pill">Terms</span>
               <span class="pill">Privacy</span>
               <span class="pill">Talent</span>
               <span class="pill">Guidelines</span>
             </div>
+
             <h1>Legal Center</h1>
+
             <p class="sub">
               One page. Clear expectations. If you apply or join Kuroveil, these policies define the rules, privacy, and how the collective operates.
             </p>
+
             <div class="divider"></div>
-            <p class="sub" style="margin-top:10px;">
-                These are the core policies. We keep them concise and straightforward. If you have questions, ask in our Discord or refer to the pinned FAQs.
-            </p>
+
+            <div class="disclaimer" role="note" aria-label="Legal disclaimer">
+              <b>Heads up:</b> This page is a plain-language summary and template for your collective’s rules.
+              It’s not legal advice. If you need something enforceable in your state/country, have a lawyer review it.
+            </div>
           </div>
 
           <div class="kvBox" style="padding:16px; box-shadow:none;">
@@ -415,7 +463,7 @@
               <a class="btn" href="roster.html">Roster</a>
             </div>
             <p style="margin-top:10px; color: rgba(255,255,255,0.72); font-size:13px; line-height:1.6;">
-                If you’re new here, start with the Updates page to see our latest news and announcements. Check the Roster to meet our current members. Ready to join? The Apply page has all the details on how to submit your application and what we look for in talent.
+              New here? Check Updates for the latest. Roster shows members. Apply when you’re ready.
             </p>
           </div>
         </div>
@@ -423,7 +471,7 @@
 
       <!-- STICKY SWITCHER -->
       <div class="switcherWrap">
-        <div class="kvBox switcher" id="switcher">
+        <div class="kvBox switcher" id="switcher" aria-label="Legal sections">
           <a href="#terms" data-target="terms"><span class="chipDot"></span> Terms</a>
           <a href="#privacy" data-target="privacy"><span class="chipDot"></span> Privacy</a>
           <a href="#talent" data-target="talent"><span class="chipDot"></span> Talent</a>
@@ -464,7 +512,13 @@
           <h3>4) Third-party services</h3>
           <p>We link to platforms like Discord, Google Forms, YouTube, X, Twitch. Their terms apply.</p>
 
-          <h3>5) Changes</h3>
+          <h3>5) Disclaimers</h3>
+          <ul>
+            <li>The site is provided “as is” with no guarantees of availability.</li>
+            <li>Kuroveil is not responsible for outages or issues caused by third-party platforms.</li>
+          </ul>
+
+          <h3>6) Changes</h3>
           <p>We may update these terms at any time; the “Last updated” date will change.</p>
         </div>
       </article>
@@ -494,16 +548,23 @@
           <ul>
             <li>Reviewing applications and contacting shortlisted applicants</li>
             <li>Onboarding and coordination if accepted</li>
+            <li>Moderation and community safety (Discord)</li>
           </ul>
 
-          <h3>3) Third-party tools</h3>
+          <h3>3) What we don’t do</h3>
+          <ul>
+            <li>We do not sell applicant or member data.</li>
+            <li>We do not share your data with advertisers.</li>
+          </ul>
+
+          <h3>4) Third-party tools</h3>
           <p>Google Forms and Discord process your data according to their own policies.</p>
 
-          <h3>4) Retention & deletion</h3>
+          <h3>5) Retention & deletion</h3>
           <p>We retain application data as needed for review and records. You can request deletion via Discord.</p>
 
           <div class="note">
-            <b>Note:</b> We do not sell or share your data with advertisers or external parties. Your information is only used internally for Kuroveil operations and communications.
+            <b>Tip:</b> If you submit private links by accident, message staff immediately so we can update your application.
           </div>
         </div>
       </article>
@@ -511,7 +572,7 @@
       <!-- TALENT -->
       <article id="talent" class="kvBox doc">
         <div class="docHeader">
-          <h2>Talent Agreement</h2>
+          <h2>Talent Agreement (Plain-Language)</h2>
           <div class="docMeta">
             <span class="tagMini">Applies to: Talent / Members</span>
             <span class="tagMini">Last updated: 2026-02-17</span>
@@ -526,37 +587,47 @@
           <h3>1) Ownership</h3>
           <p><b>Default:</b> You own your character, model, and content unless a separate written agreement says otherwise.</p>
 
-          <h3>2) Kuroveil branding</h3>
+          <h3>2) Kuroveil branding & representation</h3>
           <ul>
-            <li>You may use Kuroveil branding while a member.</li>
+            <li>You may use Kuroveil branding while you are an active member in good standing.</li>
             <li>Kuroveil name/logo/brand stay with Kuroveil.</li>
-            <li>On departure, remove Kuroveil branding from your profiles and panels within a reasonable timeframe.</li>
+            <li>Do not represent yourself as speaking “for Kuroveil” unless approved staff.</li>
+            <li>On departure, remove Kuroveil branding from profiles/panels within a reasonable timeframe.</li>
           </ul>
 
-          <h3>3) Activity expectations</h3>
+          <h3>3) Minimum activity</h3>
           <ul>
             <li>Minimum: <b>2 streams or uploads per week</b> (unless approved hiatus)</li>
             <li>Communicate clearly and stay active in Discord</li>
-            <li>Participate in collabs/events when scheduled (with notice)</li>
+            <li>Show up for scheduled collabs/events when possible (with notice if you can’t)</li>
           </ul>
 
-          <h3>4) Conduct</h3>
+          <h3>4) Hiatus / inactivity</h3>
+          <p>If you need a break, request a hiatus. Extended inactivity without communication may result in removal.</p>
+
+          <h3>5) Conduct</h3>
           <ul>
             <li>No harassment, hate, doxxing, threats, or targeted drama.</li>
             <li>No “bait applications”, ghosting during onboarding, or bad-faith participation.</li>
+            <li>Follow platform ToS (Twitch/YouTube/etc.). Repeated violations can be grounds for removal.</li>
           </ul>
 
-          <h3>5) Leaving / removal</h3>
+          <h3>6) Collab content & promo permission</h3>
+          <ul>
+            <li>Collab VODs/clips remain on the uploader’s channel.</li>
+            <li>Members allow reasonable reposting of clips (with credit) for Kuroveil promotion.</li>
+            <li>Kuroveil does not claim ownership of your individual content.</li>
+          </ul>
+
+          <h3>7) Leaving / removal</h3>
           <p>
-            Talent may leave at any time (with notice.) Kuroveil may remove members for inactivity, conduct, or breaking rules.
-            Removal includes roster delist + role removal.
+            Members may leave at any time (ideally with notice). Kuroveil may remove members for inactivity, conduct,
+            or breaking rules. Removal includes roster delist + role removal.
           </p>
 
-          <h3>6) Collab content</h3>
-          <p>
-            Collab VODs/clips remain on the uploader’s channel. Members agree to reasonable use of collab clips for promotion.
-            Kuroveil may share clips of members for promotional use, but does not claim ownership of individual content.
-          </p>
+          <div class="note">
+            <b>Important:</b> If you commissioned art/assets through Kuroveil funds (rare), ownership/usage may be handled by a separate written agreement.
+          </div>
         </div>
       </article>
 
@@ -580,10 +651,17 @@
             <li>Respect others. No harassment, slurs, or targeted attacks.</li>
             <li>No doxxing, threats, or calls for harassment.</li>
             <li>No spam, raids, or disruptive behavior.</li>
+            <li>No NSFW where it doesn’t belong (follow channel rules).</li>
           </ul>
 
           <h3>Moderation</h3>
           <p>Moderation actions may include warnings, timeouts, and bans. Appeals go through staff.</p>
+
+          <h3>Safety & privacy</h3>
+          <ul>
+            <li>Do not share personal info (yours or others).</li>
+            <li>Report suspicious DMs/scams to staff.</li>
+          </ul>
         </div>
       </article>
     </section>
@@ -596,7 +674,7 @@
           <a href="legal.html#privacy">Privacy</a>
           <a href="legal.html#talent">Talent</a>
           <a href="legal.html#guidelines">Guidelines</a>
-          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
         </div>
       </div>
     </footer>
@@ -614,14 +692,14 @@
     };
 
     const io = new IntersectionObserver((entries) => {
-      // choose the most visible entry
-      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible?.target?.id) setActive(visible.target.id);
     }, { threshold: [0.2, 0.35, 0.5, 0.65] });
 
     sections.forEach(sec => io.observe(sec));
 
-    // If loaded with a hash, set it immediately
     if (location.hash){
       const id = location.hash.replace('#','');
       setActive(id);

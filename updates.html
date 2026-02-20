@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Updates • Kuroveil</title>
+
   <meta name="description" content="Kuroveil — updates, progress logs, and announcements for the shadow-themed VTuber collective." />
+  <meta name="theme-color" content="#0d0018" />
 
   <meta property="og:title" content="Updates • Kuroveil" />
   <meta property="og:description" content="Updates, progress logs, and announcements from behind the veil." />
@@ -34,9 +36,8 @@
       --purple:#8a2be2;
       --purple2:#b16cff;
 
-      --max: 1100px;
+      --max: 1120px;
 
-      /* Smooth system */
       --kv-ease: cubic-bezier(.2,.8,.2,1);
 
       --glass-bg: rgba(0,0,0,0.34);
@@ -48,6 +49,8 @@
         0 34px 95px rgba(0,0,0,0.75),
         0 0 0 1px rgba(177,108,255,0.16),
         0 0 40px rgba(138,43,226,0.22);
+
+      --ring: 0 0 0 3px rgba(177,108,255,0.35);
     }
 
     *{ box-sizing:border-box; }
@@ -66,11 +69,32 @@
       overflow-x:hidden;
 
       opacity:0;
-      transition: opacity 1s ease;
+      transition: opacity .9s ease;
     }
     body.is-loaded{ opacity:1; }
 
+    :focus-visible{
+      outline:none;
+      box-shadow: var(--ring);
+      border-radius: 12px;
+    }
+
     .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    /* Skip link */
+    .skip{
+      position:absolute;
+      left:14px; top:14px;
+      transform: translateY(-200%);
+      padding:10px 12px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      text-decoration:none;
+      z-index: 10000;
+      transition: transform .18s ease;
+    }
+    .skip:focus{ transform: translateY(0); }
 
     /* ===== PARTICLES ===== */
     #veilParticles{
@@ -154,9 +178,9 @@
       position: fixed;
       right: 18px;
       bottom: 18px;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(10px);
@@ -172,9 +196,7 @@
     }
     .toTop.show{ opacity:1; transform: translateY(0); }
 
-    /* =====================================================
-       Smooth box base (use .kvBox everywhere)
-       ===================================================== */
+    /* Smooth box base */
     .kvBox{
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -196,7 +218,7 @@
       transform: translateY(-7px) scale(1.01);
       border-color: var(--glass-border-hover);
       box-shadow: var(--glass-shadow-hover);
-      filter: brightness(0.95);
+      filter: brightness(0.96);
     }
     .kvBox::before{
       content:"";
@@ -232,6 +254,7 @@
     @media (prefers-reduced-motion: reduce){
       .reveal{ opacity:1; transform:none; transition:none; }
       .kvBox, .kvBox:hover{ transition:none; transform:none; }
+      .grain{ animation:none; }
     }
 
     /* Pinned bar */
@@ -270,11 +293,12 @@
       gap:12px;
     }
     .brand{
-      font-weight:800;
-      letter-spacing:0.6px;
       display:flex;
       align-items:center;
       gap:10px;
+      font-weight:800;
+      letter-spacing:0.6px;
+      text-decoration:none;
     }
     .sigil{
       width: 34px; height:34px;
@@ -283,6 +307,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       position:relative;
       animation: sigilGlow 4s ease-in-out infinite;
+      flex: 0 0 auto;
     }
     @keyframes sigilGlow{
       0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
@@ -333,6 +358,7 @@
     /* Buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
       padding:10px 14px;
       border-radius:12px;
       font-weight:600;
@@ -366,6 +392,7 @@
         0 0 26px rgba(177,108,255,0.35);
       border-color: rgba(177,108,255,0.45);
     }
+    .btn.small{ padding: 8px 12px; border-radius: 12px; font-size: 13px; }
 
     /* Hero */
     .hero{ padding: 22px 0 14px; margin-top: 18px; position:relative; z-index:1; }
@@ -405,6 +432,7 @@
       user-select:none;
     }
 
+    /* Stats */
     .stats{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -430,12 +458,60 @@
       position:relative;
       z-index:1;
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top:14px;
+
+    /* Filter row */
+    .filters{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin: 12px 0 0;
     }
+    .seg{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chipBtn{
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.78);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .18s var(--kv-ease), border-color .18s var(--kv-ease), background .18s var(--kv-ease);
+    }
+    .chipBtn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(177,108,255,0.35);
+      background: rgba(255,255,255,0.05);
+    }
+    .chipBtn.active{
+      border-color: rgba(177,108,255,0.45);
+      background: rgba(138,43,226,0.20);
+      color: rgba(255,255,255,0.92);
+    }
+    .search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex: 1 1 220px;
+      justify-content:flex-end;
+    }
+    .search input{
+      width: min(340px, 100%);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.28);
+      color: rgba(255,255,255,0.92);
+      outline:none;
+    }
+    .search input::placeholder{ color: rgba(255,255,255,0.55); }
 
     /* Timeline feed */
     .feed{
@@ -465,8 +541,8 @@
     }
 
     /* Post */
-    .post{ padding: 18px; }
-    .post::after{
+    article.post{ padding: 18px; }
+    article.post::after{
       content:"";
       position:absolute;
       left: -22px;
@@ -481,14 +557,35 @@
       border: 1px solid rgba(255,255,255,0.18);
       z-index: 3;
     }
-    .post.isProgress::after{
+    article.post.isProgress::after{
       background: rgba(255,255,255,0.55);
       box-shadow:
         0 0 0 5px rgba(255,255,255,0.08),
         0 0 18px rgba(177,108,255,0.18);
     }
+    article.post.isPinned{
+      border-color: rgba(177,108,255,0.24);
+    }
 
-    .meta{ color: var(--muted2); font-size: 12px; }
+    .meta{ color: var(--muted2); font-size: 12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.78);
+    }
+    .badge.pinned{
+      background: rgba(138,43,226,0.22);
+      border-color: rgba(177,108,255,0.28);
+      color: rgba(255,255,255,0.92);
+    }
+
     .tagRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
     .tag{
       font-size: 11px;
@@ -498,9 +595,12 @@
       border: 1px solid rgba(255,255,255,0.10);
       color: var(--muted);
     }
-    .post h2{ margin: 8px 0 8px; font-size: 18px; }
-    .post p{ margin: 0; color: var(--muted); line-height:1.7; }
+
+    article.post h2{ margin: 10px 0 8px; font-size: 18px; letter-spacing:-0.2px; }
+    article.post p{ margin: 0; color: var(--muted); line-height:1.7; }
+
     .postActions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .postActions .btn{ padding: 9px 12px; border-radius: 12px; font-size: 13px; }
 
     /* Side */
     .side{ display:flex; flex-direction:column; gap: 12px; }
@@ -538,6 +638,14 @@
     .iconBtn svg{ width: 18px; height: 18px; opacity: .92; }
     .iconBtn:hover svg{ opacity:1; }
 
+    .empty{
+      padding: 14px;
+      color: rgba(255,255,255,0.72);
+      border: 1px dashed rgba(255,255,255,0.16);
+      border-radius: 16px;
+      background: rgba(0,0,0,0.20);
+    }
+
     footer{
       padding: 40px 0;
       color: rgba(255,255,255,0.55);
@@ -553,10 +661,11 @@
       nav{ display:none; }
       .layout{ grid-template-columns: 1fr; }
       .heroInner{ grid-template-columns: 1fr; }
-      .heroGrid{ grid-template-columns: 1fr; }
       .feed{ padding-left: 18px; }
       .feed::before{ left: 7px; }
-      .post::after{ left: -18px; }
+      article.post::after{ left: -18px; }
+      .filters{ gap:12px; }
+      .search{ justify-content:flex-start; }
     }
     @media (max-width: 600px){
       .wrap{ padding: 0 14px; }
@@ -566,26 +675,28 @@
 </head>
 
 <body>
-  <canvas id="veilParticles" aria-hidden="true"></canvas>
-  <div class="grain"></div>
-  <div class="scrollProgress"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <div class="pinned">
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scrollProgress" aria-hidden="true"></div>
+
+  <div class="pinned" role="note" aria-label="Pinned notice">
     <div class="wrap">
       <div><b>Pinned:</b> Applications open — next review wave this Sunday.</div>
-      <span>Updated weekly</span>
+      <span id="lastUpdated">Updated weekly</span>
     </div>
   </div>
 
   <header>
     <div class="wrap">
       <div class="topbar">
-        <div class="brand">
-          <div class="sigil"></div>
+        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+          <div class="sigil" aria-hidden="true"></div>
           <div>KUROVEIL</div>
-        </div>
+        </a>
 
-        <nav>
+        <nav aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="roster.html">Roster</a>
           <a class="active" href="updates.html" aria-current="page">Updates</a>
@@ -596,14 +707,14 @@
 
         <div class="actions">
           <a class="btn" href="roster.html">View Roster</a>
-          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="wrap" style="position:relative; z-index:1;">
-    <section class="hero">
+  <main id="main" class="wrap" style="position:relative; z-index:1;" tabindex="-1">
+    <section class="hero" aria-label="Updates hero">
       <div class="kvBox reveal">
         <div class="heroInner">
           <div>
@@ -613,142 +724,95 @@
               Announcements and progress logs for Kuroveil. Managed from behind the veil — recruiting, structure, and growth systems.
             </p>
 
-            <div class="pillRow">
+            <div class="pillRow" aria-label="Highlights">
               <span class="pill">Founding Gen</span>
               <span class="pill">Rolling Reviews</span>
               <span class="pill">Recruiting Open</span>
               <span class="pill">Collab Planning</span>
+            </div>
+
+            <div class="filters" aria-label="Filters">
+              <div class="seg" role="group" aria-label="Category filter">
+                <button class="chipBtn active" data-filter="all" type="button">All</button>
+                <button class="chipBtn" data-filter="announcement" type="button">Announcements</button>
+                <button class="chipBtn" data-filter="progress" type="button">Progress</button>
+                <button class="chipBtn" data-filter="discord" type="button">Discord</button>
+              </div>
+
+              <div class="search" aria-label="Search updates">
+                <input id="searchBox" type="search" placeholder="Search updates…" autocomplete="off" />
+              </div>
             </div>
           </div>
 
           <div class="kvBox" style="padding:16px; box-shadow:none;">
             <div class="kicker"><span class="dot"></span> Quick Actions</div>
             <div class="postActions" style="margin-top:12px;">
-              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply Now</a>
-              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Ask in Discord</a>
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply Now</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Ask in Discord</a>
             </div>
 
-            <div class="stats" style="margin-top:14px;">
+            <div class="stats" style="margin-top:14px;" aria-label="Status">
               <div class="stat"><b>Open</b><span>Applications</span></div>
               <div class="stat"><b>Rolling</b><span>Review Cycle</span></div>
               <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
               <div class="stat"><b>Next</b><span>Collab Planning</span></div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="heroGrid">
-        <div class="kvBox box reveal">
-          <div class="kicker"><span class="dot"></span> Recent Activity</div>
-          <div class="tagRow" style="margin-top:12px;">
-            <span class="tag">New applications: active</span>
-            <span class="tag">Roster: expanding</span>
-            <span class="tag">Discord: onboarding</span>
-            <span class="tag">Clips: pipeline</span>
+            <div class="muted" style="margin-top:10px;">
+              Tip: Every update should end with 1 action link (Apply/Discord).
+            </div>
           </div>
-          <p class="sub" style="margin-top:12px; max-width: 70ch;">
-            Website is being updated.
-          </p>
-        </div>
-
-        <div class="kvBox box reveal">
-          <div class="kicker"><span class="dot"></span> Next Milestones</div>
-          <p style="margin-top:8px;">• Add new members to roster</p>
-          <p>• First collab night</p>
-          <p>• Clip pipeline setup</p>
         </div>
       </div>
     </section>
 
-    <section class="layout">
-      <div class="feed">
-        <article class="kvBox post reveal">
-          <div class="meta">2026 • Announcement</div>
-          <h2>Founding Generation Recruitment Open</h2>
-          <p>
-            Kuroveil is accepting applications now. If you’re consistent, collab-friendly, and want a team to grow with,
-            step forward through the application form.
-          </p>
-          <div class="tagRow">
-            <span class="tag">Recruiting</span>
-            <span class="tag">Founding Gen</span>
-            <span class="tag">Rolling Reviews</span>
-          </div>
-          <div class="postActions">
-            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
-            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
-          </div>
-        </article>
-
-        <article class="kvBox post isProgress reveal">
-          <div class="meta">2026 • Progress</div>
-          <h2>Website + Application System Live</h2>
-          <p>
-            Core pages are live and the application flow is active. Next: roster expansion, update cadence,
-            and first group collab planning.
-          </p>
-          <div class="tagRow">
-            <span class="tag">Site</span>
-            <span class="tag">Systems</span>
-            <span class="tag">Milestones</span>
-          </div>
-        </article>
-
-        <article class="kvBox post isProgress reveal">
-          <div class="meta">2026 • Discord</div>
-          <h2>Onboarding & Roles Being Finalized</h2>
-          <p>
-            Channels, rules, and onboarding are being refined to keep the server clean and active.
-            Invite link is live for applicants and future members.
-          </p>
-          <div class="tagRow">
-            <span class="tag">Discord</span>
-            <span class="tag">Onboarding</span>
-            <span class="tag">Community</span>
-          </div>
-        </article>
+    <section class="layout" aria-label="Updates layout">
+      <div>
+        <div class="feed" id="feed" aria-live="polite"></div>
+        <div id="emptyState" class="empty" style="display:none; margin-top:12px;">
+          No updates match your filters. Try “All” or clear the search.
+        </div>
       </div>
 
-      <aside class="side">
+      <aside class="side" aria-label="Sidebar">
         <div class="kvBox box reveal">
           <b>Quick Links</b>
 
-          <div class="socials">
-            <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener" title="Discord" aria-label="Discord">
+          <div class="socials" aria-label="Social links">
+            <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
               <svg viewBox="0 0 24 24" fill="none"><path d="M7 8.5c2-1.3 8-1.3 10 0M8 17c2.5 1.5 5.5 1.5 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 19c-1.2-3.7-1.2-10.3 0-14 3-1.2 8-1.2 11 0 1.2 3.7 1.2 10.3 0 14-3 1.2-8 1.2-11 0Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 12.5h.01M14.5 12.5h.01" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>
             </a>
-            <a class="iconBtn" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener" title="Application Form" aria-label="Application Form">
+            <a class="iconBtn" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" title="Application Form" aria-label="Application Form">
               <svg viewBox="0 0 24 24" fill="none"><path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 3h8l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.6"/></svg>
             </a>
-            <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+            <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
               <svg viewBox="0 0 24 24" fill="none"><path d="M21 12s0-3.4-.5-5c-.3-1.1-1.2-2-2.3-2.3C16.6 4.2 12 4.2 12 4.2s-4.6 0-6.2.5C4.7 5 3.8 5.9 3.5 7c-.5 1.6-.5 5-.5 5s0 3.4.5 5c.3 1.1 1.2 2 2.3 2.3 1.6.5 6.2.5 6.2.5s4.6 0 6.2-.5c1.1-.3 2-1.2 2.3-2.3.5-1.6.5-5 .5-5z" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 9.5v5l5-2.5-5-2.5z" fill="currentColor"/></svg>
             </a>
-            <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener" title="X" aria-label="X">
+            <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
               <svg viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M7.5 6H18v10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             </a>
-            <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener" title="Twitch" aria-label="Twitch">
+            <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer" title="Twitch" aria-label="Twitch">
               <svg viewBox="0 0 24 24" fill="none"><path d="M4 3h16v10l-4 4h-4l-2 2H8v-2H4V3z" stroke="currentColor" stroke-width="1.6"/><path d="M10 8v5M14 8v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             </a>
           </div>
 
-          <p class="miniLink" style="margin-top:10px;"><a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord Invite</a></p>
-          <p class="miniLink"><a href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Application Form</a></p>
-          <p class="miniLink"><a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a></p>
-          <p class="miniLink"><a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a></p>
-          <p class="miniLink"><a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a></p>
+          <p class="miniLink" style="margin-top:10px;"><a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord Invite</a></p>
+          <p class="miniLink"><a href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Application Form</a></p>
         </div>
 
         <div class="kvBox box reveal">
-          <b>What to post (weekly)</b>
-          <p>• “Review wave this weekend”</p>
-          <p>• “Next collab night planned”</p>
-          <p>• “Discord update / new channels”</p>
+          <b>Weekly update template</b>
+          <p><b>1)</b> What changed</p>
+          <p><b>2)</b> What’s next</p>
+          <p><b>3)</b> One link (Apply/Discord)</p>
         </div>
 
         <div class="kvBox box reveal">
-          <b>How to write updates</b>
-          <p>Keep it short: what changed, what’s next, and a link (apply/discord).</p>
+          <b>Good “Next” items</b>
+          <p>• Review wave date</p>
+          <p>• Collab night schedule</p>
+          <p>• New channels / roles</p>
         </div>
       </aside>
     </section>
@@ -756,18 +820,18 @@
     <footer>
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
         <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
-        <div style="display:flex; gap:12px;">
-          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
-          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
-          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
-          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer">Twitch</a>
         </div>
       </div>
     </footer>
   </main>
 
   <button class="toTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="currentColor">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
       <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
     </svg>
   </button>
@@ -779,7 +843,7 @@
     // Reveal
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add('show');
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
 
@@ -810,7 +874,160 @@
       });
     }
 
-    // Particles
+    // ===== Updates data (edit here) =====
+    // category: "announcement" | "progress" | "discord"
+    const UPDATES = [
+      {
+        date: "2026-02-20",
+        type: "Announcement",
+        category: "announcement",
+        pinned: true,
+        title: "Founding Generation Recruitment Open",
+        body:
+          "Kuroveil is accepting applications now. If you’re consistent, collab-friendly, and want a team to grow with, step forward through the application form.",
+        tags: ["Recruiting", "Founding Gen", "Rolling Reviews"],
+        links: [
+          { label: "Apply", href: "https://forms.gle/SvVzGuTnQNCbpzgf7", primary: true },
+          { label: "Discord", href: "https://discord.gg/ahbekpPkur" }
+        ]
+      },
+      {
+        date: "2026-02-18",
+        type: "Progress",
+        category: "progress",
+        title: "Website + Application System Live",
+        body:
+          "Core pages are live and the application flow is active. Next: roster expansion, update cadence, and first group collab planning.",
+        tags: ["Site", "Systems", "Milestones"]
+      },
+      {
+        date: "2026-02-17",
+        type: "Discord",
+        category: "discord",
+        title: "Onboarding & Roles Being Finalized",
+        body:
+          "Channels, rules, and onboarding are being refined to keep the server clean and active. Invite link is live for applicants and future members.",
+        tags: ["Discord", "Onboarding", "Community"]
+      }
+    ];
+
+    // Render updates
+    const feed = document.getElementById("feed");
+    const emptyState = document.getElementById("emptyState");
+    const chips = Array.from(document.querySelectorAll(".chipBtn"));
+    const searchBox = document.getElementById("searchBox");
+
+    function fmtDate(iso){
+      const d = new Date(iso + "T00:00:00");
+      return d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+    }
+
+    function render(list){
+      feed.innerHTML = "";
+      const sorted = [...list].sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+
+      if (!sorted.length){
+        emptyState.style.display = "block";
+        return;
+      }
+      emptyState.style.display = "none";
+
+      for (const u of sorted){
+        const article = document.createElement("article");
+        article.className = `kvBox post reveal ${u.category === "progress" || u.type === "Progress" ? "isProgress" : ""} ${u.pinned ? "isPinned" : ""}`;
+        article.setAttribute("data-category", u.category || "announcement");
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.innerHTML = `
+          <span>${fmtDate(u.date || "2026-01-01")}</span>
+          <span>•</span>
+          <span>${u.type || "Update"}</span>
+          ${u.pinned ? `<span class="badge pinned">Pinned</span>` : ``}
+        `;
+
+        const h2 = document.createElement("h2");
+        h2.textContent = u.title || "Update";
+
+        const p = document.createElement("p");
+        p.textContent = u.body || "";
+
+        const tagRow = document.createElement("div");
+        tagRow.className = "tagRow";
+        (u.tags || []).forEach(t => {
+          const s = document.createElement("span");
+          s.className = "tag";
+          s.textContent = t;
+          tagRow.appendChild(s);
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "postActions";
+        if (u.links && u.links.length){
+          for (const l of u.links){
+            const a = document.createElement("a");
+            a.className = "btn" + (l.primary ? " primary" : "");
+            a.href = l.href;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.textContent = l.label;
+            actions.appendChild(a);
+          }
+        }
+
+        article.appendChild(meta);
+        article.appendChild(h2);
+        article.appendChild(p);
+        if ((u.tags || []).length) article.appendChild(tagRow);
+        if (actions.childNodes.length) article.appendChild(actions);
+        feed.appendChild(article);
+      }
+
+      // re-observe reveals created dynamically
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    }
+
+    let activeFilter = "all";
+
+    function applyFilters(){
+      const q = (searchBox.value || "").trim().toLowerCase();
+
+      const filtered = UPDATES.filter(u => {
+        const catOk = activeFilter === "all" ? true : (u.category === activeFilter);
+        const hay = [
+          u.title, u.body, u.type, (u.tags || []).join(" ")
+        ].join(" ").toLowerCase();
+        const searchOk = q ? hay.includes(q) : true;
+        return catOk && searchOk;
+      });
+
+      render(filtered);
+
+      // Update last updated text (top bar)
+      const latest = [...UPDATES].sort((a,b) => (b.date||"").localeCompare(a.date||""))[0];
+      const lastUpdated = document.getElementById("lastUpdated");
+      if (lastUpdated && latest && latest.date){
+        lastUpdated.textContent = "Last updated: " + fmtDate(latest.date);
+      }
+    }
+
+    chips.forEach(btn => {
+      btn.addEventListener("click", () => {
+        chips.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeFilter = btn.getAttribute("data-filter") || "all";
+        applyFilters();
+      });
+    });
+
+    if (searchBox){
+      searchBox.addEventListener("input", applyFilters);
+    }
+
+    // Initial render
+    applyFilters();
+
+    // Particles (optimized + pauses when tab hidden)
     (() => {
       const canvas = document.getElementById("veilParticles");
       if (!canvas) return;
@@ -818,9 +1035,10 @@
       const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduceMotion) return;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d", { alpha:true });
       let w, h, dpr;
       let particles = [];
+      let rafId = null;
 
       function resize(){
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -836,7 +1054,7 @@
 
       function seed(){
         const area = w * h;
-        const count = Math.max(35, Math.min(115, Math.floor(area * 0.000048)));
+        const count = Math.max(32, Math.min(100, Math.floor(area * 0.000044)));
         particles = Array.from({length: count}, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -881,7 +1099,7 @@
             const dist = Math.hypot(dx, dy);
             if (dist < 110){
               const t = 1 - dist / 110;
-              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
+              ctx.strokeStyle = `rgba(177,108,255,${0.05 * t})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
@@ -891,8 +1109,17 @@
           }
         }
 
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden){
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else {
+          if (!rafId) step();
+        }
+      });
 
       window.addEventListener("resize", resize, { passive:true });
       resize();

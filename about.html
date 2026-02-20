@@ -6,23 +6,40 @@
   <title>About • Kuroveil</title>
 
   <meta name="description" content="About Kuroveil — a shadow-themed VTuber collective built for consistency, collabs, and long-term growth." />
+  <meta name="theme-color" content="#0d0018" />
+  <link rel="canonical" href="https://kuroveil.com/about.html" />
 
   <meta property="og:title" content="About • Kuroveil" />
   <meta property="og:description" content="What Kuroveil is — and what it isn’t." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/about.html" />
-  <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
+  <meta property="og:url" content="https://kuroveil.com/about.html" />
+  <meta property="og:image" content="https://kuroveil.com/og-kuroveil.jpg" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About • Kuroveil" />
   <meta name="twitter:description" content="What Kuroveil is — and what it isn’t." />
-  <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
+  <meta name="twitter:image" content="https://kuroveil.com/og-kuroveil.jpg" />
 
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Basic org schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Kuroveil",
+    "url":"https://kuroveil.com/",
+    "sameAs":[
+      "https://x.com/veil_kuro11808",
+      "https://www.youtube.com/@Kuroveil250",
+      "https://www.twitch.tv/kuro_veil",
+      "https://discord.gg/ahbekpPkur"
+    ]
+  }
+  </script>
 
   <style>
     :root{
@@ -36,9 +53,8 @@
       --purple:#8a2be2;
       --purple2:#b16cff;
 
-      --max: 1100px;
+      --max: 1120px;
 
-      /* roster-smooth glass system */
       --kv-ease: cubic-bezier(.2,.8,.2,1);
       --glass-bg: rgba(0,0,0,0.34);
       --glass-border: rgba(255,255,255,0.10);
@@ -49,12 +65,13 @@
         0 34px 95px rgba(0,0,0,0.75),
         0 0 0 1px rgba(177,108,255,0.16),
         0 0 40px rgba(138,43,226,0.22);
+
+      --ring: 0 0 0 3px rgba(177,108,255,0.35);
     }
 
     *{ box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
     a{ color:inherit; }
-
     body{
       margin:0;
       font-family: Inter, Arial, sans-serif;
@@ -65,13 +82,33 @@
         radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.12), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
-
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity .9s ease;
     }
     body.is-loaded{ opacity: 1; }
 
+    :focus-visible{
+      outline:none;
+      box-shadow: var(--ring);
+      border-radius: 12px;
+    }
+
     .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    /* Skip link */
+    .skip{
+      position:absolute;
+      left:14px; top:14px;
+      transform: translateY(-200%);
+      padding:10px 12px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      text-decoration:none;
+      z-index: 10000;
+      transition: transform .18s ease;
+    }
+    .skip:focus{ transform: translateY(0); }
 
     /* ===== PARTICLES ===== */
     #veilParticles{
@@ -150,9 +187,9 @@
       position: fixed;
       right: 18px;
       bottom: 18px;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(10px);
@@ -192,6 +229,7 @@
       gap:10px;
       font-weight:800;
       letter-spacing:0.6px;
+      text-decoration:none;
     }
     .sigil{
       width: 34px;
@@ -201,6 +239,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       position:relative;
       animation: sigilGlow 4s ease-in-out infinite;
+      flex: 0 0 auto;
     }
     @keyframes sigilGlow{
       0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
@@ -262,6 +301,7 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      gap:10px;
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 600;
@@ -294,6 +334,11 @@
         0 0 26px rgba(177,108,255,0.35);
       border-color: rgba(177,108,255,0.45);
     }
+    .btn.ghost{
+      background: rgba(0,0,0,0.30);
+      border-color: rgba(255,255,255,0.10);
+    }
+    .btn.small{ padding: 8px 12px; border-radius: 12px; font-size: 13px; }
 
     /* =====================================================
        SMOOTH BOX BASE (use .kvBox everywhere)
@@ -320,7 +365,7 @@
       transform: translateY(-7px) scale(1.01);
       border-color: var(--glass-border-hover);
       box-shadow: var(--glass-shadow-hover);
-      filter: brightness(0.95);
+      filter: brightness(0.96);
     }
     .kvBox::before{
       content:"";
@@ -421,14 +466,14 @@
     }
     .sub{
       margin:0;
-      color: rgba(255,255,255,0.78);
-      line-height:1.65;
+      color: rgba(255,255,255,0.80);
+      line-height:1.7;
       max-width: 80ch;
       font-size: 14px;
     }
 
-    .infoTitle{ font-weight:800; letter-spacing:0.2px; }
-    .mini{ color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px; }
+    .infoTitle{ font-weight:900; letter-spacing:0.2px; }
+    .mini{ color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.55; margin-top:8px; }
 
     /* Sections */
     .section{
@@ -475,7 +520,7 @@
       color: var(--muted);
       font-size: 13px;
       max-width: 84ch;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .grid3{
@@ -510,7 +555,7 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
     .li b{ display:block; font-size: 13px; color: rgba(255,255,255,0.90); }
-    .li span{ display:block; font-size: 12px; color: rgba(255,255,255,0.60); margin-top:4px; }
+    .li span{ display:block; font-size: 12px; color: rgba(255,255,255,0.62); margin-top:4px; }
 
     /* FAQ */
     .faq{ display:grid; gap: 12px; }
@@ -523,14 +568,14 @@
       align-items:center;
       justify-content:space-between;
       gap: 12px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: -0.2px;
       user-select:none;
     }
     summary.faqQ::-webkit-details-marker{ display:none; }
     .chev{
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 12px;
       display:inline-flex;
       align-items:center;
@@ -567,7 +612,7 @@
 
     footer{
       padding: 50px 0;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.58);
       font-size: 12px;
       border-top: 1px solid rgba(255,255,255,0.06);
       margin-top: 30px;
@@ -586,6 +631,8 @@
     @media (prefers-reduced-motion: reduce){
       .reveal{ opacity:1; transform:none; transition:none; }
       .kvBox, .kvBox:hover{ transition:none; transform:none; }
+      .sigil{ animation:none; }
+      .grain{ animation:none; }
     }
 
     @media (max-width: 900px){
@@ -601,12 +648,14 @@
 </head>
 
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <canvas id="veilParticles" aria-hidden="true"></canvas>
-  <div class="grain"></div>
-  <div class="scrollProgress"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scrollProgress" aria-hidden="true"></div>
 
   <!-- TOP VEIL CTA BAR -->
-  <section class="veilBar reveal">
+  <section class="veilBar reveal" aria-label="Recruitment callout">
     <div class="wrap">
       <div class="veilCard kvBox">
         <div class="veilText">
@@ -617,7 +666,7 @@
 
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <a class="btn primary" href="apply.html">Join the Founding Generation</a>
-            <a class="btn" href="legal.html#terms">Policies</a>
+            <a class="btn ghost" href="legal.html#terms">Policies</a>
           </div>
 
           <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size: 12px; line-height:1.6;">
@@ -632,12 +681,12 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <div class="brand">
-          <div class="sigil"></div>
+        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+          <div class="sigil" aria-hidden="true"></div>
           <span>KUROVEIL</span>
-        </div>
+        </a>
 
-        <nav>
+        <nav aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="roster.html">Roster</a>
           <a href="updates.html">Updates</a>
@@ -648,22 +697,22 @@
 
         <div class="actions">
           <a class="btn" href="roster.html">View Roster</a>
-          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Join Discord</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="wrap" style="position:relative; z-index:1;">
+  <main id="main" class="wrap" style="position:relative; z-index:1;" tabindex="-1">
     <!-- PAGE HERO -->
-    <section class="pageHero reveal" id="top">
+    <section class="pageHero reveal" id="top" aria-label="About hero">
       <div class="kvBox">
         <div class="pageInner">
           <div>
-            <div class="kicker"><span class="dot"></span> About • The Origin of the Veil</div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span> About • The Origin of the Veil</div>
             <h1>What Kuroveil is — and what it isn’t.</h1>
             <p class="sub">
-              Kuroveil is a shadow-themed VTuber collective built for consistency, collabs, and long-term growth.
+              Kuroveil is a shadow-themed VTuber collective built for <b>consistency</b>, <b>collabs</b>, and long-term growth.
               It’s structured like a real team: standards, feedback loops, and momentum — not chaos.
             </p>
 
@@ -680,7 +729,7 @@
             <div class="infoTitle">Core Principles</div>
             <div class="mini">What keeps the Veil alive (and filters out dead servers).</div>
 
-            <div class="pillRow">
+            <div class="pillRow" aria-label="Core principle tags">
               <span class="pill">Consistency</span>
               <span class="pill">Collab Culture</span>
               <span class="pill">Clip Mindset</span>
@@ -696,7 +745,7 @@
               </div>
               <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
                 <a class="btn" href="updates.html">Read Updates</a>
-                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply</a>
               </div>
               <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
                 Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a> • <a href="legal.html#talent">Talent</a>
@@ -714,7 +763,7 @@
           <h2>Mission</h2>
           <p>
             Build a collective that stays active, grows together, and ships content with intent.
-            We’re here to turn “I’ll post soon” into consistent output — with collabs that actually travel.
+            We turn “I’ll post soon” into consistent output — with collabs that actually travel.
           </p>
         </div>
       </div>
@@ -723,9 +772,9 @@
         <div class="kvBox" style="padding:18px;">
           <h3 style="margin:0 0 8px; font-size:16px;">Structure Over Hype</h3>
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
-            Systems beat motivation. We build weekly cadence, clear expectations, and simple standards that keep the server alive.
+            Systems beat motivation. We build weekly cadence, clear expectations, and standards that keep the server alive.
           </p>
-          <div class="tagRow">
+          <div class="tagRow" aria-label="Tags">
             <span class="tag">Cadence</span><span class="tag">Standards</span><span class="tag">Momentum</span>
           </div>
         </div>
@@ -735,7 +784,7 @@
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Collabs are planned like releases: formats, themes, and clip prompts so content gets discovered beyond your circle.
           </p>
-          <div class="tagRow">
+          <div class="tagRow" aria-label="Tags">
             <span class="tag">Duos</span><span class="tag">Group Nights</span><span class="tag">Clip Prompts</span>
           </div>
         </div>
@@ -745,7 +794,7 @@
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             The vibe is dark — the culture is stable. No harassment, no drama farming, no chaos that kills momentum.
           </p>
-          <div class="tagRow">
+          <div class="tagRow" aria-label="Tags">
             <span class="tag">Respect</span><span class="tag">Moderation</span><span class="tag">Longevity</span>
           </div>
         </div>
@@ -768,17 +817,17 @@
           <h3>Weekly cadence</h3>
           <p>
             Kuroveil runs on momentum. Each week, members set a realistic target (streams, posts, shorts, clips, edits),
-            then we follow through with light structure and real accountability.
+            then follow through with light structure and real accountability.
           </p>
           <p>
-            The goal isn’t pressure — it’s consistency. When everyone ships something weekly, the server stays alive and growth becomes predictable.
+            The goal isn’t pressure — it’s consistency. When everyone ships weekly, growth becomes predictable.
           </p>
 
-          <ul class="list">
+          <ul class="list" aria-label="System list">
             <li class="li"><b>Weekly Targets</b><span>Pick a goal you can hit. Scale later.</span></li>
             <li class="li"><b>Clip Mindset</b><span>Plan moments worth clipping — then push them.</span></li>
             <li class="li"><b>Feedback Loops</b><span>Hooks, pacing, titles, thumbnails. Practical notes only.</span></li>
-            <li class="li"><b>Collab Scheduling</b><span>Formats + pairings so events don’t collapse last minute.</span></li>
+            <li class="li"><b>Collab Scheduling</b><span>Formats + pairings so events don’t collapse.</span></li>
           </ul>
         </div>
 
@@ -789,7 +838,7 @@
             consistency, packaging, and collabs.
           </p>
 
-          <ul class="list">
+          <ul class="list" aria-label="Support list">
             <li class="li"><b>Collab Formats</b><span>Duos, trios, “Shadow Trials,” themed nights, rotating events.</span></li>
             <li class="li"><b>Content Prompts</b><span>Ready-to-run ideas that fit the Kuroveil tone.</span></li>
             <li class="li"><b>Onboarding</b><span>Clear expectations + roles so you start immediately.</span></li>
@@ -821,9 +870,7 @@
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Small roster. Strong standards. Establish cadence and culture first.
           </p>
-          <div class="tagRow">
-            <span class="tag">Roster</span><span class="tag">Onboarding</span><span class="tag">Cadence</span>
-          </div>
+          <div class="tagRow"><span class="tag">Roster</span><span class="tag">Onboarding</span><span class="tag">Cadence</span></div>
         </div>
 
         <div class="kvBox" style="padding:18px;">
@@ -831,9 +878,7 @@
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Recurring formats that are easy to repeat and clip. Less randomness, more results.
           </p>
-          <div class="tagRow">
-            <span class="tag">Events</span><span class="tag">Formats</span><span class="tag">Clips</span>
-          </div>
+          <div class="tagRow"><span class="tag">Events</span><span class="tag">Formats</span><span class="tag">Clips</span></div>
         </div>
 
         <div class="kvBox" style="padding:18px;">
@@ -841,9 +886,7 @@
           <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
             Add talent only when the system is stable. More creators, same standards.
           </p>
-          <div class="tagRow">
-            <span class="tag">Scale</span><span class="tag">Quality</span><span class="tag">Long-term</span>
-          </div>
+          <div class="tagRow"><span class="tag">Scale</span><span class="tag">Quality</span><span class="tag">Long-term</span></div>
         </div>
       </div>
 
@@ -879,9 +922,7 @@
       <div class="sectionHead">
         <div>
           <h2>Lore</h2>
-          <p>
-            Optional, but powerful: lore gives identity. It turns “a server” into a world.
-          </p>
+          <p>Optional, but powerful: lore gives identity. It turns “a server” into a world.</p>
         </div>
       </div>
 
@@ -908,7 +949,7 @@
           <ul class="list">
             <li class="li"><b>The Abyss</b><span>The unknown — new viewers, new skills, new stages.</span></li>
             <li class="li"><b>The Veil Watches</b><span>Momentum gets noticed. Consistency draws power.</span></li>
-            <li class="li"><b>Shadows</b><span>Members of the collective — quiet force, loud impact.</span></li>
+            <li class="li"><b>Shadows</b><span>Members — quiet force, loud impact.</span></li>
             <li class="li"><b>Founding Gen</b><span>The first to set standards and define the tone.</span></li>
           </ul>
         </div>
@@ -941,7 +982,7 @@
         <details class="faqItem kvBox">
           <summary class="faqQ">
             What do you expect from members?
-            <span class="chev">›</span>
+            <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="faqA">
             <p>Three things: <b>consistency</b>, <b>communication</b>, and <b>collab readiness</b>.</p>
@@ -956,7 +997,7 @@
         <details class="faqItem kvBox">
           <summary class="faqQ">
             Do I need a huge following to join?
-            <span class="chev">›</span>
+            <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="faqA">
             <p>No. We care more about <b>effort</b> and <b>consistency</b> than numbers.</p>
@@ -966,7 +1007,7 @@
         <details class="faqItem kvBox">
           <summary class="faqQ">
             How does recruitment work?
-            <span class="chev">›</span>
+            <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="faqA">
             <p>Applications are rolling while the Founding Gen is forming.</p>
@@ -982,7 +1023,7 @@
         <details class="faqItem kvBox">
           <summary class="faqQ">
             Is Kuroveil an agency?
-            <span class="chev">›</span>
+            <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="faqA">
             <p>No — it’s a <b>collective</b>: systems + collabs without the corporate vibe.</p>
@@ -992,7 +1033,7 @@
         <details class="faqItem kvBox">
           <summary class="faqQ">
             Where do I start?
-            <span class="chev">›</span>
+            <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="faqA">
             <p>Join the Discord, read requirements, and apply. If you’re unsure, ask in Discord.</p>
@@ -1009,9 +1050,9 @@
           <p>If you’re consistent, collab-friendly, and serious about growth — the Veil will notice.</p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Enter Discord</a>
+          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Enter Discord</a>
           <a class="btn" href="updates.html">See Updates</a>
-          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener">Apply</a>
+          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply</a>
         </div>
       </div>
     </section>
@@ -1024,17 +1065,17 @@
           <a href="legal.html#privacy">Privacy</a>
           <a href="legal.html#talent">Talent</a>
           <a href="legal.html#guidelines">Guidelines</a>
-          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener">Discord</a>
-          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener">X</a>
-          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener">YouTube</a>
-          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener">Twitch</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer">Twitch</a>
         </div>
       </div>
     </footer>
   </main>
 
   <button class="toTop" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="currentColor">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
       <path d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8L6.4 13.4 5 12l7-7z"/>
     </svg>
   </button>
@@ -1046,7 +1087,7 @@
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add('show');
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
 
@@ -1077,7 +1118,7 @@
       });
     }
 
-    // Particles
+    // Particles (optimized + pauses when tab hidden)
     (() => {
       const canvas = document.getElementById("veilParticles");
       if (!canvas) return;
@@ -1085,9 +1126,10 @@
       const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduceMotion) return;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d", { alpha:true });
       let w, h, dpr;
       let particles = [];
+      let rafId = null;
 
       function resize(){
         dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1103,7 +1145,7 @@
 
       function seed(){
         const area = w * h;
-        const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
+        const count = Math.max(32, Math.min(96, Math.floor(area * 0.000042)));
         particles = Array.from({length: count}, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -1147,7 +1189,7 @@
             const dist = Math.hypot(dx, dy);
             if (dist < 110){
               const t = 1 - dist / 110;
-              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
+              ctx.strokeStyle = `rgba(177,108,255,${0.05 * t})`;
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
@@ -1157,8 +1199,17 @@
           }
         }
 
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden){
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else {
+          if (!rafId) step();
+        }
+      });
 
       window.addEventListener("resize", resize, { passive:true });
       resize();
