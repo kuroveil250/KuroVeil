@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Kuroveil — Staff Applications</title>
+  <meta name="description" content="Apply to work with Kuroveil as an editor, illustrator, graphic designer, or social support. Clear roles, clear expectations, rolling review." />
+  <meta name="theme-color" content="#0d0018" />
+
+  <link rel="canonical" href="https://kuroveil.com/staff-apply.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050505;
+      --bg1:#0d0018;
+
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+
+      --purple:#8a2be2;
+      --purple2:#b16cff;
+
+      --max: 1120px;
+      --kv-ease: cubic-bezier(.2,.8,.2,1);
+
+      --glass-bg: rgba(0,0,0,0.34);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-hover: rgba(177,108,255,0.34);
+
+      --glass-shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --glass-shadow-hover:
+        0 34px 95px rgba(0,0,0,0.75),
+        0 0 0 1px rgba(177,108,255,0.16),
+        0 0 40px rgba(138,43,226,0.22);
+
+      --ring: 0 0 0 3px rgba(177,108,255,0.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(900px 520px at 50% -10%, rgba(177,108,255,0.22), transparent 60%),
+        radial-gradient(900px 520px at 15% 15%, rgba(138,43,226,0.16), transparent 55%),
+        radial-gradient(700px 450px at 85% 25%, rgba(177,108,255,0.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+    body.is-loaded{ opacity:1; }
+
+    a{ color:inherit; }
+    img{ max-width:100%; height:auto; display:block; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+    :focus-visible{ outline:none; box-shadow: var(--ring); border-radius: 12px; }
+
+    /* Background ambience */
+    #veilParticles{
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      z-index:-3;
+      pointer-events:none;
+      opacity:0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{ display:none; }
+    }
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:-50%;
+      opacity:0.07;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:translateZ(0);
+      animation: grainMove 10s steps(10) infinite;
+      z-index:-2;
+    }
+    @keyframes grainMove{
+      0%{transform:translate(0,0)}
+      10%{transform:translate(-2%, -5%)}
+      20%{transform:translate(-6%, 2%)}
+      30%{transform:translate(3%, -8%)}
+      40%{transform:translate(-3%, 8%)}
+      50%{transform:translate(-8%, 3%)}
+      60%{transform:translate(8%, 0%)}
+      70%{transform:translate(0%, 6%)}
+      80%{transform:translate(-5%, 0%)}
+      90%{transform:translate(6%, -3%)}
+      100%{transform:translate(0,0)}
+    }
+
+    /* Glass */
+    .kvBox{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      position: relative;
+      overflow: hidden;
+      will-change: transform, box-shadow, border-color, filter;
+      transition:
+        transform .26s var(--kv-ease),
+        box-shadow .26s var(--kv-ease),
+        border-color .26s var(--kv-ease),
+        filter .26s var(--kv-ease);
+    }
+    .kvBox:hover{
+      transform: translateY(-6px);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--glass-shadow-hover);
+      filter: brightness(0.965);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      transition:
+        transform .18s var(--kv-ease),
+        background .18s var(--kv-ease),
+        box-shadow .18s var(--kv-ease),
+        border-color .18s var(--kv-ease),
+        filter .18s var(--kv-ease);
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
+      border-color: rgba(177,108,255,0.35);
+      box-shadow: 0 12px 30px rgba(138,43,226,0.20);
+    }
+    .btn.ghost{ background: rgba(0,0,0,0.30); border-color: rgba(255,255,255,0.10); }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(177,108,255,0.30);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.40);
+    }
+    .btn.primary:hover{
+      filter: brightness(0.92);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.45),
+        0 0 26px rgba(177,108,255,0.35);
+      border-color: rgba(177,108,255,0.45);
+    }
+    .btn.small{ padding: 8px 12px; border-radius: 12px; font-size: 13px; }
+    .btn.full{ width:100%; }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:0.6px;
+      text-decoration:none;
+    }
+    .sigil{
+      width: 34px; height:34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.7), rgba(138,43,226,0.15));
+      border: 1px solid rgba(255,255,255,0.12);
+      position:relative;
+      animation: sigilGlow 4s ease-in-out infinite;
+      flex: 0 0 auto;
+    }
+    @keyframes sigilGlow{
+      0%,100%{ box-shadow: 0 0 10px rgba(138,43,226,0.25); }
+      50%{ box-shadow: 0 0 22px rgba(177,108,255,0.6); }
+    }
+    .sigil:after{
+      content:"";
+      position:absolute;
+      inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      transform: rotate(12deg);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    nav a{
+      text-decoration:none;
+      opacity:0.9;
+      position:relative;
+      padding-bottom: 10px;
+    }
+    nav a:hover{ opacity:1; color: var(--text); }
+    nav a.active{ opacity:1; color: var(--text); }
+
+    /* Role tabs (Top 10 #1) */
+    .roleTabs{
+      position: sticky;
+      top: 66px;
+      z-index: 9;
+      padding: 12px 0 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .tabsInner{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.35);
+      box-shadow: 0 14px 38px rgba(0,0,0,0.40);
+    }
+    .tab{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 13px;
+      color: rgba(255,255,255,0.86);
+      transition: transform .18s var(--kv-ease), border-color .18s var(--kv-ease), background .18s var(--kv-ease);
+    }
+    .tab:hover{ transform: translateY(-2px); border-color: rgba(177,108,255,0.28); background: rgba(255,255,255,0.06); }
+    .tab .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+      flex: 0 0 auto;
+    }
+
+    /* HERO */
+    .hero{ padding: 22px 0 10px; margin-top: 14px; }
+    .heroBanner{
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.58);
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
+      min-height: 380px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.84)),
+        radial-gradient(820px 300px at 22% 22%, rgba(177,108,255,0.20), transparent 60%),
+        radial-gradient(740px 260px at 78% 40%, rgba(138,43,226,0.12), transparent 62%);
+    }
+    .heroInner{
+      position: relative;
+      z-index: 2;
+      padding: 30px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      align-items:end;
+      min-height: 380px;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.80);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+    .kicker .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 18px rgba(177,108,255,0.75);
+    }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(38px, 4.4vw, 58px);
+      letter-spacing: -0.9px;
+      line-height: 1.05;
+      text-shadow: 0 0 26px rgba(177,108,255,0.22);
+    }
+    .lead{
+      margin: 0;
+      color: rgba(255,255,255,0.82);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 78ch;
+    }
+    .heroBtns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+      align-items:center;
+    }
+
+    /* Quick pills */
+    .pillRow{ margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+    .pill{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      user-select:none;
+    }
+
+    /* Right panel */
+    .panel{ padding: 16px; }
+    .panelTitle{ font-weight:900; letter-spacing:0.2px; }
+    .mini{ color: rgba(255,255,255,0.74); font-size: 13px; line-height: 1.55; margin-top:8px; }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 66px;
+    }
+    .stat b{ display:block; font-size: 14px; }
+    .stat span{ color: rgba(255,255,255,0.62); font-size: 12px; line-height:1.35; }
+
+    /* Sections */
+    .section{
+      padding: 62px 0;
+      position: relative;
+    }
+    .section:before{
+      content:"";
+      position:absolute;
+      top:0; left:50%;
+      transform:translateX(-50%);
+      width:70%;
+      height:1px;
+      background:linear-gradient(to right, transparent, rgba(177,108,255,0.35), transparent);
+    }
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.2px;
+      position:relative;
+      display:inline-block;
+      padding-bottom:6px;
+    }
+    .sectionHead h2:after{
+      content:"";
+      position:absolute;
+      left:0; bottom:0;
+      width:60%;
+      height:2px;
+      background:linear-gradient(to right, rgba(177,108,255,0.7), transparent);
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 92ch;
+      line-height:1.6;
+    }
+
+    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .card{ padding: 18px; }
+    .card h3{ margin: 0 0 6px; font-size: 18px; letter-spacing:-0.2px; }
+    .card h4{ margin: 0 0 8px; font-size: 14px; letter-spacing:0.2px; }
+    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    /* Checklist */
+    .checklist{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 10px;
+    }
+    .checklist li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .tick{
+      width: 18px; height: 18px;
+      border-radius: 7px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+      background: rgba(177,108,255,0.20);
+      border: 1px solid rgba(177,108,255,0.30);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 0 18px rgba(177,108,255,0.10);
+    }
+    .tick svg{ width: 12px; height: 12px; opacity: .9; }
+
+    /* Info chips */
+    .infoRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .infoChip{
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      font-size: 12px;
+      color: rgba(255,255,255,0.74);
+    }
+    .infoChip b{ color: rgba(255,255,255,0.92); }
+
+    /* Timeline (Top 10 #6) */
+    .timeline{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .tStep{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.26);
+    }
+    .tStep b{ display:block; font-size: 13px; letter-spacing: .2px; }
+    .tStep span{ display:block; margin-top:6px; color: rgba(255,255,255,0.68); font-size: 12px; line-height: 1.55; }
+
+    /* Acceptance box (Top 10 #4) */
+    .acceptBox{
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(177,108,255,0.22);
+      background: linear-gradient(180deg, rgba(177,108,255,0.07), rgba(0,0,0,0.22));
+      box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+    }
+    .acceptBox h3{ margin:0 0 8px; font-size: 16px; }
+    .acceptBox p{ margin:0; color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.6; }
+
+    /* Form preview (Top 10 #5) */
+    .formPreview{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .fpRow{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.24);
+      font-size: 13px;
+      color: rgba(255,255,255,0.78);
+    }
+    .fpRow span{ color: rgba(255,255,255,0.62); }
+
+    /* Trial policy + Rights note (Top 10 #8/#9) */
+    .note{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.26);
+      color: rgba(255,255,255,0.72);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .note b{ color: rgba(255,255,255,0.88); }
+
+    /* FAQ (Top 10 #10) */
+    details{
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.28);
+      border-radius: 18px;
+      padding: 14px 14px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      font-weight: 800;
+      color: rgba(255,255,255,0.88);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    summary::after{
+      content:"";
+      float:right;
+      width: 10px; height: 10px;
+      margin-top: 6px;
+      border-right: 2px solid rgba(255,255,255,0.65);
+      border-bottom: 2px solid rgba(255,255,255,0.65);
+      transform: rotate(45deg);
+      transition: transform .18s ease, opacity .18s ease;
+      opacity: .75;
+    }
+    details[open] summary::after{ transform: rotate(-135deg); opacity:1; }
+    details p{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.72);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    footer{
+      padding: 46px 0;
+      color: rgba(255,255,255,0.58);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 22px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      nav{ display:none; }
+      .heroInner{ grid-template-columns: 1fr; padding: 20px; min-height:auto; }
+      .stats{ grid-template-columns: 1fr 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
+      .timeline{ grid-template-columns: 1fr; }
+      .roleTabs{ top: 58px; }
+    }
+    @media (max-width: 520px){
+      .wrap{ padding: 0 14px; }
+      .stats{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+          <div class="sigil" aria-hidden="true"></div>
+          <span>KUROVEIL</span>
+        </a>
+
+        <nav aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="roster.html">Roster</a>
+          <a href="updates.html">Updates</a>
+          <a class="active" href="staff-apply.html" aria-current="page">Staff</a>
+          <a href="apply.html">Talent Apply</a>
+          <a href="about.html">About</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <a class="btn small" href="#apply">Apply</a>
+          <a class="btn primary small" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Role selector tabs (Top 10 #1) -->
+  <div class="roleTabs" aria-label="Role selector">
+    <div class="wrap">
+      <div class="tabsInner">
+        <a class="tab" href="#editor"><span class="dot" aria-hidden="true"></span> Editor</a>
+        <a class="tab" href="#illustrator"><span class="dot" aria-hidden="true"></span> Illustrator</a>
+        <a class="tab" href="#designer"><span class="dot" aria-hidden="true"></span> Graphic Designer</a>
+        <a class="tab" href="#support"><span class="dot" aria-hidden="true"></span> Social Support</a>
+        <a class="tab" href="#faq"><span class="dot" aria-hidden="true"></span> FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" aria-label="Staff applications hero">
+      <div class="heroBanner">
+        <div class="heroInner">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span> Editors • Illustrators • Designers • Support</div>
+            <h1>Work Behind the Veil.</h1>
+            <p class="lead">
+              We’re building Kuroveil’s staff pipeline. If you deliver consistently, you’ll stay in rotation.
+              Clear roles, clear briefs, and fast feedback.
+            </p>
+
+            <div class="heroBtns">
+              <a class="btn primary" href="#apply">Apply Now</a>
+              <a class="btn" href="#how">How It Works</a>
+              <a class="btn ghost" href="#what-to-submit">What to Submit</a>
+            </div>
+
+            <div class="pillRow">
+              <span class="pill">Rolling review</span>
+              <span class="pill">Remote</span>
+              <span class="pill">Clear deliverables</span>
+              <span class="pill">Fast feedback</span>
+              <span class="pill">Paid trial tasks</span>
+            </div>
+          </div>
+
+          <aside class="panel kvBox" aria-label="Quick info panel">
+            <div class="panelTitle">Quick Rules</div>
+            <div class="mini">
+              Be consistent. Communicate clearly. Deliver clean files. That’s it.
+            </div>
+
+            <div class="stats" role="list">
+              <div class="stat" role="listitem"><b>Remote</b><span>Discord-based workflow</span></div>
+              <div class="stat" role="listitem"><b>Flexible</b><span>Project or ongoing</span></div>
+              <div class="stat" role="listitem"><b>Fast</b><span>Rolling review</span></div>
+              <div class="stat" role="listitem"><b>Clear</b><span>Briefs + revisions</span></div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
+              <a class="btn" href="#faq">Questions</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS (Top 10 #6) -->
+    <section class="section" id="how" aria-label="How it works">
+      <div class="sectionHead">
+        <div>
+          <h2>How It Works</h2>
+          <p>Apply, get reviewed, then we move fast. This is designed to stay simple and scalable.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="tStep kvBox"><b>1) Apply</b><span>Pick a role and submit your best examples.</span></div>
+        <div class="tStep kvBox"><b>2) Review</b><span>Rolling review (we check continuously).</span></div>
+        <div class="tStep kvBox"><b>3) Shortlist</b><span>If shortlisted, we message you (Discord/email).</span></div>
+        <div class="tStep kvBox"><b>4) Trial Task</b><span>Small paid test to confirm fit + quality.</span></div>
+        <div class="tStep kvBox"><b>5) Rotation</b><span>You’re added to our ongoing staff rotation.</span></div>
+      </div>
+
+      <div style="margin-top:14px;" class="note kvBox">
+        <b>Response expectations:</b> If you’re shortlisted, expect a message within a few days. If you don’t hear back, we may be full for that role or still reviewing.
+      </div>
+    </section>
+
+    <!-- WHAT GETS ACCEPTED (Top 10 #4) -->
+    <section class="section" aria-label="What gets accepted">
+      <div class="sectionHead">
+        <div>
+          <h2>What Gets Accepted</h2>
+          <p>This is what separates “maybe” from “yes”. If you match these, you’re competitive.</p>
+        </div>
+      </div>
+
+      <div class="acceptBox kvBox">
+        <h3>Instant “Yes” Signals</h3>
+        <ul class="checklist">
+          <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Strong portfolio</b> (2–6 pieces that clearly show skill)</li>
+          <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Fast communication</b> (replies within 24h when active)</li>
+          <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Clear turnaround</b> (you state timelines and meet them)</li>
+          <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Coachable</b> (takes feedback and iterates cleanly)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHAT TO SUBMIT (Top 10 #5) -->
+    <section class="section" id="what-to-submit" aria-label="What to submit">
+      <div class="sectionHead">
+        <div>
+          <h2>What to Submit</h2>
+          <p>These fields make it easy for us to decide quickly. Include everything for fastest review.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card kvBox">
+          <h3>Form Preview</h3>
+          <p>Most role forms ask for some version of these.</p>
+          <div class="formPreview">
+            <div class="fpRow"><b>Portfolio links</b><span>2–6 strongest examples</span></div>
+            <div class="fpRow"><b>Discord handle</b><span>How we contact you</span></div>
+            <div class="fpRow"><b>Availability</b><span>Hours/week or capacity</span></div>
+            <div class="fpRow"><b>Turnaround time</b><span>Typical delivery timeline</span></div>
+            <div class="fpRow"><b>Rates</b><span>Per deliverable / scope</span></div>
+          </div>
+        </div>
+
+        <div class="card kvBox">
+          <h3>Tip for Getting Picked</h3>
+          <p>If possible, include <b>one</b> example that matches our vibe:</p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Dark / clean / “premium” styling</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Readable + minimal clutter</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Strong focus + hierarchy</li>
+          </ul>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="#apply">Apply Now</a>
+            <a class="btn" href="#faq">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROLES (Top 10 #2 #3 included in each role: Pay clarity + Example deliverables) -->
+    <section class="section" id="editor" aria-label="Editor role">
+      <div class="sectionHead">
+        <div>
+          <h2>Video Editor</h2>
+          <p>Retention-first edits. Clean captions. Strong pacing. Built for shorts + clip packs.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card kvBox">
+          <h4>What You Do</h4>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Cut moments for clarity + speed</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Captions + emphasis (not spam)</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Deliver clean exports + files</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Example Deliverables</h4>
+          <p>(Top 10 #3) Examples of what we might request:</p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Shorts Pack:</b> 5 clips (20–45s each)</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Highlight Edit:</b> 3–6 min recap</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Style Match:</b> captions + pacing test</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Pay Model</h4>
+          <p>(Top 10 #2) We keep pay simple and deliverable-based.</p>
+          <div class="infoRow">
+            <span class="infoChip"><b>Pay:</b> per deliverable</span>
+            <span class="infoChip"><b>Options:</b> pack / per clip</span>
+            <span class="infoChip"><b>Retainer:</b> possible</span>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/TwRXwtSBRsQRvKH58" target="_blank" rel="noopener noreferrer">Apply — Editor</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="note kvBox" style="margin-top:14px;">
+        <b>Delivery expectations:</b> We’ll give a clear brief, target length, and caption style. We prefer editors who can deliver within 24–72 hours.
+      </div>
+    </section>
+
+    <section class="section" id="illustrator" aria-label="Illustrator role">
+      <div class="sectionHead">
+        <div>
+          <h2>Illustrator</h2>
+          <p>Promo art, banners, thumbnails, emotes. Clean silhouette, readable design, strong vibe.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card kvBox">
+          <h4>What You Do</h4>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Promo art + banners</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Emotes / badges / icons</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Deliver PNG/PSD (as requested)</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Example Deliverables</h4>
+          <p>(Top 10 #3) Examples we may request:</p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Promo Pack:</b> 2 images + 1 banner</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Emotes:</b> 6–12 set</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Thumb Art:</b> character + scene</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Pay Model</h4>
+          <p>(Top 10 #2) Paid commission per scope.</p>
+          <div class="infoRow">
+            <span class="infoChip"><b>Pay:</b> per commission</span>
+            <span class="infoChip"><b>Revisions:</b> limited</span>
+            <span class="infoChip"><b>Rush:</b> extra</span>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/vHqF6sEriBdseWqNA" target="_blank" rel="noopener noreferrer">Apply — Illustrator</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="note kvBox" style="margin-top:14px;">
+        <b>File expectations:</b> We may request layered files (PSD/CLIP) for future edits depending on scope. This is clarified before work starts.
+      </div>
+    </section>
+
+    <section class="section" id="designer" aria-label="Designer role">
+      <div class="sectionHead">
+        <div>
+          <h2>Graphic Designer</h2>
+          <p>Templates, typography systems, branding assets, layout polish. Make it consistent and premium.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card kvBox">
+          <h4>What You Do</h4>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>IG/X templates + systems</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Thumbnail + banner kits</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Brand consistency + hierarchy</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Example Deliverables</h4>
+          <p>(Top 10 #3) Examples we may request:</p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Template Pack:</b> 10 post layouts</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Brand Kit:</b> fonts + spacing + colors</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Thumbnail System:</b> 3 reusable layouts</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Pay Model</h4>
+          <p>(Top 10 #2) Paid per scope (packs / systems / kits).</p>
+          <div class="infoRow">
+            <span class="infoChip"><b>Pay:</b> per scope</span>
+            <span class="infoChip"><b>Tool:</b> Figma/PS/Canva</span>
+            <span class="infoChip"><b>Retainer:</b> possible</span>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/cQ5UqvgmecWFBdNm9" target="_blank" rel="noopener noreferrer">Apply — Designer</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="note kvBox" style="margin-top:14px;">
+        <b>Best fit:</b> Designers who build systems, not just one-off graphics. We want reusable templates that keep content consistent.
+      </div>
+    </section>
+
+    <section class="section" id="support" aria-label="Support role">
+      <div class="sectionHead">
+        <div>
+          <h2>Social Support</h2>
+          <p>Scheduling posts, tracking content, basic ops. Keep the pipeline consistent.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card kvBox">
+          <h4>What You Do</h4>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Schedule posts (X/IG/TikTok)</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Track clips + deliverables</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Help keep cadence consistent</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Example Deliverables</h4>
+          <p>(Top 10 #3) Examples we may request:</p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Weekly schedule:</b> 7–14 posts planned</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Clip tracker:</b> status + deadlines</li>
+            <li><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><b>Ops support:</b> reminders + follow-ups</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox">
+          <h4>Pay Model</h4>
+          <p>(Top 10 #2) Depends on workload and scope.</p>
+          <div class="infoRow">
+            <span class="infoChip"><b>Pay:</b> varies</span>
+            <span class="infoChip"><b>Time:</b> 2–5 hrs/week</span>
+            <span class="infoChip"><b>Tools:</b> Notion/Trello</span>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="https://forms.gle/XP1h8aN3X3h3P76W6" target="_blank" rel="noopener noreferrer">Apply — Support</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="note kvBox" style="margin-top:14px;">
+        <b>Best fit:</b> People who are organized and consistent. This role is about keeping momentum, not “one big push.”
+      </div>
+    </section>
+
+    <!-- Trial task policy (Top 10 #8) + Rights/Credit note (Top 10 #9) -->
+    <section class="section" aria-label="Policies">
+      <div class="sectionHead">
+        <div>
+          <h2>Policies</h2>
+          <p>Short and clear. No confusion.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="note kvBox">
+          <b>Trial task policy:</b> Shortlisted applicants may be asked to complete a small <b>paid</b> trial task. This confirms quality, speed, and fit before ongoing work.
+        </div>
+        <div class="note kvBox">
+          <b>Rights & credit:</b> Ownership/usage and credit are discussed per project. Some internal brand assets may be uncredited; we clarify expectations before work starts.
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLY (clear buttons) -->
+    <section class="section" id="apply" aria-label="Apply buttons">
+      <div class="sectionHead">
+        <div>
+          <h2>Apply Now</h2>
+          <p>(Top 10 #7 implicit) Separate forms for faster review. Pick your strongest role.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card kvBox">
+          <h3>Editor</h3>
+          <p>Clips, shorts packs, pacing, captions.</p>
+          <a class="btn primary full" href="https://forms.gle/TwRXwtSBRsQRvKH58" target="_blank" rel="noopener noreferrer">Open Editor Form</a>
+        </div>
+        <div class="card kvBox">
+          <h3>Illustrator</h3>
+          <p>Promo art, emotes, banners, thumbnails.</p>
+          <a class="btn primary full" href="https://forms.gle/vHqF6sEriBdseWqNA" target="_blank" rel="noopener noreferrer">Open Illustrator Form</a>
+        </div>
+        <div class="card kvBox">
+          <h3>Graphic Designer</h3>
+          <p>Templates, brand systems, layout polish.</p>
+          <a class="btn primary full" href="https://forms.gle/cQ5UqvgmecWFBdNm9" target="_blank" rel="noopener noreferrer">Open Designer Form</a>
+        </div>
+        <div class="card kvBox">
+          <h3>Social Support</h3>
+          <p>Scheduling, tracking, ops support.</p>
+          <a class="btn full" href="https://forms.gle/XP1h8aN3X3h3P76W6" target="_blank" rel="noopener noreferrer">Open Support Form</a>
+          <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+            By applying, you agree to our <a href="legal.html#terms">Terms</a> and <a href="legal.html#privacy">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (Top 10 #10) -->
+    <section class="section" id="faq" aria-label="FAQ">
+      <div class="sectionHead">
+        <div>
+          <h2>FAQ</h2>
+          <p>Answers to the questions applicants actually ask.</p>
+        </div>
+      </div>
+
+      <details>
+        <summary>Is this paid?</summary>
+        <p>Most work is paid per deliverable or per scope. Social Support pay depends on workload. If a role is unpaid/limited, we’ll state it upfront.</p>
+      </details>
+
+      <details>
+        <summary>Do you use contracts?</summary>
+        <p>Yes, for paid work. We use simple written agreements that clarify deliverables, payment, and usage.</p>
+      </details>
+
+      <details>
+        <summary>How many revisions do you allow?</summary>
+        <p>Depends on the deliverable. Usually 1–2 revision rounds for most projects unless otherwise agreed.</p>
+      </details>
+
+      <details>
+        <summary>How do you deliver files?</summary>
+        <p>Usually via Google Drive/Dropbox links. We’ll specify formats (MP4, PNG, PSD, etc.) in the brief.</p>
+      </details>
+
+      <details>
+        <summary>Can I apply to multiple roles?</summary>
+        <p>Yes — but choose your primary strength. If you apply to more than one, keep it clean and include only your best work for each.</p>
+      </details>
+
+      <details>
+        <summary>How long does review take?</summary>
+        <p>Rolling review. If shortlisted, you’ll usually hear back within a few days. If you don’t, we may be full or still reviewing.</p>
+      </details>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>© 2026 KUROVEIL • Work behind the veil.</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="index.html">Home</a>
+          <a href="apply.html">Talent Apply</a>
+          <a href="staff-apply.html">Staff</a>
+          <a href="legal.html#terms">Terms</a>
+          <a href="legal.html#privacy">Privacy</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
+    // Particles + connecting lines (background)
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d", { alpha: true });
+      let w, h, dpr;
+      let particles = [];
+      let rafId = null;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(36, Math.min(120, Math.floor(area * 0.00005)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.9,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.16 + Math.random() * 0.30,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles){
+          p.x += p.vx; p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120){
+              const t = 1 - dist / 120;
+              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden){
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else {
+          if (!rafId) step();
+        }
+      });
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+  </script>
+</body>
+</html>
