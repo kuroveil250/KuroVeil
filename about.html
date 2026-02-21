@@ -557,6 +557,166 @@
     .li b{ display:block; font-size: 13px; color: rgba(255,255,255,0.90); }
     .li span{ display:block; font-size: 12px; color: rgba(255,255,255,0.62); margin-top:4px; }
 
+    /* ======= NEW: Timeline + snapshot + compare + stats + kits + formats ======= */
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .timeline{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tStep{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tNum{
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      background: rgba(177,108,255,0.14);
+      border: 1px solid rgba(177,108,255,0.22);
+      flex: 0 0 auto;
+      box-shadow: 0 0 18px rgba(177,108,255,0.12);
+    }
+    .tBody b{ display:block; font-size: 13px; }
+    .tBody span{ display:block; margin-top:4px; font-size: 12px; color: rgba(255,255,255,0.65); line-height:1.55; }
+
+    .compare{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .cCol{
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .cCol h4{
+      margin:0 0 8px;
+      font-size: 13px;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+    .cCol ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(255,255,255,0.68);
+      font-size: 12px;
+      line-height:1.7;
+    }
+    .cCol li{ margin: 6px 0; }
+
+    .statsGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .stat{
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat .n{
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+    }
+    .stat .l{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      line-height:1.55;
+    }
+
+    .kitRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kitItem{
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .kitItem b{ display:block; font-size: 13px; }
+    .kitItem code{
+      display:inline-block;
+      margin-top:6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+    .kitLinks{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+
+    .formatsGrid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .format{
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .format b{ display:block; font-size: 13px; }
+    .format span{ display:block; margin-top: 6px; font-size: 12px; color: rgba(255,255,255,0.65); line-height:1.55; }
+
+    .note{
+      padding: 18px;
+      background: linear-gradient(135deg, rgba(138,43,226,0.16), rgba(255,255,255,0.04));
+      border: 1px solid rgba(177,108,255,0.20);
+    }
+
+    /* Latest updates preview */
+    .updatesPreview{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .up{
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .up b{ display:block; font-size: 13px; }
+    .up span{ display:block; margin-top:4px; font-size: 12px; color: rgba(255,255,255,0.62); line-height:1.55; }
+    .up a{ text-decoration:none; }
+    .up a:hover{ text-decoration:underline; }
+
     /* FAQ */
     .faq{ display:grid; gap: 12px; }
     details.faqItem{ padding: 0; }
@@ -642,7 +802,12 @@
       .veilEmblem{ align-self:flex-end; width:70px; height:70px; border-radius:18px; }
       .pageInner{ grid-template-columns: 1fr; }
       .grid3{ grid-template-columns: 1fr; }
+      .grid2{ grid-template-columns: 1fr; }
       .split{ grid-template-columns: 1fr; }
+      .compare{ grid-template-columns: 1fr; }
+      .statsGrid{ grid-template-columns: 1fr 1fr; }
+      .formatsGrid{ grid-template-columns: 1fr; }
+      .kitRow{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -717,9 +882,14 @@
             </p>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-              <a class="btn primary" href="#mission">Mission</a>
+              <a class="btn primary" href="#how">How it works</a>
+              <a class="btn" href="#requirements">Requirements</a>
+              <a class="btn" href="#mission">Mission</a>
               <a class="btn" href="#systems">Systems</a>
               <a class="btn" href="#roadmap">Roadmap</a>
+              <a class="btn" href="#brandkit">Brand kit</a>
+              <a class="btn" href="#formats">Formats</a>
+              <a class="btn" href="#updatesPreview">Latest</a>
               <a class="btn" href="#lore">Lore</a>
               <a class="btn" href="#faq">FAQ</a>
             </div>
@@ -751,6 +921,147 @@
                 Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a> • <a href="legal.html#talent">Talent</a>
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW #1/#2/#3/#4/#5: HOW IT WORKS + FOUNDER NOTE + REQUIREMENTS SNAPSHOT + COMPARE + SOCIAL PROOF -->
+    <section class="section reveal" id="how">
+      <div class="sectionHead">
+        <div>
+          <h2>How it works</h2>
+          <p>
+            Clear steps, clear expectations — so you know exactly what joining looks like (and if you fit).
+          </p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="panel kvBox">
+          <h3>Recruitment timeline</h3>
+          <p>From application to your first collab — fast, structured, no confusion.</p>
+
+          <div class="timeline" aria-label="Recruitment timeline">
+            <div class="tStep">
+              <div class="tNum">1</div>
+              <div class="tBody">
+                <b>Apply</b>
+                <span>Send your links + vibe + availability. We care about consistency more than numbers.</span>
+              </div>
+            </div>
+            <div class="tStep">
+              <div class="tNum">2</div>
+              <div class="tBody">
+                <b>Shortlist</b>
+                <span>We review and shortlist creators who match the tone, effort level, and culture.</span>
+              </div>
+            </div>
+            <div class="tStep">
+              <div class="tNum">3</div>
+              <div class="tBody">
+                <b>Discord check</b>
+                <span>Quick vibe + comms check. If it’s a fit, we schedule onboarding.</span>
+              </div>
+            </div>
+            <div class="tStep">
+              <div class="tNum">4</div>
+              <div class="tBody">
+                <b>Onboarding week</b>
+                <span>Roles, standards, first collab pairing, and a simple weekly target you can actually hit.</span>
+              </div>
+            </div>
+            <div class="tStep">
+              <div class="tNum">5</div>
+              <div class="tBody">
+                <b>First collab</b>
+                <span>You don’t “join and vanish” — you start producing with the group immediately.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="apply.html">Read Requirements</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply Now</a>
+          </div>
+        </div>
+
+        <div class="panel kvBox note">
+          <h3>From the founder</h3>
+          <p>
+            Kuroveil exists because too many VTuber “groups” die from chaos, silence, and no system.
+            This is built for creators who want a real team: planned collabs, feedback that helps, and weekly output that compounds.
+          </p>
+          <p>
+            Dark aesthetic. Clean culture. Relentless consistency.
+          </p>
+
+          <div class="tagRow" aria-label="Founder note tags">
+            <span class="tag">Systems-first</span>
+            <span class="tag">No drama</span>
+            <span class="tag">Collab engine</span>
+            <span class="tag">Long-term</span>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="infoTitle" id="requirements">Requirements snapshot</div>
+            <div class="mini">Minimum expectations (so people self-filter before applying).</div>
+
+            <ul class="list" aria-label="Requirements snapshot">
+              <li class="li"><b>Weekly activity</b><span>Example: 2 streams/week OR 1 stream + 2 shorts/posts. Consistency beats intensity.</span></li>
+              <li class="li"><b>Collab readiness</b><span>Decent mic + stable comms. If you commit to a collab, you show up.</span></li>
+              <li class="li"><b>Culture fit</b><span>No drama farming, harassment, or chaos. Respect is non-negotiable.</span></li>
+              <li class="li"><b>Brand boundaries</b><span>Your channel stays yours. We align on standards, not control.</span></li>
+            </ul>
+
+            <div class="compare" aria-label="What you get vs what we expect">
+              <div class="cCol">
+                <h4>What you get</h4>
+                <ul>
+                  <li>Planned collab formats (repeatable + clippable)</li>
+                  <li>Weekly prompts and “clip hooks”</li>
+                  <li>Practical feedback loops (titles, pacing, thumbnails)</li>
+                  <li>Clear onboarding + roles</li>
+                  <li>Standards that protect momentum</li>
+                </ul>
+              </div>
+              <div class="cCol">
+                <h4>What we expect</h4>
+                <ul>
+                  <li>Weekly shipping (streams/posts/shorts)</li>
+                  <li>Communication and reliability</li>
+                  <li>Collab participation when scheduled</li>
+                  <li>Respectful behavior and boundaries</li>
+                  <li>Growth mindset (improve packaging over time)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="infoTitle" style="margin-top:14px;">Momentum</div>
+            <div class="mini">Early-stage? That’s fine — we track what matters and build it.</div>
+
+            <div class="statsGrid" aria-label="Social proof stats">
+              <div class="stat">
+                <div class="n" id="statRoster">Forming</div>
+                <div class="l">Founding roster status</div>
+              </div>
+              <div class="stat">
+                <div class="n" id="statEvents">0</div>
+                <div class="l">Recurring formats scheduled</div>
+              </div>
+              <div class="stat">
+                <div class="n" id="statPrompts">0</div>
+                <div class="l">Clip prompts shipped</div>
+              </div>
+              <div class="stat">
+                <div class="n" id="statCollabs">0</div>
+                <div class="l">Collabs hosted (starts at 0)</div>
+              </div>
+            </div>
+
+            <p style="margin:12px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+              Stats update as Kuroveil grows — transparency > hype.
+            </p>
           </div>
         </div>
       </div>
@@ -851,6 +1162,21 @@
           </div>
         </div>
       </div>
+
+      <!-- NEW #9: BOUNDARIES / GUIDELINES SNAPSHOT -->
+      <div class="panel kvBox" style="margin-top:14px;">
+        <h3>Boundaries & guidelines</h3>
+        <p>
+          Dark aesthetic, clean culture. We protect members and momentum with simple rules.
+          Full details live in <a href="legal.html#guidelines">Guidelines</a>.
+        </p>
+        <ul class="list" aria-label="Boundaries list">
+          <li class="li"><b>No harassment, hate, or doxxing</b><span>Instant removal behaviors. No exceptions.</span></li>
+          <li class="li"><b>No drama farming</b><span>Conflict is handled privately and fast — not for content.</span></li>
+          <li class="li"><b>Respect boundaries</b><span>Collabs require consent, comfort, and clear content limits.</span></li>
+          <li class="li"><b>Safety first</b><span>We don’t encourage unsafe stunts, brigading, or targeted harassment.</span></li>
+        </ul>
+      </div>
     </section>
 
     <!-- ROADMAP -->
@@ -917,12 +1243,145 @@
       </div>
     </section>
 
+    <!-- NEW #7: BRAND KIT -->
+    <section class="section reveal" id="brandkit">
+      <div class="sectionHead">
+        <div>
+          <h2>Brand kit</h2>
+          <p>
+            Keep the vibe consistent across collabs, thumbnails, and promos. Light kit here — full kit can live in Discord.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel kvBox">
+        <h3>Quick kit</h3>
+        <p>Use these defaults when making overlays, banners, or announcement posts.</p>
+
+        <div class="kitRow" aria-label="Brand kit items">
+          <div class="kitItem">
+            <b>Primary colors</b>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+              <code>#0d0018</code>
+              <code>#050505</code>
+              <code>#8a2be2</code>
+              <code>#b16cff</code>
+            </div>
+          </div>
+          <div class="kitItem">
+            <b>Typography</b>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+              <code>Inter</code>
+              <code>Weight 400 / 600 / 800</code>
+              <code>All-caps KUROVEIL</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="kitLinks" aria-label="Brand kit links">
+          <a class="btn" href="legal.html#terms">Usage rules</a>
+          <a class="btn" href="roster.html">Roster</a>
+          <a class="btn primary" href="updates.html">Announcement style</a>
+        </div>
+
+        <p style="margin:12px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+          Add logo downloads later: <b>/assets/logo.png</b>, <b>/assets/logo.svg</b> (recommended).
+        </p>
+      </div>
+    </section>
+
+    <!-- NEW #8: COLLAB FORMATS GALLERY -->
+    <section class="section reveal" id="formats">
+      <div class="sectionHead">
+        <div>
+          <h2>Collab formats</h2>
+          <p>
+            Repeatable events that are easy to plan and easy to clip. This is where the “system” becomes real content.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel kvBox">
+        <h3>Signature formats</h3>
+        <p>Each format includes a built-in clip hook so content travels beyond your current audience.</p>
+
+        <div class="formatsGrid" aria-label="Formats grid">
+          <div class="format">
+            <b>Shadow Trials</b>
+            <span>Challenge night (duos/trios). Clip hook: “best run / worst fail” highlight ladder.</span>
+          </div>
+          <div class="format">
+            <b>Abyss Runs</b>
+            <span>Long-form collab session. Clip hook: “one rule” + “one betrayal” moments.</span>
+          </div>
+          <div class="format">
+            <b>Veil Court</b>
+            <span>Talk-show / debate. Clip hook: “hot take in 15 seconds” segment.</span>
+          </div>
+          <div class="format">
+            <b>The Watch</b>
+            <span>Reactive review night. Clip hook: “rate the moment” + “fix the title” speed rounds.</span>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="updates.html">See what’s next</a>
+          <a class="btn primary" href="apply.html">Join the Founding Gen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW #6: LATEST UPDATES PREVIEW -->
+    <section class="section reveal" id="updatesPreview">
+      <div class="sectionHead">
+        <div>
+          <h2>Latest</h2>
+          <p>
+            About pages get stale. Kuroveil doesn’t. Here are recent updates — full feed on the Updates page.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel kvBox">
+        <h3>Recent updates</h3>
+        <p>Replace these with your real update titles (or wire this to your Updates page later).</p>
+
+        <div class="updatesPreview" aria-label="Latest updates preview">
+          <div class="up">
+            <div>
+              <b>Founding Gen applications are open</b>
+              <span>We’re forming the core roster. If you ship weekly and want real collabs, apply.</span>
+            </div>
+            <a class="btn small" href="updates.html">Read</a>
+          </div>
+          <div class="up">
+            <div>
+              <b>Collab formats: first rotation</b>
+              <span>Shadow Trials + Veil Court — structured, repeatable, clippable formats.</span>
+            </div>
+            <a class="btn small" href="updates.html">Read</a>
+          </div>
+          <div class="up">
+            <div>
+              <b>Culture standards posted</b>
+              <span>No drama. No harassment. No chaos. Momentum stays protected.</span>
+            </div>
+            <a class="btn small" href="legal.html#guidelines">View</a>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="updates.html">Go to Updates</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </div>
+      </div>
+    </section>
+
     <!-- LORE -->
     <section class="section reveal" id="lore">
       <div class="sectionHead">
         <div>
           <h2>Lore</h2>
-          <p>Optional, but powerful: lore gives identity. It turns “a server” into a world.</p>
         </div>
       </div>
 
@@ -969,7 +1428,7 @@
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ (NEW #10: MORE FAQS) -->
     <section class="section reveal" id="faq">
       <div class="sectionHead">
         <div>
@@ -1027,6 +1486,62 @@
           </summary>
           <div class="faqA">
             <p>No — it’s a <b>collective</b>: systems + collabs without the corporate vibe.</p>
+          </div>
+        </details>
+
+        <details class="faqItem kvBox">
+          <summary class="faqQ">
+            Can I keep my own brand and identity?
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+          <div class="faqA">
+            <p>Yes. Your channel and identity stay yours. Kuroveil aligns on <b>standards</b> and <b>collab systems</b>, not control.</p>
+          </div>
+        </details>
+
+        <details class="faqItem kvBox">
+          <summary class="faqQ">
+            What if I leave later?
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+          <div class="faqA">
+            <p>
+              Leaving is allowed. We just keep the culture clean: no leaking private info, no impersonation, no drama campaigns.
+              Details are in <a href="legal.html#talent">Talent Agreement</a>.
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem kvBox">
+          <summary class="faqQ">
+            Do you take a cut of my earnings?
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+          <div class="faqA">
+            <p>
+              Kuroveil is structured for growth and collabs — not a corporate agency model. Any monetization rules are stated clearly in the
+              <a href="legal.html#talent">Talent Agreement</a>. (Keep it transparent. No surprises.)
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem kvBox">
+          <summary class="faqQ">
+            Do I need a VTuber model already?
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+          <div class="faqA">
+            <p>No — but you should be actively creating. If you don’t have a model yet, show consistent content and a real plan.</p>
+          </div>
+        </details>
+
+        <details class="faqItem kvBox">
+          <summary class="faqQ">
+            What timezones do you support?
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
+          <div class="faqA">
+            <p>Any, as long as you can reliably make scheduled collabs. Founding Gen will be balanced for overlap.</p>
           </div>
         </details>
 
@@ -1117,6 +1632,22 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
+
+    // OPTIONAL: quick-edit stats here (so you can update without hunting in HTML)
+    const KV_STATS = {
+      roster: "Forming",
+      events: 0,
+      prompts: 0,
+      collabs: 0
+    };
+    const sRoster = document.getElementById("statRoster");
+    const sEvents = document.getElementById("statEvents");
+    const sPrompts = document.getElementById("statPrompts");
+    const sCollabs = document.getElementById("statCollabs");
+    if (sRoster) sRoster.textContent = KV_STATS.roster;
+    if (sEvents) sEvents.textContent = String(KV_STATS.events);
+    if (sPrompts) sPrompts.textContent = String(KV_STATS.prompts);
+    if (sCollabs) sCollabs.textContent = String(KV_STATS.collabs);
 
     // Particles (optimized + pauses when tab hidden)
     (() => {

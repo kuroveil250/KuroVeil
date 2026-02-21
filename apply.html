@@ -452,6 +452,22 @@
       max-width: 80ch;
     }
 
+    .kickerLine{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      line-height: 1.6;
+      border-left: 2px solid rgba(177,108,255,0.55);
+      padding-left: 12px;
+      background: rgba(0,0,0,0.18);
+      border-radius: 12px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .kickerLine b{
+      color: rgba(255,255,255,0.92);
+    }
+
     .pillRow{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px; }
     .pill{
       font-size:12px;
@@ -535,6 +551,12 @@
       gap: 14px;
     }
 
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
     .card{ padding: 18px; }
     .card h2{ margin:0 0 10px; font-size: 16px; letter-spacing:-0.1px; }
     .card p{ margin:0; color: var(--muted); line-height:1.7; }
@@ -559,6 +581,35 @@
       background: rgba(177,108,255,0.95);
       box-shadow: 0 0 14px rgba(177,108,255,0.55);
     }
+
+    /* Timeline */
+    .timeline{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tItem{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+    }
+    .tTag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.90);
+      letter-spacing: 0.2px;
+    }
+    .tTag span{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: rgba(177,108,255,0.95);
+      box-shadow: 0 0 14px rgba(177,108,255,0.55);
+    }
+    .tText{ margin-top: 8px; color: rgba(255,255,255,0.72); font-size: 12px; line-height: 1.65; }
 
     /* Inline form embed */
     .embedWrap{
@@ -599,6 +650,50 @@
       border: 0;
       display:block;
       background: transparent;
+    }
+
+    .callout{
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+    .callout b{ color: rgba(255,255,255,0.92); }
+
+    /* Talent cards */
+    .talCard{
+      padding: 16px;
+    }
+    .talTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .talName{ font-weight: 900; letter-spacing: -0.2px; }
+    .talTag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.78);
+      white-space: nowrap;
+    }
+    .talMeta{
+      margin-top: 8px;
+      color: rgba(255,255,255,0.68);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .talLinks{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     /* FAQ */
@@ -649,11 +744,13 @@
       z-index:1;
     }
 
-    @media (max-width: 900px){
+    @media (max-width: 980px){
       nav{ display:none; }
       .heroInner{ grid-template-columns: 1fr; min-height: auto; }
       .grid2{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
       .steps{ grid-template-columns: 1fr 1fr; }
+      .timeline{ grid-template-columns: 1fr 1fr; }
       iframe{ height: 860px; }
       .iframeShell{ min-height: 860px; }
     }
@@ -661,6 +758,7 @@
       .wrap{ padding: 0 14px; }
       h1{ font-size: 30px; line-height: 1.15; }
       .steps{ grid-template-columns: 1fr; }
+      .timeline{ grid-template-columns: 1fr; }
       iframe{ height: 940px; }
       .iframeShell{ min-height: 940px; }
     }
@@ -712,6 +810,11 @@
               Kuroveil is built for <b>structure</b>, <b>collabs</b>, and <b>long-term momentum</b> — not chaos.
             </p>
 
+            <!-- #10 Conversion kicker -->
+            <div class="kickerLine" role="note" aria-label="Who this is for">
+              If you can commit <b>weekly</b> and want <b>collab momentum</b> with a team that actually shows up — you’re the target.
+            </div>
+
             <div class="pillRow" aria-label="Highlights">
               <span class="pill">Shadow Aesthetic</span>
               <span class="pill">Collab Focus</span>
@@ -753,9 +856,30 @@
               </div>
             </div>
 
+            <!-- #2 Timeline with time ranges -->
+            <div class="timeline" aria-label="Expected timeline">
+              <div class="tItem">
+                <div class="tTag"><span></span> Review</div>
+                <div class="tText">We review within <b>3–7 days</b> (rolling). If shortlisted, we DM you on Discord.</div>
+              </div>
+              <div class="tItem">
+                <div class="tTag"><span></span> Discord Chat</div>
+                <div class="tText">Quick fit check: <b>10–15 minutes</b>. We talk cadence, vibe, and goals.</div>
+              </div>
+              <div class="tItem">
+                <div class="tTag"><span></span> Decision</div>
+                <div class="tText">Typically within <b>48 hours</b> after the chat (unless we’re waiting on scheduling).</div>
+              </div>
+              <div class="tItem">
+                <div class="tTag"><span></span> Onboarding Week</div>
+                <div class="tText">Roles + first collab plan + posting rhythm. We move fast once accepted.</div>
+              </div>
+            </div>
+
             <div class="row" style="margin-top:14px;">
               <a class="btn primary" href="#apply" id="applyJump">Apply on this page</a>
               <a class="btn" href="#expectations">Expectations</a>
+              <a class="btn" href="#vibe">Vibe Check</a>
               <a class="btn" href="#faq">FAQ</a>
             </div>
 
@@ -790,7 +914,7 @@
             </div>
 
             <div class="muted" style="margin-top:10px;">
-              If you have questions about the application or process, join the Discord and ask in the #application channel!
+              If you have questions about the application or process, join the Discord and ask in the #application channel.
             </div>
           </div>
         </div>
@@ -831,12 +955,14 @@
         </div>
 
         <div class="card kvBox reveal">
-          <h2>What you get</h2>
+          <h2>What you get (real structure)</h2>
+          <!-- #3 Tangible perks -->
           <ul>
-            <li>Collab formats + recurring event structure</li>
-            <li>Feedback loop (hooks, pacing, thumbnails, titles)</li>
-            <li>Shared branding + cross-promotion</li>
-            <li>Accountability that keeps momentum alive</li>
+            <li><b>Weekly collab block</b> (a fixed weekly slot so collabs actually happen)</li>
+            <li><b>Monthly event format</b> (tournament / horror night / challenge series)</li>
+            <li><b>Clip review loop</b> (hooks, pacing, titles, thumbnails)</li>
+            <li><b>Shared promo rules</b> (retweet/repost habits + launch boosts)</li>
+            <li><b>Asset pack</b> (basic overlays, panels, tags, posting templates)</li>
           </ul>
 
           <h2 style="margin-top:14px;">How the process works</h2>
@@ -854,13 +980,159 @@
       </div>
     </section>
 
+    <!-- VIBE CHECK / BOUNDARIES (#4) -->
+    <section class="section" id="vibe" aria-label="Vibe check">
+      <div class="card kvBox reveal">
+        <h2>Vibe check (boundaries)</h2>
+        <p class="muted" style="margin-top:-2px;">
+          We keep it simple. If these are a problem, Kuroveil won’t be a good fit.
+        </p>
+
+        <div class="grid2" style="margin-top:12px;">
+          <div class="callout">
+            <b>Respect is mandatory.</b><br>
+            No harassment, hate, doxxing, or targeted dogpiling. Ever.
+          </div>
+          <div class="callout">
+            <b>No public airing internal issues.</b><br>
+            If there’s a problem, we handle it privately and fast.
+          </div>
+          <div class="callout">
+            <b>No ghosting.</b><br>
+            If you can’t make something, you communicate early.
+          </div>
+          <div class="callout">
+            <b>Be reliable in collabs.</b><br>
+            We plan, we show up, we finish the session.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBER TYPES (#5) -->
+    <section class="section" id="memberTypes" aria-label="Example member types">
+      <div class="card kvBox reveal">
+        <h2>Who usually fits (examples)</h2>
+        <p class="muted" style="margin-top:-2px;">Use this to self-select. You don’t have to match perfectly.</p>
+
+        <div class="grid3" style="margin-top:12px;">
+          <div class="kvBox talCard" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">The Consistency Grinder</div>
+                <div class="talMeta">Streams weekly, posts shorts, wants structure and accountability.</div>
+              </div>
+              <div class="talTag">Cadence-first</div>
+            </div>
+            <div class="talLinks">
+              <span class="pill">1–3 streams/week</span>
+              <span class="pill">3–5 shorts/week</span>
+              <span class="pill">Wants a plan</span>
+            </div>
+          </div>
+
+          <div class="kvBox talCard" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">The Clip Monster</div>
+                <div class="talMeta">Naturally funny / chaotic in a good way — wants collab moments and visibility.</div>
+              </div>
+              <div class="talTag">Moment-maker</div>
+            </div>
+            <div class="talLinks">
+              <span class="pill">Collab-ready</span>
+              <span class="pill">Reactionable</span>
+              <span class="pill">Fast hooks</span>
+            </div>
+          </div>
+
+          <div class="kvBox talCard" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">The Community Builder</div>
+                <div class="talMeta">Strong chat culture, consistent vibes, wants a team that doesn’t disappear.</div>
+              </div>
+              <div class="talTag">Culture</div>
+            </div>
+            <div class="talLinks">
+              <span class="pill">Discord active</span>
+              <span class="pill">Event energy</span>
+              <span class="pill">Long-term</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROSTER PREVIEW (#7) -->
+    <section class="section" id="preview" aria-label="Roster preview">
+      <div class="card kvBox reveal">
+        <div class="row" style="justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h2 style="margin:0 0 6px;">Roster Preview</h2>
+            <div class="muted">Social proof. If Founding Gen is still forming, keep these as placeholders.</div>
+          </div>
+          <a class="btn" href="roster.html">Full roster</a>
+        </div>
+
+        <div class="grid3" style="margin-top:12px;">
+          <!-- Replace placeholders with real members when ready -->
+          <div class="kvBox talCard reveal" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">Talent Slot A</div>
+                <div class="talMeta">Dark variety • horror • collabs</div>
+              </div>
+              <div class="talTag">Founding</div>
+            </div>
+            <div class="talLinks">
+              <a class="btn small" href="#" onclick="return false;">Best Clip</a>
+              <a class="btn small ghost" href="#" onclick="return false;">Channel</a>
+            </div>
+          </div>
+
+          <div class="kvBox talCard reveal" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">Talent Slot B</div>
+                <div class="talMeta">Minecraft • challenge runs • edits</div>
+              </div>
+              <div class="talTag">Founding</div>
+            </div>
+            <div class="talLinks">
+              <a class="btn small" href="#" onclick="return false;">Best Clip</a>
+              <a class="btn small ghost" href="#" onclick="return false;">Channel</a>
+            </div>
+          </div>
+
+          <div class="kvBox talCard reveal" style="box-shadow:none;">
+            <div class="talTop">
+              <div>
+                <div class="talName">Talent Slot C</div>
+                <div class="talMeta">Cozy + chaos • collab-heavy</div>
+              </div>
+              <div class="talTag">Founding</div>
+            </div>
+            <div class="talLinks">
+              <a class="btn small" href="#" onclick="return false;">Best Clip</a>
+              <a class="btn small ghost" href="#" onclick="return false;">Channel</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="muted" style="margin-top:10px;">
+          Tip: once you have 2–3 real members, replace placeholders. It boosts conversion hard.
+        </p>
+      </div>
+    </section>
+
     <!-- APPLY (EMBED) -->
     <section class="section" id="apply" aria-label="Application form">
       <div class="card kvBox reveal">
         <div class="embedHead">
           <div>
             <h2 style="margin:0 0 6px;">Apply</h2>
-            <div class="muted">Fill the form below. If it doesn’t load, use the “Open in new tab” button.</div>
+            <div class="muted">Fill the form below. If it doesn’t load, use “Open in new tab.”</div>
           </div>
           <div class="row">
             <span class="badge"><span class="pulseDot" style="animation:none;"></span> Live form</span>
@@ -868,23 +1140,38 @@
           </div>
         </div>
 
+        <!-- #1 Before you apply checklist -->
+        <div class="callout" style="margin-top:12px;">
+          <b>Before you apply (quick checklist)</b>
+          <ul style="margin:8px 0 0; padding-left:18px;">
+            <li><b>Public links</b> to your content (VODs/clips/shorts)</li>
+            <li>Your <b>weekly schedule</b> (days + approximate times)</li>
+            <li>Your <b>timezone</b> + typical stream hours</li>
+            <li>Collab comfort level (0–10) + what you like to do</li>
+            <li>Your 30-day goal (growth / consistency / first collab series)</li>
+            <li>Setup status (model ready? mic? PC?)</li>
+          </ul>
+        </div>
+
         <div class="iframeShell" style="margin-top:12px;">
-          <!-- Replace the src with your Google Forms EMBED URL (docs.google.com/forms/d/e/.../viewform?embedded=true) -->
+          <!-- #8 IMPORTANT: Use the embed URL (viewform?embedded=true), not /edit -->
           <iframe
             title="Kuroveil Application Form"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://docs.google.com/forms/d/1DaZuAfz20X6aaefQlOOTrL-NX9uWdpk3ooufIFwr750/edit?pli=1">
+            src="PASTE_YOUR_EMBED_URL_HERE">
           </iframe>
         </div>
 
-        <div class="muted" style="margin-top:10px;">
-          If the form does not load, the new tab link will always work.
+        <!-- #9 Contact fallback -->
+        <div class="callout" style="margin-top:10px;">
+          <b>Form not loading?</b> Use the “Open in new tab” button. If it still breaks, join the Discord and ping us in
+          <b>#application</b> with the words: <b>“FORM ERROR”</b> and we’ll send an alternate link or take your app manually.
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ (#6) -->
     <section class="section" id="faq">
       <div class="card kvBox reveal">
         <h2>FAQ</h2>
@@ -912,11 +1199,43 @@
 
           <details class="faqItem kvBox" style="box-shadow:none;">
             <summary class="faqQ">
+              Can I be pre-debut / PNG / faceless?
+              <span class="chev">›</span>
+            </summary>
+            <div class="faqA">
+              <p>Yes, as long as you can <b>start streaming consistently</b> and you’re actively building your setup. We care about weekly action.</p>
+            </div>
+          </details>
+
+          <details class="faqItem kvBox" style="box-shadow:none;">
+            <summary class="faqQ">
+              Do you take a cut? Is there a contract?
+              <span class="chev">›</span>
+            </summary>
+            <div class="faqA">
+              <p>Founding Gen is built on <b>collaboration + structure</b>, not “agency control.” Any formal terms (if used) are meant to protect the group from ghosting/drama and set expectations.</p>
+              <p>If you’re shortlisted, we’ll explain the current policy clearly before you accept anything.</p>
+            </div>
+          </details>
+
+          <details class="faqItem kvBox" style="box-shadow:none;">
+            <summary class="faqQ">
+              What about branding—can I function independently? What if I leave later?
+              <span class="chev">›</span>
+            </summary>
+            <div class="faqA">
+              <p>You keep your identity and channels. Kuroveil branding is shared group branding. If you ever leave, you stop presenting as Kuroveil, but your personal brand remains yours.</p>
+              <p>Shortlisted applicants get the clear breakdown in the Discord chat.</p>
+            </div>
+          </details>
+
+          <details class="faqItem kvBox" style="box-shadow:none;">
+            <summary class="faqQ">
               How long does review take?
               <span class="chev">›</span>
             </summary>
             <div class="faqA">
-              <p>Rolling reviews. If shortlisted, you’ll be contacted via Discord.</p>
+              <p>Rolling reviews. Expect <b>3–7 days</b>. If shortlisted, you’ll be contacted via Discord.</p>
             </div>
           </details>
 

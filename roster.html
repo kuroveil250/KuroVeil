@@ -23,9 +23,8 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Optional: Organization schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -85,6 +84,7 @@
       overflow-x:hidden;
       opacity: 0;
       transition: opacity .9s ease;
+      padding-bottom: 64px; /* room for sticky CTA on mobile */
     }
     body.is-loaded{ opacity: 1; }
 
@@ -208,7 +208,7 @@
       display:flex;
       align-items:center;
       gap:10px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:0.6px;
       text-decoration:none;
     }
@@ -444,7 +444,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       color: rgba(255,255,255,0.90);
       background: rgba(0,0,0,0.35);
       border: 1px solid rgba(255,255,255,0.12);
@@ -480,6 +480,34 @@
     }
     .panelTitle{ font-weight:900; letter-spacing:0.2px; }
     .mini{ color: rgba(255,255,255,0.72); font-size: 13px; line-height: 1.5; margin-top:8px; }
+
+    /* NEW: Join Stepper */
+    .stepper{
+      margin-top: 12px;
+      display:grid;
+      gap: 8px;
+    }
+    .step{
+      display:flex;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+    }
+    .stepNum{
+      width: 26px; height: 26px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      font-weight:900;
+      background: rgba(177,108,255,0.14);
+      border: 1px solid rgba(177,108,255,0.30);
+      flex: 0 0 auto;
+    }
+    .step b{ display:block; font-size: 13px; }
+    .step span{ display:block; font-size: 12px; color: rgba(255,255,255,0.65); margin-top:2px; }
+
+    /* NEW: Activity tiles (social proof + momentum) */
     .stats{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -550,10 +578,11 @@
       display:flex;
       gap: 10px;
       flex-wrap:wrap;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
     }
     .filterLeft{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
     .search{
       display:flex;
       align-items:center;
@@ -574,6 +603,7 @@
       font: inherit;
       font-size: 14px;
     }
+
     .seg{
       display:flex;
       gap: 6px;
@@ -601,6 +631,7 @@
       color: rgba(255,255,255,0.92);
       box-shadow: 0 12px 26px rgba(138,43,226,0.12);
     }
+
     .countPill{
       font-size: 12px;
       padding: 7px 10px;
@@ -609,6 +640,56 @@
       background: rgba(255,255,255,0.03);
       color: rgba(255,255,255,0.75);
       user-select:none;
+    }
+
+    /* NEW: Sort dropdown */
+    .sort{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+    }
+    .sort label{ font-size: 12px; color: rgba(255,255,255,0.68); }
+    .sort select{
+      background: transparent;
+      color: rgba(255,255,255,0.90);
+      border: 0;
+      outline: 0;
+      font: inherit;
+      font-size: 13px;
+      cursor:pointer;
+      padding: 2px 0;
+    }
+    .sort select option{ color: #111; }
+
+    /* NEW: Tag quick filters */
+    .tagBar{
+      margin-top: 10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      width: 100%;
+    }
+    .tagBtn{
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.72);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .18s var(--kv-ease), border-color .18s var(--kv-ease), background .18s var(--kv-ease), color .18s var(--kv-ease);
+      user-select:none;
+    }
+    .tagBtn:hover{ transform: translateY(-1px); border-color: rgba(177,108,255,0.30); color: rgba(255,255,255,0.88); }
+    .tagBtn.active{
+      border-color: rgba(177,108,255,0.38);
+      background: rgba(177,108,255,0.10);
+      color: rgba(255,255,255,0.92);
+      box-shadow: 0 10px 22px rgba(138,43,226,0.12);
     }
 
     /* Grid */
@@ -732,6 +813,69 @@
         0 0 34px rgba(138,43,226,0.25);
     }
 
+    /* NEW: Empty state */
+    .emptyState{
+      margin-top: 14px;
+      padding: 18px;
+      display:none;
+    }
+    .emptyTitle{ font-weight:900; letter-spacing:0.2px; }
+    .emptyText{ margin-top:6px; color: rgba(255,255,255,0.70); font-size: 13px; line-height:1.6; }
+    .emptyState.show{ display:block; }
+
+    /* NEW: Founder promise */
+    .promiseGrid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .promiseList{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .promiseList li{ margin: 6px 0; }
+
+    /* NEW: FAQ accordion */
+    .faq{
+      display:grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    details.kvBox{
+      padding: 12px 14px;
+      cursor:pointer;
+      overflow:hidden;
+    }
+    details.kvBox summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.92);
+      user-select:none;
+    }
+    details.kvBox summary::-webkit-details-marker{ display:none; }
+    .chev{
+      width: 18px; height: 18px;
+      opacity: 0.85;
+      transition: transform .18s var(--kv-ease);
+      flex: 0 0 auto;
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    .faqBody{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.72);
+      font-size: 13px;
+      line-height: 1.65;
+      padding-right: 8px;
+    }
+
     /* Reveal */
     .reveal{
       opacity: 0;
@@ -757,13 +901,57 @@
       z-index:1;
     }
 
+    /* NEW: Sticky apply bar (mobile) */
+    .stickyCta{
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 9997;
+      display:none;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+    }
+    .stickyCta .left{
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .stickyCta .title{
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      font-size: 12px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .stickyCta .subt{
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .stickyCta .btn{ flex: 0 0 auto; }
+
     @media (max-width: 900px){
       nav{ display:none; }
       .wrap{ padding: 0 14px; }
-      .heroInner{ grid-template-columns: 1fr; min-height: 340px; }
+      .heroInner{ grid-template-columns: 1fr; min-height: 360px; }
       .grid{ grid-template-columns: 1fr; }
       .stats{ grid-template-columns: 1fr; }
       .search{ min-width: 100%; }
+      .promiseGrid{ grid-template-columns: 1fr; }
+      .stickyCta{ display:flex; }
+      body{ padding-bottom: 92px; }
     }
   </style>
 </head>
@@ -778,23 +966,23 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+        <a class="brand" href="index.html" aria-label="Kuroveil Home" data-track="nav_home">
           <div class="sigil" aria-hidden="true"></div>
           <span>KUROVEIL</span>
         </a>
 
         <nav aria-label="Primary">
-          <a href="index.html">Home</a>
-          <a class="active" href="roster.html" aria-current="page">Roster</a>
-          <a href="updates.html">Updates</a>
-          <a href="apply.html">Apply</a>
-          <a href="about.html">About</a>
-          <a href="legal.html">Legal</a>
+          <a href="index.html" data-track="nav_home2">Home</a>
+          <a class="active" href="roster.html" aria-current="page" data-track="nav_roster">Roster</a>
+          <a href="updates.html" data-track="nav_updates">Updates</a>
+          <a href="apply.html" data-track="nav_apply">Apply</a>
+          <a href="about.html" data-track="nav_about">About</a>
+          <a href="legal.html" data-track="nav_legal">Legal</a>
         </nav>
 
         <div class="actions">
-          <a class="btn" href="updates.html">Updates</a>
-          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <a class="btn" href="updates.html" data-track="top_updates">Updates</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="top_discord">Join Discord</a>
         </div>
       </div>
     </div>
@@ -824,29 +1012,62 @@
               </div>
 
               <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply Now</a>
-                <a class="btn" href="about.html#mission">Read the Mission</a>
+                <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="hero_apply">Apply Now</a>
+                <a class="btn" href="about.html#mission" data-track="hero_mission">Read the Mission</a>
               </div>
             </div>
 
             <div class="heroPanel">
               <div class="panelTitle">How to Join</div>
-              <div class="mini">Apply → rolling review → short Discord chat → onboarding.</div>
+              <div class="mini">Clear steps + simple expectations. No guessing.</div>
 
-              <div class="stats" aria-label="Join steps">
-                <div class="stat"><b>Open</b><span>Applications</span></div>
-                <div class="stat"><b>Rolling</b><span>Reviews</span></div>
-                <div class="stat"><b>Forming</b><span>Founding Gen</span></div>
-                <div class="stat"><b>Next</b><span>Collab Planning</span></div>
+              <!-- (1) Stepper + (timeline) -->
+              <div class="stepper" aria-label="Join steps">
+                <div class="step">
+                  <div class="stepNum">1</div>
+                  <div><b>Apply (2–3 min)</b><span>Answer a few questions + link your channels.</span></div>
+                </div>
+                <div class="step">
+                  <div class="stepNum">2</div>
+                  <div><b>Rolling review (24–72 hrs)</b><span>We look for consistency + collab energy.</span></div>
+                </div>
+                <div class="step">
+                  <div class="stepNum">3</div>
+                  <div><b>Short Discord chat (10–15 min)</b><span>Vibe check + goals + expectations.</span></div>
+                </div>
+                <div class="step">
+                  <div class="stepNum">4</div>
+                  <div><b>Onboarding (same week)</b><span>Profile card added + collab planning begins.</span></div>
+                </div>
+              </div>
+
+              <!-- (8) Social proof / activity (manual + auto click assist) -->
+              <div class="stats" aria-label="Momentum">
+                <div class="stat">
+                  <b id="appsCount">—</b>
+                  <span>Apply clicks (this device)</span>
+                </div>
+                <div class="stat">
+                  <b id="discordCount">—</b>
+                  <span>Discord clicks (this device)</span>
+                </div>
+                <div class="stat">
+                  <b>Next</b>
+                  <span>Collab planning (set in Updates)</span>
+                </div>
+                <div class="stat">
+                  <b>Live</b>
+                  <span>Recruiting — Founding Gen</span>
+                </div>
               </div>
 
               <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn primary" href="apply.html">Requirements</a>
-                <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Ask in Discord</a>
+                <a class="btn primary" href="apply.html" data-track="panel_requirements">Requirements</a>
+                <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="panel_discord">Ask in Discord</a>
               </div>
 
               <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size: 12px; line-height:1.6;">
-                Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#talent">Talent</a>
+                Policies: <a href="legal.html#terms" data-track="panel_terms">Terms</a> • <a href="legal.html#talent" data-track="panel_talent_policy">Talent</a>
               </p>
             </div>
           </div>
@@ -854,16 +1075,61 @@
       </div>
     </section>
 
-    <!-- LEADERSHIP -->
-    <section class="section">
+    <!-- (2) Founder Promise / Trust Builder -->
+    <section class="section" aria-label="Founder promise">
       <div class="sectionHead reveal">
         <div>
-          <h2>Leadership</h2>
-          <p>Managed from behind the veil — recruitment, structure, branding, collabs, and growth systems.</p>
+          <h2>Founder’s Promise</h2>
+          <p>Clarity up front. No hidden control grabs — just structure, collabs, and growth systems.</p>
         </div>
       </div>
 
-      <!-- Filter/Search bar -->
+      <div class="kvBox reveal" style="padding:18px;">
+        <div class="promiseGrid">
+          <div>
+            <div style="font-weight:900; letter-spacing:0.2px;">What you keep</div>
+            <ul class="promiseList">
+              <li><b>Your identity + channels.</b> Your brand stays yours. You’re not “owned.”</li>
+              <li><b>Your model assets.</b> You keep what you make/commission (unless you choose otherwise).</li>
+              <li><b>Your freedom.</b> You can leave — with simple, written rules (see Legal).</li>
+            </ul>
+
+            <div style="margin-top:12px; font-weight:900; letter-spacing:0.2px;">What Kuroveil provides</div>
+            <ul class="promiseList">
+              <li>Collab scheduling + content planning cadence</li>
+              <li>Clip pipeline expectations + cross-promo structure</li>
+              <li>Brand coherence + template systems (thumbnails, captions, etc.)</li>
+            </ul>
+          </div>
+
+          <div class="kvBox" style="padding:16px; background: rgba(0,0,0,0.26);">
+            <div style="font-weight:900; letter-spacing:0.2px;">Quick rules (simple)</div>
+            <div class="mini">Keep it clean, consistent, and team-safe.</div>
+            <ul class="promiseList" style="margin-top:10px;">
+              <li>Be active + communicate if you can’t be.</li>
+              <li>Respect others’ boundaries + scheduling.</li>
+              <li>No drama farming using the group name.</li>
+              <li>Leaving is allowed — we just coordinate the transition.</li>
+            </ul>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="legal.html#talent" data-track="promise_policy">Read the Talent Policy</a>
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="promise_apply">Apply</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP + FILTERS -->
+    <section class="section" aria-label="Roster directory">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Roster Directory</h2>
+          <p>Search + filter the full roster. Talent profiles appear here after onboarding.</p>
+        </div>
+      </div>
+
+      <!-- (4) Filter/Search + Sort + Tag Quick Filters -->
       <div class="filterBar kvBox reveal" aria-label="Roster filters">
         <div class="filterLeft">
           <div class="search" role="search">
@@ -880,16 +1146,56 @@
             <button type="button" class="segBtn" data-filter="talent" aria-pressed="false">Talent</button>
             <button type="button" class="segBtn" data-filter="open" aria-pressed="false">Open Slots</button>
           </div>
+
+          <div class="sort" aria-label="Sorting">
+            <label for="sortSelect">Sort</label>
+            <select id="sortSelect">
+              <option value="default">Default</option>
+              <option value="az">A–Z</option>
+              <option value="type">Role / Type</option>
+              <option value="newest">Newest first</option>
+            </select>
+          </div>
         </div>
 
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
           <span class="countPill" id="resultCount">Showing 0</span>
-          <a class="btn small ghost" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply</a>
+          <a class="btn small ghost" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="filter_apply">Apply</a>
+        </div>
+
+        <div class="tagBar" aria-label="Quick tags">
+          <button class="tagBtn" type="button" data-tag="all">All Tags</button>
+          <button class="tagBtn" type="button" data-tag="variety">Variety</button>
+          <button class="tagBtn" type="button" data-tag="horror">Horror</button>
+          <button class="tagBtn" type="button" data-tag="lore">Lore</button>
+          <button class="tagBtn" type="button" data-tag="comedy">Comedy</button>
+          <button class="tagBtn" type="button" data-tag="events">Events</button>
+          <button class="tagBtn" type="button" data-tag="clips">Clips</button>
+          <button class="tagBtn" type="button" data-tag="growth">Growth</button>
+          <button class="tagBtn" type="button" data-tag="minecraft">Minecraft</button>
         </div>
       </div>
 
-      <section class="grid" id="rosterGrid">
-        <article class="member kvBox reveal" data-type="leadership" data-tags="operations recruitment branding collabs founder">
+      <!-- (9) Empty state when a filter yields nothing -->
+      <div id="emptyState" class="kvBox emptyState reveal" aria-live="polite" style="padding:18px;">
+        <div class="emptyTitle">No profiles match that filter… yet.</div>
+        <div class="emptyText">
+          Founding talent cards appear after onboarding. Want the first slot in this category?
+        </div>
+        <div class="cta" style="margin-top:12px;">
+          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="empty_apply">Apply Now</a>
+          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="empty_discord">Ask in Discord</a>
+        </div>
+      </div>
+
+      <!-- Unified grid: Leadership + Talent + Open slots -->
+      <section class="grid" id="rosterGrid" aria-label="Roster grid">
+        <!-- Leadership -->
+        <article class="member kvBox reveal"
+          data-type="leadership"
+          data-tags="operations recruitment branding collabs founder"
+          data-name="Kuro Founder"
+          data-created="2026-02-20">
           <div class="banner">
             <div class="avatar avatarLogo" aria-label="Kuroveil logo">
               <img src="kuro-logo.png" alt="Kuroveil Logo">
@@ -914,94 +1220,235 @@
             </div>
 
             <div class="socials" aria-label="Social links">
-              <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer" title="Twitch" aria-label="Twitch">
+              <a class="iconBtn" href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer" title="Twitch" aria-label="Twitch" data-track="lead_twitch">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h15v10l-4 4h-4l-2 2H9v-2H6V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 8v5M15 8v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </a>
-              <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
+              <a class="iconBtn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube" data-track="lead_youtube">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M10 15.5v-7l6 3.5-6 3.5Z" fill="currentColor"/><path d="M3.5 7.5c.4-1.5 1.6-2.7 3.1-3.1C8.4 4 12 4 12 4s3.6 0 5.4.4c1.5.4 2.7 1.6 3.1 3.1.4 1.8.4 4.5.4 4.5s0 2.7-.4 4.5c-.4 1.5-1.6 2.7-3.1 3.1-1.8.4-5.4.4-5.4.4s-3.6 0-5.4-.4c-1.5-.4-2.7-1.6-3.1-3.1C3.1 14.7 3.1 12 3.1 12s0-2.7.4-4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
               </a>
-              <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
+              <a class="iconBtn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" title="X" aria-label="X" data-track="lead_x">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
-              <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+              <a class="iconBtn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord" data-track="lead_discord">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M7 8.5c2-1.3 8-1.3 10 0M8 17c2.5 1.5 5.5 1.5 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.5 19c-1.2-3.7-1.2-10.3 0-14 3-1.2 8-1.2 11 0 1.2 3.7 1.2 10.3 0 14-3 1.2-8 1.2-11 0Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 12.5h.01M14.5 12.5h.01" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>
               </a>
             </div>
           </div>
         </article>
+
+        <!-- (3) Member Card Template (mock talent) -->
+        <article class="member kvBox reveal"
+          data-type="talent"
+          data-tags="template debut month series clips variety"
+          data-name="Talent Template"
+          data-created="2026-02-20"
+          aria-label="Example talent card (template)">
+          <div class="banner" style="background:
+            linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.55)),
+            radial-gradient(140px 90px at 30% 30%, rgba(177,108,255,0.22), transparent 60%),
+            rgba(0,0,0,0.22);">
+            <div class="avatar" aria-hidden="true">★</div>
+          </div>
+
+          <div class="body">
+            <div class="row">
+              <b>Talent Card (Example)</b>
+              <span class="role">Talent • Template</span>
+            </div>
+
+            <p class="bio">
+              This is what your profile looks like after onboarding: banner + avatar, your pillars, socials, and a signature series.
+            </p>
+
+            <div class="tags">
+              <span class="tag">Debut Month</span>
+              <span class="tag">Content Pillars</span>
+              <span class="tag">Signature Series</span>
+              <span class="tag">Clip Pipeline</span>
+            </div>
+
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="template_apply">Get yours</a>
+              <a class="btn" href="apply.html" data-track="template_requirements">Requirements</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- (5) Differentiated Open Slots -->
+        <article class="member kvBox open reveal"
+          data-type="open"
+          data-tags="comedy variety clips shortform chaos"
+          data-name="Open Slot The Comedian"
+          data-created="2026-02-20"
+          role="link" tabindex="0"
+          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
+          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot — The Comedian</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">
+              Fast, funny, clip-first. You make moments on purpose and don’t mind being the chaos engine in collabs.
+              <br><span style="color:rgba(255,255,255,0.62); font-size:12px;">Ideal: 3+ streams/week • 5+ clips/week • shortform friendly</span>
+            </p>
+            <div class="tags">
+              <span class="tag">Comedy</span><span class="tag">Variety</span><span class="tag">Clips</span><span class="tag">Shortform</span>
+            </div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_comedy_apply">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_comedy_discord">Ask</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="member kvBox open reveal"
+          data-type="open"
+          data-tags="horror lore story events atmosphere"
+          data-name="Open Slot The Horror Lore"
+          data-created="2026-02-20"
+          role="link" tabindex="0"
+          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
+          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot — The Horror/Lore</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">
+              You build atmosphere and story arcs. You’re down for themed collabs, events, and “episode” style content.
+              <br><span style="color:rgba(255,255,255,0.62); font-size:12px;">Ideal: 2–4 streams/week • lore posts • event-friendly</span>
+            </p>
+            <div class="tags">
+              <span class="tag">Horror</span><span class="tag">Lore</span><span class="tag">Story</span><span class="tag">Events</span>
+            </div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_horror_apply">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_horror_discord">Ask</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="member kvBox open reveal"
+          data-type="open"
+          data-tags="growth consistency clips systems grinder"
+          data-name="Open Slot The Grinder"
+          data-created="2026-02-20"
+          role="link" tabindex="0"
+          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
+          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
+          <div class="body">
+            <div class="row"><b>Open Slot — The Grinder</b><span class="role">Talent • Recruiting</span></div>
+            <p class="bio">
+              Consistency monster. You stick to schedule, follow the clip pipeline, and actually execute growth systems.
+              <br><span style="color:rgba(255,255,255,0.62); font-size:12px;">Ideal: 4+ streams/week • 7+ clips/week • metrics-minded</span>
+            </p>
+            <div class="tags">
+              <span class="tag">Growth</span><span class="tag">Consistency</span><span class="tag">Clips</span><span class="tag">Systems</span>
+            </div>
+            <div class="cta">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_grinder_apply">Apply</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" data-track="slot_grinder_discord">Ask</a>
+            </div>
+          </div>
+        </article>
       </section>
+
+      <!-- (8) Activity / Latest update preview -->
+      <div class="kvBox reveal" style="margin-top:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div>
+            <div style="font-weight:900; letter-spacing:0.2px;">Latest activity</div>
+            <div class="mini" style="margin-top:6px;">
+              Keep updates here so applicants see momentum. Update this text anytime.
+              <br>
+              <span style="color:rgba(255,255,255,0.62); font-size:12px;">Example: “Collab planning kickoff posted in Updates — check dates + expectations.”</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="updates.html" data-track="latest_updates">View Updates</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="latest_apply">Apply</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- TALENT SLOTS -->
-    <section class="section">
+    <!-- (6) FAQ Accordion -->
+    <section class="section" aria-label="FAQ">
       <div class="sectionHead reveal">
         <div>
-          <h2>Talent Slots</h2>
-          <p>Consistent creators only. Collab-friendly, clip-minded, and ready to move with a team.</p>
+          <h2>FAQ</h2>
+          <p>Fast answers to the questions people actually ask before joining a group.</p>
         </div>
       </div>
 
-      <section class="grid">
-        <article class="member kvBox open reveal"
-          data-type="open" data-tags="gothic comedy variety"
-          role="link" tabindex="0"
-          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
-          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
-          <div class="body">
-            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
-            <p class="bio">A consistent creator with a shadow/dark aesthetic. Collab-friendly and community-minded.</p>
-            <div class="tags"><span class="tag">Gothic</span><span class="tag">Comedy</span><span class="tag">Variety</span></div>
-            <div class="cta">
-              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Apply</a>
-              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Ask</a>
-            </div>
+      <div class="faq reveal">
+        <details class="kvBox">
+          <summary>
+            Do I keep my identity, channels, and branding?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            Yes. Your channels and identity stay yours. Kuroveil is structure + collabs + systems — not ownership. Any exceptions would be opt-in and written.
           </div>
-        </article>
+        </details>
 
-        <article class="member kvBox open reveal"
-          data-type="open" data-tags="horror story events"
-          role="link" tabindex="0"
-          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
-          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
-          <div class="body">
-            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
-            <p class="bio">Collab-first creator who likes themes, lore-friendly content, and clip moments.</p>
-            <div class="tags"><span class="tag">Horror</span><span class="tag">Story</span><span class="tag">Events</span></div>
-            <div class="cta">
-              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Apply</a>
-              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Ask</a>
-            </div>
+        <details class="kvBox">
+          <summary>
+            Are there fees to join?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            No required fees. If we ever do optional group assets (like shared graphics or collab overlays), we’ll be transparent and you can opt out.
           </div>
-        </article>
+        </details>
 
-        <article class="member kvBox open reveal"
-          data-type="open" data-tags="lore clips growth"
-          role="link" tabindex="0"
-          data-open="https://forms.gle/SvVzGuTnQNCbpzgf7">
-          <div class="banner"><div class="avatar" aria-hidden="true">?</div></div>
-          <div class="body">
-            <div class="row"><b>Open Slot</b><span class="role">Talent • Recruiting</span></div>
-            <p class="bio">Strong theme + consistent output. We’ll help tighten branding and build a clip pipeline.</p>
-            <div class="tags"><span class="tag">Lore</span><span class="tag">Clips</span><span class="tag">Growth</span></div>
-            <div class="cta">
-              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Apply</a>
-              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Ask</a>
-            </div>
+        <details class="kvBox">
+          <summary>
+            What’s the minimum schedule expectation?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            “Consistent” beats “perfect.” We look for steady streaming + a clip habit. Exact requirements are on the <a href="apply.html">Requirements</a> page.
           </div>
-        </article>
-      </section>
+        </details>
+
+        <details class="kvBox">
+          <summary>
+            Can I be in other groups?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            Usually yes — as long as it doesn’t conflict with our branding/scheduling expectations. The rule is: don’t create confusion, and don’t sabotage collabs.
+          </div>
+        </details>
+
+        <details class="kvBox">
+          <summary>
+            How do collabs work in Kuroveil?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            We plan in short cycles: a collab calendar + assigned “clip moments” + cross-post expectations. Simple systems that actually get executed.
+          </div>
+        </details>
+
+        <details class="kvBox">
+          <summary>
+            What happens if I want to leave?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="faqBody">
+            You can leave. We coordinate a clean transition (branding + announcements) and follow the written terms. See <a href="legal.html#terms">Legal</a>.
+          </div>
+        </details>
+      </div>
 
       <div class="kvBox reveal" style="margin-top:14px; padding:18px;">
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
           <div>
-            <div style="font-weight:900; letter-spacing:0.2px;">Want your profile card added?</div>
+            <div style="font-weight:900; letter-spacing:0.2px;">Still unsure?</div>
             <div class="mini" style="margin-top:6px;">
-              After onboarding, we add your banner/avatar, bio, tags, and social links here.
+              Ask in Discord — we’d rather answer questions than get the wrong applicants.
             </div>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn" href="about.html">What Kuroveil is</a>
-            <a class="btn primary" href="apply.html">Read Requirements</a>
+            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="faq_discord">Ask in Discord</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="faq_apply">Apply</a>
           </div>
         </div>
       </div>
@@ -1011,14 +1458,24 @@
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
         <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
-          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="foot_discord">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" data-track="foot_x">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" data-track="foot_youtube">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer" data-track="foot_twitch">Twitch</a>
         </div>
       </div>
     </footer>
   </main>
+
+  <!-- (7) Sticky CTA (mobile) -->
+  <div class="stickyCta" role="region" aria-label="Recruiting call-to-action">
+    <div class="left">
+      <div class="title">Recruiting Founding Gen</div>
+      <div class="subt">Apply or ask in Discord</div>
+    </div>
+    <a class="btn ghost small" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="sticky_discord">Discord</a>
+    <a class="btn primary small" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="sticky_apply">Apply</a>
+  </div>
 
   <button class="toTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
@@ -1084,12 +1541,86 @@
       openCard(el.dataset.open);
     });
 
-    // Search + filter (works on the leadership grid too)
+    // =========================================================
+    // (10) Lightweight analytics (no backend required)
+    // - Tracks clicks locally (this device) and optionally beacons
+    // =========================================================
+    const KV_METRICS_KEY = "kv_metrics_v1";
+
+    function loadMetrics(){
+      try { return JSON.parse(localStorage.getItem(KV_METRICS_KEY) || "{}"); }
+      catch { return {}; }
+    }
+    function saveMetrics(m){
+      try { localStorage.setItem(KV_METRICS_KEY, JSON.stringify(m)); } catch {}
+    }
+    function incMetric(name){
+      const m = loadMetrics();
+      m[name] = (m[name] || 0) + 1;
+      saveMetrics(m);
+      return m[name];
+    }
+
+    // Optional: if you ever add an endpoint, set this to your URL (same-origin recommended)
+    // Example server route could accept JSON {event, ts, path}
+    const KV_TRACK_ENDPOINT = ""; // e.g. "/track"
+
+    function track(eventName){
+      // Local increment (always)
+      incMetric("event:" + eventName);
+
+      // Optional beacon (only if endpoint set)
+      if (!KV_TRACK_ENDPOINT) return;
+      try{
+        const payload = JSON.stringify({ event: eventName, ts: Date.now(), path: location.pathname });
+        navigator.sendBeacon(KV_TRACK_ENDPOINT, payload);
+      }catch{}
+    }
+
+    // Attach click tracking to anything with data-track
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-track]");
+      if (!el) return;
+      track(el.getAttribute("data-track"));
+    });
+
+    // Update hero counters (local “social proof”)
+    function updateHeroCounts(){
+      const m = loadMetrics();
+      // Count apply + discord clicks from tracked events (you can add more if you want)
+      const applyKeys = ["hero_apply","filter_apply","promise_apply","template_apply","slot_comedy_apply","slot_horror_apply","slot_grinder_apply","empty_apply","faq_apply","sticky_apply","latest_apply"];
+      const discordKeys = ["top_discord","panel_discord","lead_discord","slot_comedy_discord","slot_horror_discord","slot_grinder_discord","empty_discord","faq_discord","sticky_discord","foot_discord"];
+
+      let applyTotal = 0;
+      let discordTotal = 0;
+
+      for (const k of applyKeys) applyTotal += (m["event:" + k] || 0);
+      for (const k of discordKeys) discordTotal += (m["event:" + k] || 0);
+
+      const appsEl = document.getElementById("appsCount");
+      const discEl = document.getElementById("discordCount");
+      if (appsEl) appsEl.textContent = String(applyTotal);
+      if (discEl) discEl.textContent = String(discordTotal);
+    }
+    updateHeroCounts();
+    window.addEventListener("storage", updateHeroCounts);
+
+    // =========================================================
+    // Search + filter + tag quick filters + sorting + empty state
+    // =========================================================
     const searchInput = document.getElementById('searchInput');
     const segBtns = document.querySelectorAll('.segBtn');
     const resultCount = document.getElementById('resultCount');
+    const emptyState = document.getElementById('emptyState');
+    const tagBtns = document.querySelectorAll('.tagBtn');
+    const sortSelect = document.getElementById('sortSelect');
+    const grid = document.getElementById('rosterGrid');
 
     let activeFilter = 'all';
+    let activeTag = 'all';
+
+    // snapshot original order for "Default"
+    const originalCards = grid ? Array.from(grid.querySelectorAll('.member')) : [];
 
     function normalize(s){ return (s || '').toLowerCase().trim(); }
 
@@ -1098,30 +1629,73 @@
       return (card.dataset.type || '') === activeFilter;
     }
 
+    function matchesTag(card){
+      if (!activeTag || activeTag === 'all') return true;
+      const tags = normalize(card.dataset.tags || "");
+      return tags.split(/\s+/).includes(activeTag) || tags.includes(activeTag);
+    }
+
     function matchesSearch(card, q){
       if (!q) return true;
       const text = [
         card.innerText,
         card.dataset.tags || '',
-        card.dataset.type || ''
+        card.dataset.type || '',
+        card.dataset.name || ''
       ].join(' ').toLowerCase();
       return text.includes(q);
     }
 
-    function applyRosterFilters(){
-      const q = normalize(searchInput?.value);
-      const cards = document.querySelectorAll('.member');
-      let shown = 0;
+    function sortCards(cards, mode){
+      const copy = cards.slice();
+      if (mode === "default") return originalCards.filter(c => copy.includes(c));
 
-      cards.forEach(card => {
-        const ok = matchesFilter(card) && matchesSearch(card, q);
-        card.style.display = ok ? '' : 'none';
-        if (ok) shown++;
-      });
-
-      if (resultCount) resultCount.textContent = `Showing ${shown}`;
+      if (mode === "az"){
+        return copy.sort((a,b) => normalize(a.dataset.name || a.innerText).localeCompare(normalize(b.dataset.name || b.innerText)));
+      }
+      if (mode === "type"){
+        return copy.sort((a,b) => normalize(a.dataset.type || "").localeCompare(normalize(b.dataset.type || "")));
+      }
+      if (mode === "newest"){
+        return copy.sort((a,b) => {
+          const da = Date.parse(a.dataset.created || "") || 0;
+          const db = Date.parse(b.dataset.created || "") || 0;
+          return db - da;
+        });
+      }
+      return copy;
     }
 
+    function applyRosterFilters(){
+      const q = normalize(searchInput?.value);
+      const cards = grid ? Array.from(grid.querySelectorAll('.member')) : [];
+      let shown = 0;
+
+      // Decide visibility first
+      for (const card of cards){
+        const ok = matchesFilter(card) && matchesTag(card) && matchesSearch(card, q);
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      }
+
+      // Sorting: reorder only visible+hidden set (keeps DOM stable)
+      if (grid && sortSelect){
+        const mode = sortSelect.value || "default";
+        const sorted = sortCards(cards, mode);
+        // re-append in sorted order (preserves nodes)
+        for (const c of sorted) grid.appendChild(c);
+      }
+
+      if (resultCount) resultCount.textContent = `Showing ${shown}`;
+
+      // Empty state (especially for Talent filter)
+      if (emptyState){
+        if (shown === 0) emptyState.classList.add("show");
+        else emptyState.classList.remove("show");
+      }
+    }
+
+    // Segment filters
     segBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         segBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
@@ -1131,9 +1705,26 @@
       });
     });
 
+    // Tag quick filters
+    function setActiveTag(tag){
+      activeTag = tag || "all";
+      tagBtns.forEach(b => b.classList.toggle("active", (b.dataset.tag || "all") === activeTag));
+      applyRosterFilters();
+    }
+    tagBtns.forEach(btn => {
+      btn.addEventListener("click", () => setActiveTag(btn.dataset.tag || "all"));
+    });
+    // default tag highlight
+    setActiveTag("all");
+
+    // Sort
+    if (sortSelect){
+      sortSelect.addEventListener("change", applyRosterFilters);
+    }
+
+    // Search
     if (searchInput){
       searchInput.addEventListener('input', applyRosterFilters);
-      // quick clear with Escape
       searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Escape'){
           searchInput.value = '';
@@ -1144,6 +1735,12 @@
 
     // Initial count
     applyRosterFilters();
+
+    // Keep hero counters updated after any click tracking
+    document.addEventListener("click", () => {
+      // tiny delay so metric increments first
+      setTimeout(updateHeroCounts, 0);
+    });
 
     // Particles (optimized + pauses when tab hidden)
     (() => {

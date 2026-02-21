@@ -3,25 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Legal • Kuroveil</title>
   <meta name="description" content="Kuroveil Legal — Terms, Privacy, Talent Agreement, and Community Guidelines." />
   <meta name="theme-color" content="#0d0018" />
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://kuroveil250.github.io/KuroVeil/legal.html" />
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Kuroveil • Legal" />
   <meta property="og:description" content="Terms, Privacy, Talent Agreement, and Community Guidelines." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kuroveil250.github.io/KuroVeil/legal.html" />
   <meta property="og:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kuroveil • Legal" />
   <meta name="twitter:description" content="Terms, Privacy, Talent Agreement, and Community Guidelines." />
   <meta name="twitter:image" content="https://kuroveil250.github.io/KuroVeil/og-kuroveil.jpg" />
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -76,19 +82,18 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
 
     /* ===== PARTICLES (connecting lines) ===== */
-#veilParticles{
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -3;
-  pointer-events: none;
-  opacity: 0.65;
-}
-@media (prefers-reduced-motion: reduce){
-  #veilParticles{ display:none; }
-}
-
+    #veilParticles{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+    @media (prefers-reduced-motion: reduce){
+      #veilParticles{ display:none; }
+    }
 
     /* Skip link */
     .skip{
@@ -188,6 +193,7 @@
       transition: transform .18s var(--kv-ease), background .18s var(--kv-ease),
         box-shadow .18s var(--kv-ease), border-color .18s var(--kv-ease), filter .18s var(--kv-ease);
       white-space:nowrap;
+      cursor:pointer;
     }
     .btn.primary{
       background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
@@ -276,7 +282,7 @@
     /* Sticky section switcher */
     .switcherWrap{
       position: sticky;
-      top: 68px; /* below site header */
+      top: 68px;
       z-index: 40;
       margin-top: 14px;
     }
@@ -285,6 +291,14 @@
       gap:8px;
       flex-wrap:wrap;
       padding: 10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .switcherLeft{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
     }
     .switcher a{
       text-decoration:none;
@@ -315,6 +329,11 @@
       background: rgba(177,108,255,0.9);
       box-shadow: 0 0 18px rgba(177,108,255,0.75);
     }
+    .copyBtn{
+      font-size:12px;
+      padding: 9px 12px;
+      border-radius: 999px;
+    }
 
     /* Sections */
     .sections{
@@ -339,6 +358,13 @@
       margin:0;
       font-size: 20px;
       letter-spacing:-0.2px;
+    }
+    .docActions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .docMeta{
       font-size: 12px;
@@ -413,16 +439,16 @@
       .heroInner{grid-template-columns: 1fr;}
       .switcherWrap{ top: 62px; }
       .wrap{ padding: 0 14px; }
+      .switcher{ justify-content:flex-start; }
     }
   </style>
 </head>
 
 <body>
   <canvas id="veilParticles" aria-hidden="true"></canvas>
-  <div class="grain"></div>
+  <div class="grain" aria-hidden="true"></div>
 
   <a class="skip" href="#main">Skip to content</a>
-  <div class="grain" aria-hidden="true"></div>
 
   <header>
     <div class="wrap">
@@ -457,6 +483,8 @@
               <span class="pill">Privacy</span>
               <span class="pill">Talent</span>
               <span class="pill">Guidelines</span>
+              <span class="pill">Contact</span>
+              <span class="pill">Changelog</span>
             </div>
 
             <h1>Legal Center</h1>
@@ -468,7 +496,7 @@
             <div class="divider"></div>
 
             <div class="disclaimer" role="note" aria-label="Legal disclaimer">
-              <b>Heads up:</b> These policies are a living document. We may update them as we grow and learn. 
+              <b>Heads up:</b> These policies are a living document. We may update them as we grow and learn.
               We’ll announce major changes in the Discord and update the “Last updated” date on each section.
             </div>
           </div>
@@ -490,10 +518,18 @@
       <!-- STICKY SWITCHER -->
       <div class="switcherWrap">
         <div class="kvBox switcher" id="switcher" aria-label="Legal sections">
-          <a href="#terms" data-target="terms"><span class="chipDot"></span> Terms</a>
-          <a href="#privacy" data-target="privacy"><span class="chipDot"></span> Privacy</a>
-          <a href="#talent" data-target="talent"><span class="chipDot"></span> Talent</a>
-          <a href="#guidelines" data-target="guidelines"><span class="chipDot"></span> Guidelines</a>
+          <div class="switcherLeft">
+            <a href="#terms" data-target="terms"><span class="chipDot"></span> Terms</a>
+            <a href="#privacy" data-target="privacy"><span class="chipDot"></span> Privacy</a>
+            <a href="#talent" data-target="talent"><span class="chipDot"></span> Talent</a>
+            <a href="#guidelines" data-target="guidelines"><span class="chipDot"></span> Guidelines</a>
+            <a href="#contact" data-target="contact"><span class="chipDot"></span> Contact</a>
+            <a href="#changelog" data-target="changelog"><span class="chipDot"></span> Changelog</a>
+          </div>
+
+          <button class="btn copyBtn" id="copyCurrent" type="button" aria-label="Copy link to current section">
+            Copy section link
+          </button>
         </div>
       </div>
     </section>
@@ -503,18 +539,24 @@
       <!-- TERMS -->
       <article id="terms" class="kvBox doc">
         <div class="docHeader">
-          <h2>Website Terms of Service</h2>
-          <div class="docMeta">
-            <span class="tagMini">Applies to: Site visitors</span>
-            <span class="tagMini">Last updated: 2026-02-17</span>
+          <div>
+            <h2>Website Terms of Service</h2>
+            <div class="docMeta">
+              <span class="tagMini">Applies to: Site visitors</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#terms">Copy link</button>
           </div>
         </div>
 
-        <p class="sub">
-          These terms cover use of the Kuroveil website and related pages.
-        </p>
+        <p class="sub">These terms cover use of the Kuroveil website and related pages.</p>
 
         <div class="legalText">
+          <h3>0) Effective date</h3>
+          <p>These Terms are effective as of the “Last updated” date above.</p>
+
           <h3>1) Acceptance</h3>
           <p>By accessing this site, you agree to these Terms.</p>
 
@@ -525,7 +567,7 @@
           </ul>
 
           <h3>3) Content & branding</h3>
-          <p>Kuroveil branding and site content may not be copied or misrepresented.</p>
+          <p>Kuroveil branding and site content may not be copied, resold, or misrepresented.</p>
 
           <h3>4) Third-party services</h3>
           <p>We link to platforms like Discord, Google Forms, YouTube, X, Twitch. Their terms apply.</p>
@@ -538,22 +580,31 @@
 
           <h3>6) Changes</h3>
           <p>We may update these terms at any time; the “Last updated” date will change.</p>
+
+          <h3>7) Age</h3>
+          <p>This site is intended for users 13+ (or the minimum age required by your platform and local laws).</p>
+
+          <h3>8) Governing law</h3>
+          <p>These Terms are governed by the laws of your jurisdiction. Disputes will be handled in the applicable courts there.</p>
         </div>
       </article>
 
       <!-- PRIVACY -->
       <article id="privacy" class="kvBox doc">
         <div class="docHeader">
-          <h2>Privacy Policy</h2>
-          <div class="docMeta">
-            <span class="tagMini">Applies to: Visitors + Applicants</span>
-            <span class="tagMini">Last updated: 2026-02-17</span>
+          <div>
+            <h2>Privacy Policy</h2>
+            <div class="docMeta">
+              <span class="tagMini">Applies to: Visitors + Applicants</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#privacy">Copy link</button>
           </div>
         </div>
 
-        <p class="sub">
-          We keep data collection minimal.
-        </p>
+        <p class="sub">We keep data collection minimal.</p>
 
         <div class="legalText">
           <h3>1) What we collect</h3>
@@ -579,7 +630,16 @@
           <p>Google Forms and Discord process your data according to their own policies.</p>
 
           <h3>5) Retention & deletion</h3>
-          <p>We retain application data as needed for review and records. You can request deletion via Discord.</p>
+          <p>
+            We keep application submissions for up to <b>12 months</b> for review and recruiting records.
+            You may request deletion at any time via Discord or the contact method below.
+          </p>
+
+          <h3>6) Cookies & analytics</h3>
+          <ul>
+            <li>We do not use advertising cookies.</li>
+            <li>If we add analytics in the future, we will update this policy and disclose what data is collected.</li>
+          </ul>
 
           <div class="note">
             <b>Tip:</b> If you submit private links by accident, message staff immediately so we can update your application.
@@ -590,10 +650,15 @@
       <!-- TALENT -->
       <article id="talent" class="kvBox doc">
         <div class="docHeader">
-          <h2>Talent Agreement (Plain-Language)</h2>
-          <div class="docMeta">
-            <span class="tagMini">Applies to: Talent / Members</span>
-            <span class="tagMini">Last updated: 2026-02-17</span>
+          <div>
+            <h2>Talent Agreement (Plain-Language)</h2>
+            <div class="docMeta">
+              <span class="tagMini">Applies to: Talent / Members</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#talent">Copy link</button>
           </div>
         </div>
 
@@ -602,6 +667,9 @@
         </p>
 
         <div class="legalText">
+          <h3>0) No guarantee</h3>
+          <p>Submitting an application does not guarantee acceptance. Membership can be declined at our discretion.</p>
+
           <h3>1) Ownership</h3>
           <p><b>Default:</b> You own your character, model, and content unless a separate written agreement says otherwise.</p>
 
@@ -643,6 +711,12 @@
             or breaking rules. Removal includes roster delist + role removal.
           </p>
 
+          <h3>8) Suspension</h3>
+          <p>
+            In serious cases (harassment, doxxing, repeated ToS violations), Kuroveil may suspend access immediately
+            while staff reviews the situation.
+          </p>
+
           <div class="note">
             <b>Important:</b> If you commissioned art/assets through Kuroveil funds (rare), ownership/usage may be handled by a separate written agreement.
           </div>
@@ -652,16 +726,19 @@
       <!-- GUIDELINES -->
       <article id="guidelines" class="kvBox doc">
         <div class="docHeader">
-          <h2>Community Guidelines</h2>
-          <div class="docMeta">
-            <span class="tagMini">Applies to: Discord / Community</span>
-            <span class="tagMini">Last updated: 2026-02-17</span>
+          <div>
+            <h2>Community Guidelines</h2>
+            <div class="docMeta">
+              <span class="tagMini">Applies to: Discord / Community</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#guidelines">Copy link</button>
           </div>
         </div>
 
-        <p class="sub">
-          These rules keep the server clean, safe, and focused on growth.
-        </p>
+        <p class="sub">These rules keep the server clean, safe, and focused on growth.</p>
 
         <div class="legalText">
           <h3>Core rules</h3>
@@ -672,6 +749,13 @@
             <li>No NSFW where it doesn’t belong (follow channel rules).</li>
           </ul>
 
+          <h3>Collabs & boundaries</h3>
+          <ul>
+            <li>Get consent before clipping private calls or posting behind-the-scenes content.</li>
+            <li>Respect “no topics” boundaries set by members.</li>
+            <li>Do not pressure others into collabs, voice calls, or off-platform contact.</li>
+          </ul>
+
           <h3>Moderation</h3>
           <p>Moderation actions may include warnings, timeouts, and bans. Appeals go through staff.</p>
 
@@ -679,6 +763,66 @@
           <ul>
             <li>Do not share personal info (yours or others).</li>
             <li>Report suspicious DMs/scams to staff.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- CONTACT -->
+      <article id="contact" class="kvBox doc">
+        <div class="docHeader">
+          <div>
+            <h2>Contact</h2>
+            <div class="docMeta">
+              <span class="tagMini">Applies to: Everyone</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#contact">Copy link</button>
+          </div>
+        </div>
+
+        <p class="sub">Where to send legal/privacy requests and takedowns.</p>
+
+        <div class="legalText">
+          <h3>Legal & privacy requests</h3>
+          <p>
+            Email: <b>legal@kuroveil.com</b> (preferred)<br />
+            If you can’t email, open a ticket in the Discord and request a staff lead.
+          </p>
+
+          <h3>Copyright / DMCA</h3>
+          <p>
+            If you believe content on Kuroveil pages infringes your copyright, email us with:
+            your name, the original work link, the infringing link, and a good-faith statement.
+          </p>
+
+          <div class="note">
+            <b>Note:</b> We can’t help with platform-level issues (Twitch/YouTube/X). Those must be handled with the platform directly.
+          </div>
+        </div>
+      </article>
+
+      <!-- CHANGELOG -->
+      <article id="changelog" class="kvBox doc">
+        <div class="docHeader">
+          <div>
+            <h2>Changelog</h2>
+            <div class="docMeta">
+              <span class="tagMini">Transparency</span>
+              <span class="tagMini">Last updated: 2026-02-17</span>
+            </div>
+          </div>
+          <div class="docActions">
+            <button class="btn" type="button" data-copy="#changelog">Copy link</button>
+          </div>
+        </div>
+
+        <p class="sub">A public record of meaningful changes to this page.</p>
+
+        <div class="legalText">
+          <ul>
+            <li><b>2026-02-17:</b> Initial Legal Center published.</li>
           </ul>
         </div>
       </article>
@@ -692,129 +836,208 @@
           <a href="legal.html#privacy">Privacy</a>
           <a href="legal.html#talent">Talent</a>
           <a href="legal.html#guidelines">Guidelines</a>
+          <a href="legal.html#contact">Contact</a>
+          <a href="legal.html#changelog">Changelog</a>
           <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
         </div>
       </div>
     </footer>
   </main>
 
-<script>
-  // Particles (same system as other pages)
-  (() => {
-    const canvas = document.getElementById("veilParticles");
-    if (!canvas) return;
-
-    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
-    const ctx = canvas.getContext("2d");
-    let w, h, dpr;
-    let particles = [];
-
-    function resize(){
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = Math.floor(window.innerWidth);
-      h = Math.floor(window.innerHeight);
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      seed();
-    }
-
-    function seed(){
-      const area = w * h;
-      const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
-      particles = Array.from({length: count}, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: 0.7 + Math.random() * 1.8,
-        vx: (-0.18 + Math.random() * 0.36),
-        vy: (-0.10 + Math.random() * 0.20),
-        a: 0.18 + Math.random() * 0.28,
-        tw: Math.random() * Math.PI * 2,
-        tws: 0.006 + Math.random() * 0.012
-      }));
-    }
-
-    function step(){
-      ctx.clearRect(0, 0, w, h);
-
-      for (const p of particles){
-        p.x += p.vx; p.y += p.vy;
-
-        if (p.x < -10) p.x = w + 10;
-        if (p.x > w + 10) p.x = -10;
-        if (p.y < -10) p.y = h + 10;
-        if (p.y > h + 10) p.y = -10;
-
-        p.tw += p.tws;
-        const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
-        const alpha = p.a * twinkle;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(177,108,255,${alpha})`;
-        ctx.shadowColor = "rgba(177,108,255,0.6)";
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      // connecting lines
-      for (let i = 0; i < particles.length; i++){
-        for (let j = i + 1; j < particles.length; j++){
-          const a = particles[i], b = particles[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 110){
-            const t = 1 - dist / 110;
-            ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      requestAnimationFrame(step);
-    }
-
-    window.addEventListener("resize", resize, { passive:true });
-    resize();
-    step();
-  })();
-</script>
-
-
   <script>
+    // Fade in
     requestAnimationFrame(() => document.body.classList.add('is-loaded'));
 
-    // Highlight active section in the switcher (smooth + lightweight)
-    const links = Array.from(document.querySelectorAll('#switcher a'));
-    const sections = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+    // ===== Particles (connecting lines) =====
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+      let particles = [];
+      let raf = 0;
+
+      function resize(){
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = Math.floor(window.innerWidth);
+        h = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+
+      function seed(){
+        const area = w * h;
+        const count = Math.max(35, Math.min(110, Math.floor(area * 0.000045)));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.7 + Math.random() * 1.8,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.10 + Math.random() * 0.20),
+          a: 0.18 + Math.random() * 0.28,
+          tw: Math.random() * Math.PI * 2,
+          tws: 0.006 + Math.random() * 0.012
+        }));
+      }
+
+      function step(){
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles){
+          p.x += p.vx; p.y += p.vy;
+
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+
+          p.tw += p.tws;
+          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+          const alpha = p.a * twinkle;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+          ctx.shadowColor = "rgba(177,108,255,0.6)";
+          ctx.shadowBlur = 10;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // connecting lines
+        for (let i = 0; i < particles.length; i++){
+          for (let j = i + 1; j < particles.length; j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 110){
+              const t = 1 - dist / 110;
+              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        raf = requestAnimationFrame(step);
+      }
+
+      window.addEventListener("resize", resize, { passive:true });
+      resize();
+      step();
+    })();
+
+    // ===== Switcher active highlight =====
+    const switcherLinks = Array.from(document.querySelectorAll('#switcher a[data-target]'));
+    const sections = switcherLinks
+      .map(a => document.getElementById(a.dataset.target))
+      .filter(Boolean);
 
     const setActive = (id) => {
-      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      switcherLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
     };
 
     const io = new IntersectionObserver((entries) => {
       const visible = entries
         .filter(e => e.isIntersecting)
         .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target?.id) setActive(visible.target.id);
+      if (visible?.target?.id) {
+        setActive(visible.target.id);
+        window.__kvCurrentSection = visible.target.id;
+      }
     }, { threshold: [0.2, 0.35, 0.5, 0.65] });
 
     sections.forEach(sec => io.observe(sec));
 
+    // Default current section
+    window.__kvCurrentSection = (location.hash || "#terms").replace("#","");
+
+    // ===== Copy link buttons =====
+    const copyLink = async (hash) => {
+      const url = `${location.origin}${location.pathname}${hash}`;
+      try{
+        await navigator.clipboard.writeText(url);
+        toast(`Copied: ${hash}`);
+      }catch{
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.setAttribute('readonly','');
+        ta.style.position='absolute';
+        ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast(`Copied: ${hash}`);
+      }
+    };
+
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', () => copyLink(btn.getAttribute('data-copy')));
+    });
+
+    const copyCurrentBtn = document.getElementById('copyCurrent');
+    if (copyCurrentBtn){
+      copyCurrentBtn.addEventListener('click', () => {
+        const id = window.__kvCurrentSection || 'terms';
+        copyLink(`#${id}`);
+      });
+    }
+
+    // If user loads a hash, set active immediately
     if (location.hash){
       const id = location.hash.replace('#','');
       setActive(id);
+      window.__kvCurrentSection = id;
     } else {
       setActive('terms');
+    }
+
+    // ===== Tiny toast =====
+    let toastTimer = 0;
+    const toastEl = (() => {
+      const el = document.createElement('div');
+      el.style.position = 'fixed';
+      el.style.left = '50%';
+      el.style.bottom = '22px';
+      el.style.transform = 'translateX(-50%)';
+      el.style.padding = '10px 12px';
+      el.style.borderRadius = '14px';
+      el.style.border = '1px solid rgba(255,255,255,0.12)';
+      el.style.background = 'rgba(0,0,0,0.65)';
+      el.style.backdropFilter = 'blur(10px)';
+      el.style.webkitBackdropFilter = 'blur(10px)';
+      el.style.color = 'rgba(255,255,255,0.85)';
+      el.style.fontSize = '12px';
+      el.style.opacity = '0';
+      el.style.pointerEvents = 'none';
+      el.style.transition = 'opacity .2s ease, transform .2s ease';
+      el.style.zIndex = '9999';
+      document.body.appendChild(el);
+      return el;
+    })();
+
+    function toast(msg){
+      toastEl.textContent = msg;
+      toastEl.style.opacity = '1';
+      toastEl.style.transform = 'translateX(-50%) translateY(-2px)';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.style.opacity = '0';
+        toastEl.style.transform = 'translateX(-50%) translateY(0px)';
+      }, 1200);
     }
   </script>
 </body>

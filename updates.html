@@ -271,9 +271,30 @@
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
+      align-items:center;
     }
     .pinned b{ color:#fff; }
     .pinned span{ color: rgba(255,255,255,0.72); }
+    .pinned .right{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .miniBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+      color: rgba(255,255,255,0.78);
+      white-space:nowrap;
+    }
 
     /* Header */
     header{
@@ -373,6 +394,7 @@
         filter .18s var(--kv-ease);
       white-space:nowrap;
       cursor:pointer;
+      color: inherit;
     }
     .btn.primary{
       background: linear-gradient(135deg, rgba(138,43,226,0.95), rgba(177,108,255,0.85));
@@ -684,7 +706,10 @@
   <div class="pinned" role="note" aria-label="Pinned notice">
     <div class="wrap">
       <div><b>Pinned:</b> Applications open — next review wave this Sunday.</div>
-      <span id="lastUpdated">Updated weekly</span>
+      <div class="right">
+        <span class="miniBadge" id="nextWave">Next wave: Sunday</span>
+        <span id="lastUpdated">Updated weekly</span>
+      </div>
     </div>
   </div>
 
@@ -760,7 +785,7 @@
             </div>
 
             <div class="muted" style="margin-top:10px;">
-              Tip: Every update should end with 1 action link (Apply/Discord).
+              <small>Note: Updates are posted weekly, with occasional mid-week announcements for major milestones.</small>
             </div>
           </div>
         </div>
@@ -801,18 +826,39 @@
           <p class="miniLink"><a href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Application Form</a></p>
         </div>
 
+        <!-- NEW: Subscribe box (email + RSS placeholder) -->
+        <div class="kvBox box reveal">
+          <b>Get Updates</b>
+          <p>Subscribe so you don’t miss review waves and announcements.</p>
+          <div class="postActions" style="margin-top:10px;">
+            <a class="btn primary" href="mailto:kuroveil.team@gmail.com?subject=Kuroveil%20Updates%20-%20Subscribe&body=Hi%20Kuroveil,%20please%20add%20me%20to%20updates." aria-label="Subscribe by email">Email Subscribe</a>
+            <a class="btn" href="updates.rss" aria-label="RSS Feed">RSS</a>
+          </div>
+          <p style="margin-top:10px; color: rgba(255,255,255,0.6); font-size:12px;">(RSS can be added later — link is ready.)</p>
+        </div>
+
+        <!-- NEW: Credibility box -->
+        <div class="kvBox box reveal">
+          <b>How reviews work</b>
+          <p>Rolling reviews weekly. Shortlisted applicants get contacted through Discord.</p>
+          <p class="miniLink" style="margin-top:10px;"><a href="apply.html">Apply details →</a></p>
+          <p class="miniLink"><a href="legal.html#rules">Rules snapshot →</a></p>
+        </div>
+
+        <!-- Existing: Template -->
         <div class="kvBox box reveal">
           <b>Weekly update template</b>
           <p><b>1)</b> New features on discord</p>
           <p><b>2)</b> 1st member is chosen this sunday</p>
-          <p><b>3)</b> https://forms.gle/SvVzGuTnQNCbpzgf7</p>
+          <p><b>3)</b> New website updates</p>
         </div>
 
+        <!-- REPLACED: Auto “This Week” -->
         <div class="kvBox box reveal">
-          <b>Weekly updates</b>
-          <p>• </p>
-          <p>• </p>
-          <p>• </p>
+          <b>This Week</b>
+          <p id="weekLine1">• Loading…</p>
+          <p id="weekLine2">• </p>
+          <p id="weekLine3">• </p>
         </div>
       </aside>
     </section>
@@ -840,7 +886,7 @@
     // Fade-in
     requestAnimationFrame(() => document.body.classList.add('is-loaded'));
 
-    // Reveal
+    // Reveal observer
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) if (e.isIntersecting) e.target.classList.add('show');
@@ -911,6 +957,9 @@
       }
     ];
 
+    // Config: load-more paging
+    let visibleCount = 10;
+
     // Render updates
     const feed = document.getElementById("feed");
     const emptyState = document.getElementById("emptyState");
@@ -922,20 +971,76 @@
       return d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
     }
 
+    function slugifyUpdate(u){
+      const date = (u.date || "update").trim();
+      const title = (u.title || "kuroveil").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+      return (date + "-" + title).slice(0, 80);
+    }
+
+    function maybeScrollToHash(){
+      const hash = (location.hash || "").slice(1);
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function setThisWeekBox(){
+      const latest = [...UPDATES].sort((a,b) => (b.date||"").localeCompare(a.date||""))[0];
+      if (!latest) return;
+
+      const lines = [
+        `• Latest: ${latest.title || "Update"}`,
+        latest.tags?.length ? `• Tags: ${latest.tags.slice(0,3).join(", ")}` : `• Type: ${latest.type || "Update"}`,
+        latest.links?.length ? `• Link: ${latest.links[0].label}` : `• Posted: ${fmtDate(latest.date)}`
+      ];
+
+      const l1 = document.getElementById("weekLine1");
+      const l2 = document.getElementById("weekLine2");
+      const l3 = document.getElementById("weekLine3");
+      if (l1) l1.textContent = lines[0];
+      if (l2) l2.textContent = lines[1];
+      if (l3) l3.textContent = lines[2];
+    }
+
+    function setPinnedBadges(){
+      const latest = [...UPDATES].sort((a,b) => (b.date||"").localeCompare(a.date||""))[0];
+      const lastUpdated = document.getElementById("lastUpdated");
+      if (lastUpdated && latest && latest.date){
+        lastUpdated.textContent = "Last updated: " + fmtDate(latest.date);
+      }
+
+      // Optional: compute “Next wave” as next Sunday
+      const nextWave = document.getElementById("nextWave");
+      if (nextWave){
+        const now = new Date();
+        const day = now.getDay(); // 0 Sunday
+        const add = (7 - day) % 7 || 7; // next Sunday (not today)
+        const d = new Date(now);
+        d.setDate(now.getDate() + add);
+        nextWave.textContent = "Next wave: " + d.toLocaleDateString(undefined, { weekday:"short", month:"short", day:"numeric" });
+      }
+    }
+
     function render(list){
       feed.innerHTML = "";
-      const sorted = [...list].sort((a,b) => (b.date || "").localeCompare(a.date || ""));
 
+      const sorted = [...list].sort((a,b) => (b.date || "").localeCompare(a.date || ""));
       if (!sorted.length){
         emptyState.style.display = "block";
         return;
       }
       emptyState.style.display = "none";
 
-      for (const u of sorted){
+      const slice = sorted.slice(0, visibleCount);
+
+      for (const u of slice){
         const article = document.createElement("article");
         article.className = `kvBox post reveal ${u.category === "progress" || u.type === "Progress" ? "isProgress" : ""} ${u.pinned ? "isPinned" : ""}`;
         article.setAttribute("data-category", u.category || "announcement");
+
+        // Deep-link id
+        const slug = slugifyUpdate(u);
+        article.id = slug;
 
         const meta = document.createElement("div");
         meta.className = "meta";
@@ -963,6 +1068,8 @@
 
         const actions = document.createElement("div");
         actions.className = "postActions";
+
+        // Links (if any)
         if (u.links && u.links.length){
           for (const l of u.links){
             const a = document.createElement("a");
@@ -975,16 +1082,50 @@
           }
         }
 
+        // Copy link button (always)
+        const copy = document.createElement("button");
+        copy.className = "btn small";
+        copy.type = "button";
+        copy.textContent = "Copy link";
+        copy.addEventListener("click", async () => {
+          const url = location.origin + location.pathname + "#" + slug;
+          try {
+            await navigator.clipboard.writeText(url);
+            copy.textContent = "Copied";
+          } catch {
+            copy.textContent = "Copy failed";
+          }
+          setTimeout(() => (copy.textContent = "Copy link"), 1200);
+        });
+        actions.appendChild(copy);
+
         article.appendChild(meta);
         article.appendChild(h2);
         article.appendChild(p);
         if ((u.tags || []).length) article.appendChild(tagRow);
         if (actions.childNodes.length) article.appendChild(actions);
+
         feed.appendChild(article);
       }
 
-      // re-observe reveals created dynamically
+      // Load more button
+      if (sorted.length > visibleCount){
+        const more = document.createElement("button");
+        more.className = "btn";
+        more.type = "button";
+        more.textContent = "Load more";
+        more.addEventListener("click", () => {
+          visibleCount += 10;
+          applyFilters();
+        });
+        feed.appendChild(more);
+      }
+
+      // Re-observe reveals created dynamically
       document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+      // If hash is present, scroll to it (after render)
+      requestAnimationFrame(maybeScrollToHash);
     }
 
     let activeFilter = "all";
@@ -1002,13 +1143,8 @@
       });
 
       render(filtered);
-
-      // Update last updated text (top bar)
-      const latest = [...UPDATES].sort((a,b) => (b.date||"").localeCompare(a.date||""))[0];
-      const lastUpdated = document.getElementById("lastUpdated");
-      if (lastUpdated && latest && latest.date){
-        lastUpdated.textContent = "Last updated: " + fmtDate(latest.date);
-      }
+      setPinnedBadges();
+      setThisWeekBox();
     }
 
     chips.forEach(btn => {
@@ -1016,16 +1152,23 @@
         chips.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         activeFilter = btn.getAttribute("data-filter") || "all";
+        visibleCount = 10; // reset pagination when filter changes
         applyFilters();
       });
     });
 
     if (searchBox){
-      searchBox.addEventListener("input", applyFilters);
+      searchBox.addEventListener("input", () => {
+        visibleCount = 10; // reset pagination on new search
+        applyFilters();
+      });
     }
 
     // Initial render
     applyFilters();
+
+    // Scroll-to-hash also when hash changes (deep link)
+    window.addEventListener("hashchange", () => requestAnimationFrame(maybeScrollToHash));
 
     // Particles (optimized + pauses when tab hidden)
     (() => {

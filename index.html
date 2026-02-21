@@ -732,7 +732,7 @@
     .card h3{ margin: 0 0 8px; font-size: 16px; }
     .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.65; }
 
-    /* New: value split section */
+    /* Value split section */
     .split{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -863,6 +863,119 @@
       .grain{ animation:none; }
     }
 
+    /* =========================
+       ADDITIONS: Trust / Founder / Fit / Timeline / Social / Safety / Clips
+       ========================= */
+    .trustStrip{ margin-top: 14px; padding: 14px; }
+    .trustGrid{ display:grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .trustItem{
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.10);
+      min-height: 64px;
+    }
+    .trustItem b{ display:block; font-size: 13px; letter-spacing:.2px; }
+    .trustItem span{ display:block; margin-top:6px; color: rgba(255,255,255,0.70); font-size: 12px; line-height:1.35; }
+
+    .founderGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .founderSig{
+      margin-top: 12px;
+      color: rgba(255,255,255,0.70);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .quoteBox{
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .fitGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .badList{ margin: 10px 0 0; padding: 0; list-style:none; display:grid; gap: 10px; }
+    .badList li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .badgeX{
+      width: 18px; height: 18px;
+      border-radius: 7px;
+      margin-top: 2px;
+      flex: 0 0 auto;
+      background: rgba(255,80,120,0.14);
+      border: 1px solid rgba(255,80,120,0.28);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 0 18px rgba(255,80,120,0.08);
+    }
+    .badgeX svg{ width: 12px; height: 12px; opacity: .9; }
+
+    .timeline{ margin-top: 12px; display:grid; gap: 10px; }
+    .tRow{
+      display:grid;
+      grid-template-columns: 130px 1fr;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .tRow b{ font-size: 13px; letter-spacing:.2px; }
+    .tRow span{ color: rgba(255,255,255,0.70); font-size: 13px; line-height: 1.55; }
+
+    .socialGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .socialCard{ padding: 18px; border-radius: 20px; }
+    .socialTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .socialTop b{ font-size: 14px; letter-spacing:.2px; }
+    .embedFrame{
+      width:100%;
+      height: 320px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.25);
+      overflow:hidden;
+    }
+    .embedNote{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.62);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .safetyGrid{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .safetyCard{ padding: 18px; }
+
+    .clipGrid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+    .clipCard{ padding: 16px; }
+    .thumb{
+      height: 150px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(177,108,255,0.28), rgba(13,0,24,0.0)),
+        radial-gradient(circle at 70% 70%, rgba(138,43,226,0.18), rgba(13,0,24,0.0)),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .clipCard h3{ margin: 0 0 6px; font-size: 14px; }
+    .clipCard p{ margin: 0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
     /* Responsive */
     @media (max-width: 980px){
       nav{ display:none; }
@@ -876,6 +989,14 @@
       .veilCard{ flex-direction: column; align-items: flex-start; }
       .veilEmblem{ width: 74px; height: 74px; border-radius: 18px; }
       .stickyCTA{ display:block; }
+
+      .trustGrid{ grid-template-columns: 1fr 1fr; }
+      .founderGrid{ grid-template-columns: 1fr; }
+      .fitGrid{ grid-template-columns: 1fr; }
+      .tRow{ grid-template-columns: 1fr; }
+      .socialGrid{ grid-template-columns: 1fr; }
+      .safetyGrid{ grid-template-columns: 1fr; }
+      .clipGrid{ grid-template-columns: 1fr; }
     }
     @media (max-width: 520px){
       .wrap{ padding: 0 14px; }
@@ -894,7 +1015,7 @@
   <div class="scrollProgress" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- TOP VEIL CTA BAR (strong headline + clear terms) -->
+  <!-- TOP VEIL CTA BAR -->
   <section class="veilBar reveal" aria-label="Recruitment callout">
     <div class="wrap">
       <div class="veilCard kvBox">
@@ -905,11 +1026,12 @@
             <b>Recruiting 5–7 founding talents.</b>
           </p>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="apply.html">Join the Founding Generation</a>
-            <a class="btn ghost" href="legal.html#talent">Read Talent Terms</a>
+            <a class="btn primary" href="apply.html" data-track="join_founding_gen">Join the Founding Generation</a>
+            <a class="btn ghost" href="legal.html#talent" data-track="read_talent_terms_top">Read Talent Terms</a>
           </div>
           <p style="margin:10px 0 0; color: rgba(255,255,255,0.62); font-size: 12px; line-height:1.6;">
-            By applying, you agree to the <a href="legal.html#talent">Talent Agreement</a> and <a href="legal.html#privacy">Privacy Policy</a>.
+            By applying, you agree to the <a href="legal.html#talent" data-track="talent_agreement_link">Talent Agreement</a> and
+            <a href="legal.html#privacy" data-track="privacy_link_top">Privacy Policy</a>.
           </p>
         </div>
         <div class="veilEmblem" aria-hidden="true"></div>
@@ -920,24 +1042,24 @@
   <header>
     <div class="wrap">
       <div class="topbar">
-        <a class="brand" href="index.html" aria-label="Kuroveil Home">
+        <a class="brand" href="index.html" aria-label="Kuroveil Home" data-track="brand_home">
           <div class="sigil" aria-hidden="true"></div>
           <span>KUROVEIL</span>
         </a>
 
         <nav aria-label="Primary">
-          <a class="active" href="index.html" aria-current="page">Home</a>
-          <a href="roster.html">Roster</a>
-          <a href="updates.html">Updates</a>
-          <a href="apply.html">Apply</a>
-          <a href="about.html">About</a>
-          <a href="legal.html">Legal</a>
+          <a class="active" href="index.html" aria-current="page" data-track="nav_home">Home</a>
+          <a href="roster.html" data-track="nav_roster">Roster</a>
+          <a href="updates.html" data-track="nav_updates">Updates</a>
+          <a href="apply.html" data-track="nav_apply">Apply</a>
+          <a href="about.html" data-track="nav_about">About</a>
+          <a href="legal.html" data-track="nav_legal">Legal</a>
         </nav>
 
         <!-- Desktop actions -->
         <div class="actions">
-          <a class="btn" href="roster.html">View Roster</a>
-          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <a class="btn" href="roster.html" data-track="view_roster_top">View Roster</a>
+          <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="discord_top">Join Discord</a>
         </div>
 
         <!-- Mobile menu button -->
@@ -961,13 +1083,13 @@
         <button class="btn small" id="menuClose" aria-label="Close menu">Close</button>
       </div>
       <div class="menuLinks">
-        <a href="index.html">Home</a>
-        <a href="roster.html">Roster</a>
-        <a href="updates.html">Updates</a>
-        <a href="apply.html">Apply</a>
-        <a href="about.html">About</a>
-        <a href="legal.html">Legal</a>
-        <a class="btn primary full" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" style="text-align:center;">Join Discord</a>
+        <a href="index.html" data-track="mnav_home">Home</a>
+        <a href="roster.html" data-track="mnav_roster">Roster</a>
+        <a href="updates.html" data-track="mnav_updates">Updates</a>
+        <a href="apply.html" data-track="mnav_apply">Apply</a>
+        <a href="about.html" data-track="mnav_about">About</a>
+        <a href="legal.html" data-track="mnav_legal">Legal</a>
+        <a class="btn primary full" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" style="text-align:center;" data-track="mnav_discord">Join Discord</a>
       </div>
     </div>
   </div>
@@ -995,15 +1117,15 @@
             </p>
 
             <div class="heroBtns">
-              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">
+              <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_hero">
                 Apply Now
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
                   <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"/><path d="M5 5h6V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6h-2v6H5V5z"/>
                 </svg>
               </a>
-              <a class="btn" href="apply.html">Requirements</a>
-              <a class="btn" href="updates.html">Latest Updates</a>
-              <a class="btn" href="#about">About</a>
+              <a class="btn" href="apply.html" data-track="requirements_hero">Requirements</a>
+              <a class="btn" href="updates.html" data-track="updates_hero">Latest Updates</a>
+              <a class="btn" href="#about" data-track="about_anchor_hero">About</a>
             </div>
 
             <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
@@ -1033,14 +1155,41 @@
             </div>
 
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Enter Discord</a>
-              <a class="btn" href="legal.html#talent">Talent Terms</a>
+              <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="discord_hero_panel">Enter Discord</a>
+              <a class="btn" href="legal.html#talent" data-track="talent_terms_hero_panel">Talent Terms</a>
             </div>
 
             <p style="margin:10px 0 0; color: rgba(255,255,255,0.62); font-size:12px; line-height:1.6;">
-              Site policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a>
+              Site policies: <a href="legal.html#terms" data-track="terms_hero_panel">Terms</a> •
+              <a href="legal.html#privacy" data-track="privacy_hero_panel">Privacy</a>
             </p>
           </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="reveal" aria-label="Credibility and key info" style="margin-top: 10px;">
+      <div class="trustStrip kvBox">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>
+            <b style="display:block; font-size:14px;">Built to scale — structure first.</b>
+            <span style="color: rgba(255,255,255,0.68); font-size:12px; line-height:1.6;">
+              Clear expectations, weekly momentum, and a real collab + clip pipeline.
+            </span>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn small" href="legal.html#talent" data-track="talent_terms_top_strip">Talent Terms</a>
+            <a class="btn primary small" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_top_strip">Apply</a>
+          </div>
+        </div>
+
+        <div class="trustGrid" style="margin-top:12px;">
+          <div class="trustItem"><b>Founded</b><span>2026 • Kuroveil Collective</span></div>
+          <div class="trustItem"><b>Slots</b><span>Recruiting 5–7 founding talents</span></div>
+          <div class="trustItem"><b>Cadence</b><span>Weekly collab planning + clip beats</span></div>
+          <div class="trustItem"><b>Review</b><span>Rolling review (no deadline rush)</span></div>
+          <div class="trustItem"><b>Contact</b><span>Shortlist via Discord message</span></div>
         </div>
       </div>
     </section>
@@ -1079,8 +1228,8 @@
             </span>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Open Application</a>
-            <a class="btn" href="apply.html">Read Requirements</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_teasers">Open Application</a>
+            <a class="btn" href="apply.html" data-track="requirements_teasers">Read Requirements</a>
           </div>
         </div>
       </div>
@@ -1098,7 +1247,39 @@
         </div>
       </div>
 
-      <div class="grid3">
+      <!-- FOUNDER MESSAGE -->
+      <div class="founderGrid">
+        <div class="card kvBox reveal">
+          <h3>Founder Message</h3>
+          <p style="margin:0; color: rgba(255,255,255,0.78); font-size:13px; line-height:1.75;">
+            Kuroveil exists for creators who want to grow without losing who they are.
+            The goal isn’t “aesthetic for aesthetic’s sake” — it’s momentum: consistent output, planned collabs,
+            and content that’s easy to clip and share. We keep it simple, direct, and structured.
+          </p>
+          <p class="founderSig">
+            <b style="color: rgba(255,255,255,0.90);">— Founder</b>
+            <span style="display:block; color: rgba(255,255,255,0.65);">“Structure protects the vibe.”</span>
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+            <a class="btn small" href="updates.html" data-track="founder_updates">Updates</a>
+            <a class="btn small" href="legal.html#talent" data-track="founder_terms">Talent Terms</a>
+          </div>
+        </div>
+
+        <div class="quoteBox kvBox reveal">
+          <b style="display:block; margin-bottom:8px;">Core Rule</b>
+          <p style="margin:0; color: rgba(255,255,255,0.76); font-size:13px; line-height:1.7;">
+            We’re not corporate — but we are consistent. If you show up, you’ll improve fast.
+            If you disappear, the system can’t help you.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn small" href="apply.html" data-track="founder_apply_page">Apply Page</a>
+            <a class="btn small" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="founder_discord">Ask in Discord</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:14px;">
         <div class="card kvBox reveal">
           <h3>Presence + Identity</h3>
           <p>
@@ -1139,7 +1320,7 @@
         </div>
       </div>
 
-      <!-- NEW: What you get / What we expect (conversion + clarity) -->
+      <!-- What you get / What we expect -->
       <div class="split">
         <div class="card kvBox reveal">
           <h3>What You Get</h3>
@@ -1174,7 +1355,52 @@
         </div>
       </div>
 
-      <!-- NEW: Steps (clarifies process + reduces drop-off) -->
+      <!-- FIT / NOT A FIT -->
+      <div class="fitGrid">
+        <div class="card kvBox reveal">
+          <h3>Who We’re Looking For</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
+            If this sounds like you, you’ll probably thrive here.
+          </p>
+          <ul class="checklist">
+            <li><span class="tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </span>Clip-minded: you think in moments, not just hours streamed</li>
+            <li><span class="tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </span>Consistent output: schedule or weekly minimum you can keep</li>
+            <li><span class="tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </span>Coachability: you iterate fast and don’t ego-lock the process</li>
+            <li><span class="tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </span>Collab energy: you show up on time and keep it fun</li>
+          </ul>
+        </div>
+
+        <div class="card kvBox reveal">
+          <h3>Not a Fit If…</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.65;">
+            This saves everyone time and keeps the Veil clean.
+          </p>
+          <ul class="badList">
+            <li><span class="badgeX" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z"/></svg>
+            </span>You can’t commit to any consistent output right now</li>
+            <li><span class="badgeX" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z"/></svg>
+            </span>You hate feedback or refuse to iterate</li>
+            <li><span class="badgeX" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z"/></svg>
+            </span>You’re drama-prone or disrespectful behind the scenes</li>
+            <li><span class="badgeX" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.3 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3z"/></svg>
+            </span>You frequently ghost collabs / can’t show up on time</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- HOW TO JOIN -->
       <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
         <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
           <div>
@@ -1190,17 +1416,183 @@
               <div class="step"><b>4) Onboard</b><span>Schedule, standards, first collab plan, and launch cadence.</span></div>
             </div>
             <p style="margin:10px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
-              Policies: <a href="legal.html#terms">Terms</a> • <a href="legal.html#privacy">Privacy</a> • <a href="legal.html#talent">Talent</a>
+              Policies: <a href="legal.html#terms" data-track="terms_about">Terms</a> •
+              <a href="legal.html#privacy" data-track="privacy_about">Privacy</a> •
+              <a href="legal.html#talent" data-track="talent_about">Talent</a>
             </p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply Now</a>
-            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Ask in Discord</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_about_card">Apply Now</a>
+            <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="discord_about_card">Ask in Discord</a>
           </div>
         </div>
       </div>
 
-      <!-- NEW: FAQ -->
+      <!-- TIMING -->
+      <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
+        <h3 style="margin:0 0 6px; font-size:16px;">What Happens After You Apply</h3>
+        <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+          Approximate timing — we keep it moving, but we also do it clean.
+        </p>
+
+        <div class="timeline" role="list">
+          <div class="tRow" role="listitem">
+            <b>Apply (2–5 min)</b>
+            <span>Submit the form + links that show your vibe and recent content.</span>
+          </div>
+          <div class="tRow" role="listitem">
+            <b>Review (3–10 days)</b>
+            <span>Rolling review. If you match current needs, you move forward.</span>
+          </div>
+          <div class="tRow" role="listitem">
+            <b>Discord Chat (10–15 min)</b>
+            <span>Quick goals + vibe check. Short, direct, respectful.</span>
+          </div>
+          <div class="tRow" role="listitem">
+            <b>Decision (24–72 hrs)</b>
+            <span>After chat, we confirm fit and outline your first collab plan.</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_timeline">Apply Now</a>
+          <a class="btn" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="discord_timeline">Ask in Discord</a>
+        </div>
+      </div>
+
+      <!-- FOUNDING GEN BENEFITS -->
+      <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
+        <h3 style="margin:0 0 6px; font-size:16px;">Founding Gen Benefits</h3>
+        <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+          Clear deliverables so you know what you’re actually getting.
+        </p>
+
+        <div class="grid3" style="margin-top:14px;">
+          <div class="card" style="padding:0;">
+            <div class="kvBox" style="padding:16px;">
+              <h3 style="margin:0 0 6px;">Weekly Collab Slot</h3>
+              <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+                Scheduled collab planning + “clip beats” built into the run.
+              </p>
+            </div>
+          </div>
+          <div class="card" style="padding:0;">
+            <div class="kvBox" style="padding:16px;">
+              <h3 style="margin:0 0 6px;">Clip Review Loop</h3>
+              <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+                What to double down on, what to cut, what to test next.
+              </p>
+            </div>
+          </div>
+          <div class="card" style="padding:0;">
+            <div class="kvBox" style="padding:16px;">
+              <h3 style="margin:0 0 6px;">Monthly Themed Event</h3>
+              <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+                A recurring event night designed for discoverability and shareable moments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOCIAL HUB -->
+      <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div>
+            <h3 style="margin:0 0 6px; font-size:16px;">Live Feed & Social Hub</h3>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+              Follow updates, watch clips, and join the Discord where shortlisting happens.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" data-track="social_x">X</a>
+            <a class="btn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" data-track="social_yt">YouTube</a>
+            <a class="btn primary" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="social_discord">Discord</a>
+          </div>
+        </div>
+
+        <div class="socialGrid">
+          <div class="socialCard kvBox reveal">
+            <div class="socialTop">
+              <b>X / Updates</b>
+              <a class="btn small" href="updates.html" data-track="social_updates_page">Updates page</a>
+            </div>
+
+            <div class="embedFrame" style="display:grid; place-items:center; padding:16px;">
+              <div style="text-align:center; max-width: 50ch;">
+                <b style="display:block; margin-bottom:6px;">Latest updates are posted on X</b>
+                <p style="margin:0; color: rgba(255,255,255,0.70); font-size:13px; line-height:1.6;">
+                  Click to view the most recent posts and announcements.
+                </p>
+                <div style="margin-top:12px;">
+                  <a class="btn primary" href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" data-track="social_x_open">Open X</a>
+                </div>
+              </div>
+            </div>
+
+            <p class="embedNote">Tip: later you can embed a pinned post here so the site always looks “alive”.</p>
+          </div>
+
+          <div class="socialCard kvBox reveal">
+            <div class="socialTop">
+              <b>YouTube / Clips</b>
+              <a class="btn small" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" data-track="social_yt_open">Open channel</a>
+            </div>
+
+            <div class="embedFrame">
+              <iframe
+                title="Kuroveil YouTube"
+                width="100%"
+                height="100%"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                src="https://www.youtube.com/embed?listType=user_uploads&list=Kuroveil250">
+              </iframe>
+            </div>
+
+            <p class="embedNote">When you create a “Clips / Shorts” playlist, swap this embed to that playlist for best conversion.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAFETY / BOUNDARIES -->
+      <div class="card kvBox reveal" style="margin-top:14px; padding:18px;">
+        <h3 style="margin:0 0 6px; font-size:16px;">Safety & Boundaries</h3>
+        <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+          We protect creators. We keep it clean. No weirdness.
+        </p>
+
+        <div class="safetyGrid">
+          <div class="safetyCard kvBox reveal">
+            <h3 style="margin:0 0 6px;">Respect First</h3>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+              No harassment, hate, or targeting. If you bring drama, you won’t stay.
+            </p>
+          </div>
+
+          <div class="safetyCard kvBox reveal">
+            <h3 style="margin:0 0 6px;">Privacy Matters</h3>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+              Doxxing or leaking personal info is instant removal. Keep identities safe.
+            </p>
+          </div>
+
+          <div class="safetyCard kvBox reveal">
+            <h3 style="margin:0 0 6px;">Professional Conduct</h3>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+              Reliable comms, punctual collabs, and respectful behind-the-scenes behavior.
+            </p>
+          </div>
+        </div>
+
+        <p style="margin:12px 0 0; color: rgba(255,255,255,0.60); font-size:12px; line-height:1.6;">
+          Full details live in <a href="legal.html#guidelines" data-track="guidelines_link">Guidelines</a> and
+          <a href="legal.html#terms" data-track="terms_link_safety">Terms</a>.
+        </p>
+      </div>
+
+      <!-- FAQ -->
       <div class="sectionHead" style="margin-top:18px;">
         <div>
           <h2>FAQ</h2>
@@ -1216,7 +1608,7 @@
 
         <details>
           <summary>Is this an agency? Will I lose my identity?</summary>
-          <p>Kuroveil is a collective with standards and structure. You keep your channel identity. Read the <a href="legal.html#talent">Talent Terms</a> for exact details on branding and leaving the group.</p>
+          <p>Kuroveil is a collective with standards and structure. You keep your channel identity. Read the <a href="legal.html#talent" data-track="faq_talent_terms">Talent Terms</a> for exact details on branding and leaving the group.</p>
         </details>
 
         <details>
@@ -1231,24 +1623,65 @@
       </div>
     </section>
 
+    <!-- FEATURED CLIPS -->
+    <section class="reveal" aria-label="Featured clips" style="margin-top: 18px;">
+      <div class="card kvBox" style="padding:18px;">
+        <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div>
+            <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-0.2px;">Featured Clips</h2>
+            <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.6;">
+              Moments built for shareability. This becomes a growth engine once clips go live.
+            </p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" data-track="clips_open_yt">Watch on YouTube</a>
+            <a class="btn primary" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_clips">Apply</a>
+          </div>
+        </div>
+
+        <div class="clipGrid">
+          <div class="clipCard kvBox reveal">
+            <div class="thumb" aria-hidden="true"></div>
+            <h3>Clip Slot #1</h3>
+            <p>Replace with your first strongest 20–40s moment.</p>
+            <a class="btn small" href="#" aria-disabled="true" style="pointer-events:none; opacity:.6;">Coming soon</a>
+          </div>
+
+          <div class="clipCard kvBox reveal">
+            <div class="thumb" aria-hidden="true"></div>
+            <h3>Clip Slot #2</h3>
+            <p>Add a collab moment — those spread fastest.</p>
+            <a class="btn small" href="#" aria-disabled="true" style="pointer-events:none; opacity:.6;">Coming soon</a>
+          </div>
+
+          <div class="clipCard kvBox reveal">
+            <div class="thumb" aria-hidden="true"></div>
+            <h3>Clip Slot #3</h3>
+            <p>Put a funny or hype moment here for max share rate.</p>
+            <a class="btn small" href="#" aria-disabled="true" style="pointer-events:none; opacity:.6;">Coming soon</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer>
       <div style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
         <div>© 2026 KUROVEIL • The Abyss is always growing.</div>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="legal.html#terms">Terms</a>
-          <a href="legal.html#privacy">Privacy</a>
-          <a href="legal.html#talent">Talent</a>
-          <a href="legal.html#guidelines">Guidelines</a>
-          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
-          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer">Twitch</a>
+          <a href="legal.html#terms" data-track="footer_terms">Terms</a>
+          <a href="legal.html#privacy" data-track="footer_privacy">Privacy</a>
+          <a href="legal.html#talent" data-track="footer_talent">Talent</a>
+          <a href="legal.html#guidelines" data-track="footer_guidelines">Guidelines</a>
+          <a href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="footer_discord">Discord</a>
+          <a href="https://x.com/veil_kuro11808" target="_blank" rel="noopener noreferrer" data-track="footer_x">X</a>
+          <a href="https://www.youtube.com/@Kuroveil250" target="_blank" rel="noopener noreferrer" data-track="footer_youtube">YouTube</a>
+          <a href="https://www.twitch.tv/kuro_veil" target="_blank" rel="noopener noreferrer" data-track="footer_twitch">Twitch</a>
         </div>
       </div>
     </footer>
   </main>
 
-  <!-- Sticky CTA for mobile (shows after scroll a bit) -->
+  <!-- Sticky CTA for mobile -->
   <div class="stickyCTA" id="stickyCTA" aria-hidden="true">
     <div class="bar">
       <div class="copy">
@@ -1256,8 +1689,8 @@
         <span>Apply → short Discord chat → onboarding → first collab plan</span>
       </div>
       <div class="btns">
-        <a class="btn primary small" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer">Apply</a>
-        <a class="btn small" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a class="btn primary small" href="https://forms.gle/SvVzGuTnQNCbpzgf7" target="_blank" rel="noopener noreferrer" data-track="apply_sticky">Apply</a>
+        <a class="btn small" href="https://discord.gg/ahbekpPkur" target="_blank" rel="noopener noreferrer" data-track="discord_sticky">Discord</a>
       </div>
     </div>
   </div>
@@ -1271,6 +1704,56 @@
   <script>
     // Fade-in
     requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+
+    // =========================
+    // Analytics helper (no provider required yet)
+    // =========================
+    (function(){
+      const endpoint = ""; // Optional: set to your own endpoint later (e.g. "/track")
+
+      function sendEvent(name, props = {}){
+        const payload = { name, props, path: location.pathname, url: location.href, ts: Date.now() };
+
+        if (endpoint){
+          try{
+            const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+            navigator.sendBeacon(endpoint, blob);
+          }catch(e){}
+        }
+
+        // Dev verification
+        console.log("[KV TRACK]", payload);
+      }
+
+      // Click tracking
+      document.addEventListener("click", (e) => {
+        const el = e.target.closest("[data-track]");
+        if (!el) return;
+        sendEvent("click", { id: el.getAttribute("data-track"), text: (el.innerText || "").slice(0,60) });
+      });
+
+      // Scroll depth
+      const milestones = [25, 50, 75, 90];
+      const fired = new Set();
+      function onDepth(){
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = doc.scrollHeight - doc.clientHeight;
+        if (scrollHeight <= 0) return;
+        const pct = (scrollTop / scrollHeight) * 100;
+
+        for (const m of milestones){
+          if (pct >= m && !fired.has(m)){
+            fired.add(m);
+            sendEvent("scroll_depth", { pct: m });
+          }
+        }
+      }
+      window.addEventListener("scroll", onDepth, { passive:true });
+      onDepth();
+
+      window.kvTrack = sendEvent;
+    })();
 
     // Scroll reveal (IntersectionObserver)
     const reveals = document.querySelectorAll('.reveal');
@@ -1316,12 +1799,10 @@
     onScroll();
 
     if (toTop){
-      toTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    // Mobile menu logic (simple + accessible)
+    // Mobile menu logic
     const menuBtn = document.getElementById('menuBtn');
     const menuPanel = document.getElementById('menuPanel');
     const menuClose = document.getElementById('menuClose');
@@ -1332,7 +1813,6 @@
       lastFocus = document.activeElement;
       menuPanel.style.display = "block";
       menuBtn.setAttribute("aria-expanded","true");
-      // focus close button for accessibility
       setTimeout(() => menuClose && menuClose.focus(), 0);
       document.body.style.overflow = "hidden";
     }
@@ -1393,7 +1873,7 @@
       document.head.appendChild(scriptEl);
     })();
 
-    // Particles (optimized)
+    // Particles
     (() => {
       const canvas = document.getElementById("veilParticles");
       if (!canvas) return;
@@ -1436,7 +1916,6 @@
       function step(){
         ctx.clearRect(0, 0, w, h);
 
-        // dots
         for (const p of particles){
           p.x += p.vx; p.y += p.vy;
 
@@ -1458,7 +1937,6 @@
           ctx.shadowBlur = 0;
         }
 
-        // connections (keep light)
         for (let i = 0; i < particles.length; i++){
           for (let j = i + 1; j < particles.length; j++){
             const a = particles[i], b = particles[j];
@@ -1479,7 +1957,6 @@
         rafId = requestAnimationFrame(step);
       }
 
-      // Pause particles when tab not visible (perf)
       document.addEventListener("visibilitychange", () => {
         if (document.hidden){
           if (rafId) cancelAnimationFrame(rafId);
