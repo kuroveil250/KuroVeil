@@ -581,11 +581,179 @@
       .wrap{ padding: 0 14px; }
       .stats{ grid-template-columns: 1fr; }
     }
+
+/* =========================
+   NEW: Liveliness / Motion
+   ========================= */
+
+/* Layering */
+.aurora, .orbs, .lightSweep, .cursorGlow{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2; /* canvas is -3 in your code */
+}
+
+/* Aurora: slow animated gradient sheet */
+.aurora{
+  opacity: 0.55;
+  filter: blur(18px) saturate(120%);
+  background:
+    radial-gradient(900px 520px at 20% 10%, rgba(177,108,255,0.22), transparent 60%),
+    radial-gradient(900px 520px at 80% 20%, rgba(138,43,226,0.16), transparent 60%),
+    radial-gradient(700px 450px at 40% 80%, rgba(177,108,255,0.10), transparent 55%);
+  transform: translate3d(0,0,0);
+  animation: auroraDrift 14s var(--kv-ease) infinite alternate;
+}
+@keyframes auroraDrift{
+  0%   { transform: translate3d(-1.5%, -1%, 0) scale(1.03); opacity: .46; }
+  50%  { transform: translate3d(1.2%, 0.6%, 0) scale(1.05); opacity: .58; }
+  100% { transform: translate3d(-0.4%, 1.4%, 0) scale(1.03); opacity: .50; }
+}
+
+/* Orbs: subtle floating blobs */
+.orbs{ opacity: 0.7; }
+.orb{
+  position:absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  filter: blur(22px);
+  background: radial-gradient(circle at 30% 30%, rgba(177,108,255,0.35), rgba(138,43,226,0.06) 60%, transparent 72%);
+  transform: translate3d(0,0,0);
+  animation: orbFloat 10s var(--kv-ease) infinite alternate;
+  mix-blend-mode: screen;
+}
+.orb.o1{ left: -120px; top: 10%; animation-duration: 12s; }
+.orb.o2{ right: -160px; top: 30%; width: 520px; height: 520px; animation-duration: 16s; opacity: .8; }
+.orb.o3{ left: 20%; bottom: -220px; width: 560px; height: 560px; animation-duration: 18s; opacity: .6; }
+
+@keyframes orbFloat{
+  0%   { transform: translate3d(-10px, -12px, 0) scale(1.00); }
+  100% { transform: translate3d(16px, 18px, 0) scale(1.05); }
+}
+
+/* Light sweep: slow “scan” across page */
+.lightSweep{
+  opacity: 0.32;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(177,108,255,0.00) 35%,
+    rgba(177,108,255,0.10) 45%,
+    rgba(177,108,255,0.00) 55%,
+    transparent 100%
+  );
+  transform: translateX(-60%);
+  animation: sweep 9s ease-in-out infinite;
+}
+@keyframes sweep{
+  0%   { transform: translateX(-70%); opacity: .0; }
+  12%  { opacity: .30; }
+  50%  { opacity: .18; }
+  88%  { opacity: .30; }
+  100% { transform: translateX(70%); opacity: .0; }
+}
+
+/* Cursor glow: reactive spotlight */
+.cursorGlow{
+  opacity: 0;
+  transition: opacity .25s ease;
+  background: radial-gradient(240px 240px at var(--mx, 50%) var(--my, 50%),
+    rgba(177,108,255,0.18),
+    rgba(138,43,226,0.06) 55%,
+    transparent 75%);
+  mix-blend-mode: screen;
+}
+body:hover .cursorGlow{ opacity: 1; }
+
+/* Scroll reveal */
+.reveal{
+  opacity: 0;
+  transform: translateY(16px) scale(0.99);
+  filter: blur(2px);
+  transition:
+    opacity .7s var(--kv-ease),
+    transform .7s var(--kv-ease),
+    filter .7s var(--kv-ease);
+  will-change: transform, opacity, filter;
+}
+.reveal.is-in{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Make kvBox feel more “alive” */
+.kvBox{
+  transform-style: preserve-3d;
+}
+.kvBox:hover{
+  transform: translateY(-8px) rotateX(1.2deg);
+}
+
+/* Tabs: active glow */
+.tab.is-active{
+  border-color: rgba(177,108,255,0.45);
+  background: rgba(177,108,255,0.08);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.35), 0 0 30px rgba(177,108,255,0.18);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .aurora, .orb, .lightSweep, .cursorGlow{ display:none; }
+  .reveal{ opacity: 1; transform:none; filter:none; }
+}
+
+/* ===== Active Tab Underline Indicator ===== */
+.tabsInner{
+  position: relative;
+  overflow: hidden; /* keeps glow contained */
+}
+
+/* the moving underline */
+.tabIndicator{
+  position: absolute;
+  left: 0;
+  bottom: 6px;             /* sits under pills */
+  height: 3px;
+  width: 40px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(177,108,255,0.95), rgba(138,43,226,0.85));
+  box-shadow:
+    0 0 18px rgba(177,108,255,0.55),
+    0 0 34px rgba(138,43,226,0.25);
+  transform: translateX(0);
+  transition:
+    transform .26s var(--kv-ease),
+    width .26s var(--kv-ease),
+    opacity .18s ease;
+  opacity: 0;
+}
+
+/* optional: make active tab pop a bit more */
+.tab.is-active{
+  border-color: rgba(177,108,255,0.45);
+  background: rgba(177,108,255,0.08);
+}
+
   </style>
 </head>
 
 <body>
   <canvas id="veilParticles" aria-hidden="true"></canvas>
+
+<!-- NEW: animated ambience layers -->
+<div class="aurora" aria-hidden="true"></div>
+<div class="orbs" aria-hidden="true">
+  <span class="orb o1"></span>
+  <span class="orb o2"></span>
+  <span class="orb o3"></span>
+</div>
+<div class="lightSweep" aria-hidden="true"></div>
+<div class="cursorGlow" aria-hidden="true"></div>
+
+<div class="grain" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <header>
@@ -602,7 +770,6 @@
           <a href="updates.html">Updates</a>
           <a class="active" href="staff-apply.html" aria-current="page">Staff</a>
           <a href="apply.html">Talent Apply</a>
-          <a href="staff.html" data-track="nav_staff">Staff</a>
           <a href="about.html">About</a>
           <a href="legal.html">Legal</a>
         </nav>
@@ -624,6 +791,8 @@
         <a class="tab" href="#designer"><span class="dot" aria-hidden="true"></span> Graphic Designer</a>
         <a class="tab" href="#support"><span class="dot" aria-hidden="true"></span> Social Support</a>
         <a class="tab" href="#faq"><span class="dot" aria-hidden="true"></span> FAQ</a>
+        
+        <div class="tabIndicator" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -1061,106 +1230,240 @@
     </footer>
   </main>
 
-  <script>
-    requestAnimationFrame(() => document.body.classList.add('is-loaded'));
+<script>
+  requestAnimationFrame(() => document.body.classList.add('is-loaded'));
 
-    // Particles + connecting lines (background)
-    (() => {
-      const canvas = document.getElementById("veilParticles");
-      if (!canvas) return;
+  // NEW: cursor glow position
+  (() => {
+    const root = document.documentElement;
+    let raf = null;
+    let x = window.innerWidth * 0.5;
+    let y = window.innerHeight * 0.35;
 
-      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduceMotion) return;
+    function setVars(){
+      root.style.setProperty('--mx', x + 'px');
+      root.style.setProperty('--my', y + 'px');
+    }
 
-      const ctx = canvas.getContext("2d", { alpha: true });
-      let w, h, dpr;
-      let particles = [];
-      let rafId = null;
-
-      function resize(){
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        w = Math.floor(window.innerWidth);
-        h = Math.floor(window.innerHeight);
-        canvas.width = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        seed();
+    window.addEventListener('mousemove', (e) => {
+      x = e.clientX;
+      y = e.clientY;
+      if (!raf){
+        raf = requestAnimationFrame(() => {
+          setVars();
+          raf = null;
+        });
       }
+    }, { passive:true });
 
-      function seed(){
-        const area = w * h;
-        const count = Math.max(36, Math.min(120, Math.floor(area * 0.00005)));
-        particles = Array.from({length: count}, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: 0.7 + Math.random() * 1.9,
-          vx: (-0.18 + Math.random() * 0.36),
-          vy: (-0.10 + Math.random() * 0.20),
-          a: 0.16 + Math.random() * 0.30,
-          tw: Math.random() * Math.PI * 2,
-          tws: 0.006 + Math.random() * 0.012
-        }));
+    setVars();
+  })();
+
+  // NEW: scroll reveal (makes sections/cards “enter” nicely)
+  (() => {
+    const targets = document.querySelectorAll('.kvBox, .sectionHead, .heroInner, details, footer');
+    targets.forEach(el => el.classList.add('reveal'));
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries){
+        if (e.isIntersecting) e.target.classList.add('is-in');
       }
+    }, { threshold: 0.12 });
 
-      function step(){
-        ctx.clearRect(0, 0, w, h);
+    targets.forEach(el => io.observe(el));
+  })();
 
-        for (const p of particles){
-          p.x += p.vx; p.y += p.vy;
+  // NEW: active role tab highlighting while scrolling
+  (() => {
+    const tabs = Array.from(document.querySelectorAll('.roleTabs .tab'));
+    const sections = tabs
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
 
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
+    if (!tabs.length || !sections.length) return;
 
-          p.tw += p.tws;
-          const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
-          const alpha = p.a * twinkle;
+    const byId = new Map(sections.map((sec, i) => [sec.id, tabs[i]]));
 
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(177,108,255,${alpha})`;
-          ctx.shadowColor = "rgba(177,108,255,0.6)";
-          ctx.shadowBlur = 10;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
+    const io = new IntersectionObserver((entries) => {
+      // Find the most visible section currently intersecting
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-        for (let i = 0; i < particles.length; i++){
-          for (let j = i + 1; j < particles.length; j++){
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < 120){
-              const t = 1 - dist / 120;
-              ctx.strokeStyle = `rgba(177,108,255,${0.055 * t})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
+      if (!visible) return;
+
+      tabs.forEach(t => t.classList.remove('is-active'));
+      const t = byId.get(visible.target.id);
+      if (t) t.classList.add('is-active');
+    }, { rootMargin: "-20% 0px -60% 0px", threshold: [0.15, 0.25, 0.35, 0.5] });
+
+    sections.forEach(sec => io.observe(sec));
+  })();
+
+  // Particles + connecting lines (UPGRADED: subtle cursor influence)
+  (() => {
+    const canvas = document.getElementById("veilParticles");
+    if (!canvas) return;
+
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let w, h, dpr;
+    let particles = [];
+    let rafId = null;
+
+    // Cursor influence
+    const mouse = { x: 0, y: 0, active: false };
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive:true });
+    window.addEventListener("mouseleave", () => mouse.active = false);
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = Math.floor(window.innerWidth);
+      h = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    }
+
+    function seed(){
+      const area = w * h;
+      const count = Math.max(46, Math.min(140, Math.floor(area * 0.00006)));
+      particles = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.7 + Math.random() * 1.9,
+        vx: (-0.16 + Math.random() * 0.32),
+        vy: (-0.10 + Math.random() * 0.20),
+        a: 0.14 + Math.random() * 0.32,
+        tw: Math.random() * Math.PI * 2,
+        tws: 0.006 + Math.random() * 0.012
+      }));
+    }
+
+    function step(){
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw particles
+      for (const p of particles){
+        // subtle mouse attraction
+        if (mouse.active){
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 220 && dist > 0.001){
+            const pull = (1 - dist / 220) * 0.018;
+            p.vx += (dx / dist) * pull;
+            p.vy += (dy / dist) * pull;
           }
         }
 
-        rafId = requestAnimationFrame(step);
+        // gentle damping so it doesn't explode
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+
+        p.x += p.vx; p.y += p.vy;
+
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10;
+        if (p.y > h + 10) p.y = -10;
+
+        p.tw += p.tws;
+        const twinkle = 0.65 + 0.35 * Math.sin(p.tw);
+        const alpha = p.a * twinkle;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(177,108,255,${alpha})`;
+        ctx.shadowColor = "rgba(177,108,255,0.55)";
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
       }
 
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden){
-          if (rafId) cancelAnimationFrame(rafId);
-          rafId = null;
-        } else {
-          if (!rafId) step();
+      // Connecting lines
+      for (let i = 0; i < particles.length; i++){
+        for (let j = i + 1; j < particles.length; j++){
+          const a = particles[i], b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 130){
+            const t = 1 - dist / 130;
+            ctx.strokeStyle = `rgba(177,108,255,${0.06 * t})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
         }
-      });
+      }
 
-      window.addEventListener("resize", resize, { passive:true });
-      resize();
-      step();
-    })();
-  </script>
+      rafId = requestAnimationFrame(step);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden){
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+      } else {
+        if (!rafId) step();
+      }
+    });
+
+    window.addEventListener("resize", resize, { passive:true });
+    resize();
+    step();
+  })();
+
+// ===== Underline indicator for active tab =====
+  (() => {
+    const inner = document.querySelector('.roleTabs .tabsInner');
+    const indicator = document.querySelector('.roleTabs .tabIndicator');
+    const tabs = Array.from(document.querySelectorAll('.roleTabs .tab'));
+    if (!inner || !indicator || !tabs.length) return;
+
+    function moveToTab(tab){
+      const innerRect = inner.getBoundingClientRect();
+      const r = tab.getBoundingClientRect();
+      const x = (r.left - innerRect.left) + inner.scrollLeft;
+      const w = r.width;
+
+      // center-ish underline under the tab
+      indicator.style.opacity = "1";
+      indicator.style.width = Math.max(28, Math.min(120, w * 0.72)) + "px";
+      indicator.style.transform = `translateX(${x + (w - parseFloat(indicator.style.width))/2}px)`;
+    }
+
+    function activeTab(){
+      return document.querySelector('.roleTabs .tab.is-active') || tabs[0];
+    }
+
+    // initial position (after layout)
+    requestAnimationFrame(() => moveToTab(activeTab()));
+
+    // move on click immediately
+    tabs.forEach(t => t.addEventListener('click', () => {
+      // small delay so hash scroll starts but indicator still snaps
+      requestAnimationFrame(() => moveToTab(t));
+    }));
+
+    // update when active changes (scroll observer changes .is-active)
+    const mo = new MutationObserver(() => moveToTab(activeTab()));
+    mo.observe(inner, { subtree: true, attributes: true, attributeFilter: ['class'] });
+
+    // update on resize
+    window.addEventListener('resize', () => moveToTab(activeTab()), { passive:true });
+  })();
+</script>
 </body>
 </html>
