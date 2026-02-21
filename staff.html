@@ -737,6 +737,89 @@ body:hover .cursorGlow{ opacity: 1; }
   background: rgba(177,108,255,0.08);
 }
 
+/* =========================
+   POP + DIAGONAL SHEEN FOR ALL BOXES
+   Applies to .kvBox everywhere
+   ========================= */
+
+.kvBox{
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, border-color, filter;
+}
+
+/* diagonal sheen layer */
+.kvBox::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,255,255,0.00) 35%,
+    rgba(177,108,255,0.10) 45%,
+    rgba(255,255,255,0.00) 55%,
+    transparent 100%
+  );
+  transform: translateX(-60%) rotate(2deg);
+  opacity: 0;
+  pointer-events:none;
+  transition: opacity .22s ease;
+}
+
+/* soft glow bloom behind sheen */
+.kvBox::after{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background: radial-gradient(circle at var(--hx, 50%) var(--hy, 40%),
+    rgba(177,108,255,0.18),
+    rgba(138,43,226,0.08) 45%,
+    transparent 70%);
+  opacity: 0;
+  pointer-events:none;
+  transition: opacity .22s ease;
+}
+
+/* stronger pop (more alive) */
+.kvBox:hover{
+  transform: translateY(-10px) scale(1.01);
+  border-color: rgba(177,108,255,0.40);
+  box-shadow:
+    0 34px 95px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(177,108,255,0.16),
+    0 0 52px rgba(138,43,226,0.20);
+  filter: brightness(0.98);
+}
+
+/* show effects on hover */
+.kvBox:hover::before{ opacity: 1; animation: kvSheen 1.05s var(--kv-ease) 1; }
+.kvBox:hover::after{ opacity: 1; }
+
+/* little “press” feedback */
+.kvBox:active{
+  transform: translateY(-6px) scale(1.005);
+}
+
+/* sheen sweep animation */
+@keyframes kvSheen{
+  0%   { transform: translateX(-70%) rotate(2deg); }
+  100% { transform: translateX(70%) rotate(2deg); }
+}
+
+/* make the sheen look good on touch devices too (tap shows it) */
+@media (hover: none){
+  .kvBox::before{ opacity: .25; }
+  .kvBox::after{ opacity: .20; }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .kvBox::before, .kvBox::after{ display:none; }
+  .kvBox:hover{ transform:none; }
+}
+
   </style>
 </head>
 
@@ -1258,6 +1341,22 @@ body:hover .cursorGlow{ opacity: 1; }
 
     setVars();
   })();
+
+// Make kvBox glow originate from cursor position
+  (() => {
+    const boxes = document.querySelectorAll('.kvBox');
+    if (!boxes.length) return;
+
+    boxes.forEach(box => {
+      box.addEventListener('mousemove', (e) => {
+        const r = box.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        box.style.setProperty('--hx', x + '%');
+        box.style.setProperty('--hy', y + '%');
+      }, { passive:true });
+    });
+  })(); 
 
   // NEW: scroll reveal (makes sections/cards “enter” nicely)
   (() => {
