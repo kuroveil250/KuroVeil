@@ -805,6 +805,13 @@
     color .18s var(--kv-ease);
 }
 
+.tagFilter.active{
+  border-color: rgba(177,108,255,0.38);
+  background: rgba(177,108,255,0.10);
+  color: rgba(255,255,255,0.92);
+  box-shadow: 0 10px 22px rgba(138,43,226,0.12);
+}
+
 .tagFilter:hover{
   transform: translateY(-2px) scale(1.02);
   border-color: rgba(177,108,255,0.40);
@@ -1880,6 +1887,39 @@
         }
       });
     }
+
+    // =========================================================
+// Clickable tag chips INSIDE cards -> filters roster
+// =========================================================
+document.addEventListener("click", (e) => {
+  const chip = e.target.closest(".tagFilter");
+  if (!chip) return;
+
+  // Prevent card click / open-slot click hijacking
+  e.preventDefault();
+  e.stopPropagation();
+
+  const tag = (chip.dataset.tag || "").toLowerCase().trim();
+  if (!tag) return;
+
+  // Toggle behavior: click same tag again = clear tag filter
+  if (activeTag === tag) {
+    setActiveTag("all");
+  } else {
+    // When selecting a tag, make the category "All" so you can see everyone with that tag
+    activeFilter = "all";
+    segBtns.forEach(b => b.setAttribute("aria-pressed", "false"));
+    const allBtn = Array.from(segBtns).find(b => (b.dataset.filter || "") === "all");
+    if (allBtn) allBtn.setAttribute("aria-pressed", "true");
+
+    setActiveTag(tag);
+  }
+
+  // Visual active state for chips inside currently visible cards
+  document.querySelectorAll(".tagFilter").forEach(btn => {
+    btn.classList.toggle("active", (btn.dataset.tag || "") === activeTag);
+  });
+});
 
     applyRosterFilters();
 
