@@ -787,7 +787,59 @@
       border: 1px solid rgba(255,255,255,0.10);
       color: var(--muted);
     }
+
+/* Clickable tag chips inside cards */
+.tagFilter{
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.72);
+  cursor:pointer;
+  transition:
+    transform .18s var(--kv-ease),
+    border-color .18s var(--kv-ease),
+    background .18s var(--kv-ease),
+    box-shadow .18s var(--kv-ease),
+    color .18s var(--kv-ease);
+}
+
+.tagFilter:hover{
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(177,108,255,0.40);
+  background: rgba(177,108,255,0.10);
+  color: rgba(255,255,255,0.92);
+  box-shadow: 0 12px 26px rgba(138,43,226,0.14);
+}
+
+.tagFilter:active{
+  transform: translateY(0) scale(0.99);
+}
+
     .cta{ margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* Small badge (Gen 0 / Member #) */
+.badgeMini{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .4px;
+  color: rgba(255,255,255,0.88);
+  border: 1px solid rgba(177,108,255,0.28);
+  background: rgba(177,108,255,0.10);
+  box-shadow: 0 10px 22px rgba(138,43,226,0.10);
+  user-select:none;
+}
+.badgeMini .dot{
+  width:7px; height:7px; border-radius:999px;
+  background: rgba(177,108,255,0.95);
+  box-shadow: 0 0 14px rgba(177,108,255,0.75);
+}
 
     /* Social icons */
     .socials{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px; }
@@ -1332,9 +1384,16 @@
 
   <div class="body">
     <div class="row">
-      <b>(Foxy)</b>
+      <b>Foxy</b>
       <span class="role">Talent • Founding Gen</span>
     </div>
+
+    <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+  <span class="badgeMini"><span class="dot"></span> GEN 0 • MEMBER 01</span>
+  <span class="badgeMini" style="border-color:rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); font-weight:800;">
+    Revealed • Feb 22
+  </span>
+</div>
 
     <p class="bio">
       Horror-focused creator with a kitsune/demon duality. Known for tense story arcs, collab energy, and clipable moments.
@@ -1342,11 +1401,11 @@
     </p>
 
     <div class="tags">
-      <span class="tag">Horror</span>
-      <span class="tag">Dead by Daylight</span>
-      <span class="tag">Lore</span>
-      <span class="tag">Collabs</span>
-    </div>
+  <button class="tagFilter" type="button" data-tag="horror">Horror</button>
+  <button class="tagFilter" type="button" data-tag="dbd">Dead by Daylight</button>
+  <button class="tagFilter" type="button" data-tag="lore">Lore</button>
+  <button class="tagFilter" type="button" data-tag="collabs">Collabs</button>
+</div>
 
     <div class="socials" aria-label="Social links">
       <!-- Replace # with her actual links (delete any you don't have yet) -->
