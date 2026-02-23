@@ -797,23 +797,30 @@
     }
 
     /* ============================
-       REVEAL POP + SLASH (FIXED)
-       - slash only shows during reveal pop-in
-       - NO slash on hover
-       ============================ */
-    @keyframes popIn {
-      from { opacity: 0; transform: translateY(14px) scale(.985); filter: blur(2px); }
-      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
-    .reveal{
-      opacity: 0;
-      transform: translateY(14px) scale(.985);
-      will-change: transform, opacity;
-    }
-    .reveal.in{
-      animation: popIn .55s var(--ease) forwards;
-    }
+   REVEAL (NO TRANSFORM ANIMATION)
+   ============================ */
+:root{
+  --ease: cubic-bezier(.2,.9,.2,1);
+}
 
+/* start state */
+.reveal{
+  opacity: 0;
+  transform: translateY(14px) scale(.985);
+  filter: blur(2px);
+  transition:
+    opacity .55s var(--ease),
+    transform .55s var(--ease),
+    filter .55s var(--ease);
+  will-change: transform, opacity;
+}
+
+/* end state */
+.reveal.in{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
     @keyframes kvSlashOnce{
       0%   { opacity: 0; transform: translateX(-35%) rotate(12deg); }
       35%  { opacity: 1; transform: translateX(10%) rotate(12deg); }
@@ -902,6 +909,29 @@
   }
   .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
     transform: none !important;
+  }
+}
+
+/* ============================
+   HOVER POP (ALL BOXES)
+   ============================ */
+.card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero, .mininav, .tabbtn, .btn{
+  will-change: transform;
+}
+
+.card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover,
+.portrait:hover, .hero:hover, .mininav:hover, .tabbtn:hover, .btn:hover{
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 22px 70px rgba(0,0,0,.55);
+  border-color: rgba(177,108,255,.35);
+}
+
+/* Don’t “pop” on touch devices (no real hover) */
+@media (hover: none){
+  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover,
+  .portrait:hover, .hero:hover, .mininav:hover, .tabbtn:hover, .btn:hover{
+    transform: none;
+    box-shadow: inherit;
   }
 }
 
