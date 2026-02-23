@@ -30,6 +30,7 @@
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
       --focus: rgba(177,108,255,.85);
+      --ease: cubic-bezier(.2,.9,.2,1);
     }
 
     *{ box-sizing:border-box; }
@@ -97,6 +98,17 @@
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
       z-index:0;
       mix-blend-mode: overlay;
+    }
+
+    /* ===== Particles canvas (behind content, above background) ===== */
+    #veilParticles{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;              /* behind .wrap (z=1), above gradients */
+      pointer-events: none;
+      opacity: .65;
     }
 
     /* Layout */
@@ -168,6 +180,7 @@
       filter: blur(2px);
       opacity:.8;
       transform: rotate(12deg);
+      pointer-events:none;
     }
     .hero-inner{
       display:grid;
@@ -189,6 +202,7 @@
       position:relative;
       overflow:hidden;
     }
+    /* keep your little corner box */
     .identity::after{
       content:"";
       position:absolute;
@@ -198,7 +212,9 @@
       transform: rotate(25deg);
       border-radius: 32px;
       opacity:.6;
+      pointer-events:none;
     }
+
     .badge-row{
       display:flex; flex-wrap:wrap; gap:8px; align-items:center;
       margin-bottom:10px;
@@ -277,7 +293,7 @@
       min-height: 16px;
     }
 
-    /* New: start-here CTA */
+    /* Start-here CTA */
     .cta{
       margin-top:14px;
       display:flex;
@@ -290,9 +306,7 @@
       border-color: rgba(177,108,255,.55);
       background: rgba(177,108,255,.12);
     }
-    .btn.primary:hover{
-      background: rgba(177,108,255,.18);
-    }
+    .btn.primary:hover{ background: rgba(177,108,255,.18); }
 
     /* Right: portrait + quick links */
     .side{
@@ -361,6 +375,7 @@
       background: linear-gradient(135deg, rgba(177,108,255,.18), rgba(255,90,220,.10));
       opacity:0;
       transition:.18s ease;
+      pointer-events:none;
     }
     .sbtn:hover{
       transform: translateY(-2px);
@@ -450,6 +465,8 @@
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
+      position:relative;
+      overflow:hidden;
     }
     .stat .k{ font-size:12px; color: var(--muted); }
     .stat .v{ font-size:14px; font-weight:700; margin-top:4px; }
@@ -461,6 +478,8 @@
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
+      position:relative;
+      overflow:hidden;
     }
     .bar .row{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -544,6 +563,8 @@
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
+      position:relative;
+      overflow:hidden;
     }
     .item .t{
       display:flex;
@@ -775,87 +796,78 @@
       .gimg:hover img{ transform:none !important; }
     }
 
-/* ===== Particles canvas (behind content, above background) ===== */
-#veilParticles{
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;              /* behind .wrap (z=1), above gradients */
-  pointer-events: none;
-  opacity: .65;
-}
+    /* ============================
+       REVEAL POP + SLASH (FIXED)
+       - slash only shows during reveal pop-in
+       - NO slash on hover
+       ============================ */
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(14px) scale(.985); filter: blur(2px); }
+      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px) scale(.985);
+      will-change: transform, opacity;
+    }
+    .reveal.in{
+      animation: popIn .55s var(--ease) forwards;
+    }
 
-/* ===== Pop-up reveal animation + diagonal slash line on cards/boxes ===== */
-@keyframes popIn {
-  from { opacity: 0; transform: translateY(14px) scale(.985); filter: blur(2px); }
-  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-}
-.reveal{
-  opacity: 0;
-  transform: translateY(14px) scale(.985);
-  will-change: transform, opacity;
-}
-.reveal.in{
-  animation: popIn .55s cubic-bezier(.2,.9,.2,1) forwards;
-}
+    @keyframes kvSlashOnce{
+      0%   { opacity: 0; transform: translateX(-35%) rotate(12deg); }
+      35%  { opacity: 1; transform: translateX(10%) rotate(12deg); }
+      100% { opacity: 0; transform: translateX(45%) rotate(12deg); }
+    }
 
-/* The “white line through it” (diagonal slash) */
-.card::after,
-.identity::after,
-.portrait::after,
-.item::after,
-.clip::after,
-.gimg::after,
-.sbtn::after,
-.stat::after,
-.bar::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background: linear-gradient(
-    135deg,
-    transparent 45%,
-    rgba(255,255,255,.22) 49%,
-    rgba(255,255,255,.22) 51%,
-    transparent 55%
-  );
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: opacity .22s ease, transform .22s ease;
-  pointer-events:none;
-}
+    /* The diagonal slash: exists, but hidden by default */
+    .card::after,
+    .portrait::after,
+    .item::after,
+    .clip::after,
+    .gimg::after,
+    .sbtn::after,
+    .stat::after,
+    .bar::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(
+        135deg,
+        transparent 45%,
+        rgba(255,255,255,.22) 49%,
+        rgba(255,255,255,.22) 51%,
+        transparent 55%
+      );
+      opacity: 0;
+      transform: translateX(-35%) rotate(12deg);
+      pointer-events:none;
+    }
 
-/* Make the slash show on hover + when revealed */
-.card:hover::after,
-.identity:hover::after,
-.portrait:hover::after,
-.item:hover::after,
-.clip:hover::after,
-.gimg:hover::after,
-.sbtn:hover::after,
-.stat:hover::after,
-.bar:hover::after{
-  opacity: .9;
-  transform: translateX(0);
-}
+    /* Show it ONLY when that element is revealing */
+    .reveal.in.card::after,
+    .reveal.in.portrait::after,
+    .reveal.in.item::after,
+    .reveal.in.clip::after,
+    .reveal.in.gimg::after,
+    .reveal.in.sbtn::after,
+    .reveal.in.stat::after,
+    .reveal.in.bar::after{
+      animation: kvSlashOnce .65s var(--ease) both;
+    }
 
-/* When it pops in, briefly flash the slash */
-.reveal.in::after{
-  opacity: .7;
-  transform: translateX(0);
-}
+    /* IMPORTANT: no hover rules for ::after anymore */
 
-/* Keep motion respectful */
-@media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1 !important; transform:none !important; }
-  .reveal.in{ animation:none !important; }
-  .card::after,.identity::after,.portrait::after,.item::after,.clip::after,.gimg::after,
-  .sbtn::after,.stat::after,.bar::after{
-    transition:none !important;
-  }
-}
-
+    /* Keep motion respectful */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ opacity:1 !important; transform:none !important; }
+      .reveal.in{ animation:none !important; }
+      .card::after,.portrait::after,.item::after,.clip::after,.gimg::after,
+      .sbtn::after,.stat::after,.bar::after{
+        animation:none !important;
+        opacity:0 !important;
+      }
+    }
   </style>
 </head>
 
@@ -864,7 +876,7 @@
 
   <div class="veil-lines"></div>
   <div class="veil-noise"></div>
-<canvas id="veilParticles" aria-hidden="true"></canvas>
+  <canvas id="veilParticles" aria-hidden="true"></canvas>
 
   <div class="wrap">
     <header class="topbar" role="banner">
@@ -899,14 +911,12 @@
 
             <p class="quote" id="quoteLine">“A Kitsune that sometimes makes questionable sounds”</p>
 
-            <!-- 5) Start Here CTA -->
             <div class="cta" aria-label="Start here actions">
               <a class="btn primary" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener">🎥 Watch on Twitch</a>
               <a class="btn" href="#clips">🎬 See clips</a>
               <a class="btn" href="#lore">🌘 Read lore</a>
             </div>
 
-            <!-- 6) Soundboard / Quote -->
             <div class="id-actions">
               <button class="btn" id="newQuote" type="button" aria-label="Shuffle quote">
                 🎭 Shuffle quote
@@ -1005,7 +1015,6 @@
           </div>
         </article>
 
-        <!-- 1) Real simple schedule -->
         <article class="card" id="live">
           <div class="head"><h2>Schedule</h2></div>
           <div class="body">
@@ -1043,7 +1052,6 @@
           </div>
         </article>
 
-        <!-- 4) Clips: coming soon placeholders -->
         <article class="card" id="clips">
           <div class="head"><h2>Clips</h2></div>
           <div class="body">
@@ -1071,7 +1079,6 @@
           </div>
         </article>
 
-        <!-- 9) Lore TL;DR + tabs -->
         <article class="card lore" id="lore">
           <div class="head">
             <h2>Personal Lore</h2>
@@ -1219,7 +1226,6 @@
           </div>
         </article>
 
-        <!-- 10) Rename + simplify guide -->
         <article class="card" id="guide">
           <div class="head"><h2>How To Use This Profile</h2></div>
           <div class="body">
@@ -1252,7 +1258,6 @@
               <div class="gimg" data-tags="kitsune demon"><img src="foxypng.png" alt="Gallery 6"></div>
             </div>
 
-            <!-- 8) Empty message -->
             <div class="empty" id="emptyMsg">
               Nothing matches that tag yet. Try <strong>All</strong> or a different tag.
             </div>
@@ -1296,7 +1301,7 @@
       window.__toastTimer = setTimeout(() => toast.textContent = "", ms);
     }
 
-    // 3) Tag filters (Content + Gallery) + URL ?tag=
+    // Tag filters (Content + Gallery) + URL ?tag=
     const filterButtons = Array.from(document.querySelectorAll('button.tag[data-filter]'));
     const contentItems  = Array.from(document.querySelectorAll('#contentList .item'));
     const galleryItems  = Array.from(document.querySelectorAll('#galleryGrid .gimg'));
@@ -1320,11 +1325,9 @@
       contentItems.forEach(el => el.classList.toggle("hidden", !matchesTag(el, tag)));
       galleryItems.forEach(el => el.classList.toggle("hidden", !matchesTag(el, tag)));
 
-      // 8) show empty message if gallery has nothing visible
       const anyVisible = galleryItems.some(el => !el.classList.contains("hidden"));
       emptyMsg.classList.toggle("show", !anyVisible);
 
-      // Update URL query without reloading
       const url = new URL(window.location.href);
       if (tag === "all") url.searchParams.delete("tag");
       else url.searchParams.set("tag", tag);
@@ -1338,7 +1341,7 @@
     if (qsTag && filterButtons.some(b => b.dataset.filter === qsTag)) applyFilter(qsTag);
     else applyFilter("all");
 
-    // 5) Lore tabs
+    // Lore tabs
     const tabBtns = Array.from(document.querySelectorAll(".tabbtn"));
     const panels = {
       kitsune: document.getElementById("panel-kitsune"),
@@ -1351,7 +1354,7 @@
     }
     tabBtns.forEach(b => b.addEventListener("click", () => showPanel(b.dataset.panel)));
 
-    // 2) Gallery Lightbox
+    // Gallery Lightbox
     const lb = document.getElementById("lightbox");
     const lbImg = document.getElementById("lightboxImg");
     document.querySelectorAll(".gimg img").forEach(img => {
@@ -1369,7 +1372,7 @@
     lb.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
     window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLB(); });
 
-    // 3) Quote shuffle + 3) auto-rotate
+    // Quote shuffle + auto-rotate
     const quoteLine = document.getElementById("quoteLine");
     const quotes = [
       "“A Kitsune that sometimes makes questionable sounds”",
@@ -1414,132 +1417,126 @@
     document.getElementById("fabTop").addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
-    
-  /* ===== Reveal pop-up for boxes/cards ===== */
-  const revealTargets = [
-    ".hero",
-    ".identity",
-    ".portrait",
-    ".sbtn",
-    ".mininav",
-    ".card",
-    ".item",
-    ".clip",
-    ".gimg",
-    ".stat",
-    ".bar"
-  ].join(",");
 
-  const revealEls = Array.from(document.querySelectorAll(revealTargets));
-  revealEls.forEach(el => el.classList.add("reveal"));
+    /* ===== Reveal pop-up for boxes/cards ===== */
+    const revealTargets = [
+      ".hero",
+      ".identity",
+      ".portrait",
+      ".sbtn",
+      ".mininav",
+      ".card",
+      ".item",
+      ".clip",
+      ".gimg",
+      ".stat",
+      ".bar"
+    ].join(",");
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add("in");
-        io.unobserve(e.target);
+    const revealEls = Array.from(document.querySelectorAll(revealTargets));
+    revealEls.forEach(el => el.classList.add("reveal"));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => io.observe(el));
+
+    /* ===== Particles ===== */
+    (() => {
+      const canvas = document.getElementById("veilParticles");
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d", { alpha: true });
+
+      let W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+
+      function resize(){
+        W = Math.floor(window.innerWidth);
+        H = Math.floor(window.innerHeight);
+        canvas.width  = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       }
-    });
-  }, { threshold: 0.12 });
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
 
-  revealEls.forEach(el => io.observe(el));
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const count = reduce ? 35 : Math.min(120, Math.floor((W * H) / 18000));
 
-  /* ===== Particles ===== */
-  (() => {
-    const canvas = document.getElementById("veilParticles");
-    if (!canvas) return;
+      const particles = Array.from({ length: count }, () => {
+        const r = 0.8 + Math.random() * 2.2;
+        return {
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r,
+          vx: (-0.18 + Math.random() * 0.36),
+          vy: (-0.25 + Math.random() * 0.50),
+          a: 0.18 + Math.random() * 0.32
+        };
+      });
 
-    const ctx = canvas.getContext("2d", { alpha: true });
+      function step(){
+        ctx.clearRect(0, 0, W, H);
 
-    let W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+        for (let i=0;i<particles.length;i++){
+          const p = particles[i];
 
-    function resize(){
-      W = Math.floor(window.innerWidth);
-      H = Math.floor(window.innerHeight);
-      canvas.width  = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      canvas.style.width = W + "px";
-      canvas.style.height = H + "px";
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    }
-    window.addEventListener("resize", resize, { passive: true });
-    resize();
+          p.x += p.vx;
+          p.y += p.vy;
 
-    // build particles
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const count = reduce ? 35 : Math.min(120, Math.floor((W * H) / 18000));
+          if (p.x < -20) p.x = W + 20;
+          if (p.x > W + 20) p.x = -20;
+          if (p.y < -20) p.y = H + 20;
+          if (p.y > H + 20) p.y = -20;
 
-    const particles = Array.from({ length: count }, () => {
-      const r = 0.8 + Math.random() * 2.2;
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r,
-        vx: (-0.18 + Math.random() * 0.36),
-        vy: (-0.25 + Math.random() * 0.50),
-        a: 0.18 + Math.random() * 0.32
-      };
-    });
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+          ctx.fill();
 
-    function step(){
-      ctx.clearRect(0, 0, W, H);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(177,108,255,${p.a * 0.22})`;
+          ctx.fill();
+        }
 
-      // subtle glow dots + faint connecting lines
-      for (let i=0;i<particles.length;i++){
-        const p = particles[i];
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < -20) p.x = W + 20;
-        if (p.x > W + 20) p.x = -20;
-        if (p.y < -20) p.y = H + 20;
-        if (p.y > H + 20) p.y = -20;
-
-        // dot
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${p.a})`;
-        ctx.fill();
-
-        // glow
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * 3.2, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(177,108,255,${p.a * 0.22})`;
-        ctx.fill();
-      }
-
-      // Lines (only a few, not spiderweb)
-      ctx.lineWidth = 1;
-      for (let i=0;i<particles.length;i++){
-        const a = particles[i];
-        for (let j=i+1;j<i+8 && j<particles.length;j++){
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx*dx + dy*dy;
-          const max = 140*140;
-          if (d2 < max){
-            const alpha = (1 - d2/max) * 0.09;
-            ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
+        ctx.lineWidth = 1;
+        for (let i=0;i<particles.length;i++){
+          const a = particles[i];
+          for (let j=i+1;j<i+8 && j<particles.length;j++){
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const d2 = dx*dx + dy*dy;
+            const max = 140*140;
+            if (d2 < max){
+              const alpha = (1 - d2/max) * 0.09;
+              ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
           }
         }
+
+        if (!reduce) requestAnimationFrame(step);
       }
 
-      if (!reduce) requestAnimationFrame(step);
-    }
-
-    // If reduced motion: draw once, no animation.
-    if (reduce){
-      step();
-    } else {
-      requestAnimationFrame(step);
-    }
-  })();
+      if (reduce){
+        step();
+      } else {
+        requestAnimationFrame(step);
+      }
+    })();
   </script>
 </body>
 </html>
