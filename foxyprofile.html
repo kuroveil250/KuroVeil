@@ -1378,6 +1378,105 @@
       .peek{ width: 70px; }
       .peek.lg{ width: 92px; }
     }
+    /* ===== POLISH PASS (drop-in) ===== */
+
+/* Sharper text rendering */
+html{
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* Slightly calmer palette + consistent radii */
+:root{
+  --radius: 18px;
+  --radius2: 22px;
+  --glass: rgba(255,255,255,.045);
+  --glass2: rgba(255,255,255,.065);
+  --stroke: rgba(255,255,255,.11);
+  --stroke2: rgba(255,255,255,.08);
+}
+
+/* Consistent subtle borders + less “muddy” fill */
+.topbar,
+.hero,
+.card,
+.identity,
+.portrait,
+.mininav,
+.item,
+.stat,
+.bar,
+.clip,
+.gimg,
+.sbtn{
+  border-color: var(--stroke);
+  background: var(--glass);
+}
+
+/* Better “glass” clarity */
+.topbar,
+.mininav,
+.watermark,
+.progress{
+  backdrop-filter: blur(14px);
+}
+
+/* Calmer hover (your current hover scales EVERYTHING and feels less premium) */
+.card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero, .mininav{
+  transform: translateZ(0);
+}
+.card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover, .mininav:hover{
+  transform: translateY(-2px); /* was -4px scale(1.015) */
+  box-shadow: 0 20px 70px rgba(0,0,0,.55);
+  background: var(--glass2);
+}
+
+/* Make headings look more “brand” and less default */
+h1{
+  letter-spacing:-.9px;
+}
+.card h2{
+  letter-spacing:.22em;
+}
+
+/* Buttons: more consistent, slightly sharper */
+.btn, .sbtn, .tabbtn{
+  border-color: var(--stroke2);
+}
+.btn:hover, .sbtn:hover, .tabbtn:hover{
+  box-shadow: 0 16px 55px rgba(0,0,0,.50);
+}
+
+/* Cleaner hero spacing */
+.hero-inner{
+  gap:16px;
+  padding:18px;
+}
+.identity{
+  border-radius: var(--radius2);
+}
+.portrait{
+  border-radius: var(--radius2);
+}
+
+/* Smooth images */
+img{
+  image-rendering: auto;
+}
+
+/* Reduce visual noise just a hair (keeps vibe, looks more premium) */
+.veil-lines{ opacity:.42; }
+.veil-noise{ opacity:.06; }
+#veilParticles{ opacity:.46; }
+
+/* Mobile: avoid “tight” look */
+@media (max-width: 520px){
+  .wrap{ padding: 18px 14px 92px; }
+  h1{ font-size: 38px; }
+  .topbar{ padding: 10px 12px; }
+}
   </style>
 </head>
 

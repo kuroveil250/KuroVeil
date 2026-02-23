@@ -1005,6 +1005,65 @@
       .stickyCTA .btns{ width:100%; }
       .stickyCTA .btns .btn{ flex: 1 1 auto; }
     }
+    /* Member reveal card (teaser slot replacement) */
+.memberCard{
+  padding: 18px;
+  border-radius: 20px;
+  text-align:left;
+}
+
+.memberMedia{
+  height: 180px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(177,108,255,0.25), rgba(13,0,24,0.0)),
+    radial-gradient(circle at 70% 70%, rgba(138,43,226,0.18), rgba(13,0,24,0.0)),
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+
+.memberMedia img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  transform: scale(1.02);
+  transition: transform .35s var(--kv-ease), filter .35s var(--kv-ease);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.kvBox:hover .memberMedia img{
+  transform: scale(1.06);
+}
+
+.memberMeta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 10px;
+}
+
+.memberTag{
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.75);
+}
+/* Make an entire card clickable */
+.cardLink{
+  display:block;
+  text-decoration:none;
+  color: inherit;
+  border-radius: 20px; /* match kvBox radius */
+}
+.cardLink:focus-visible{
+  outline:none;
+  box-shadow: var(--ring);
+}
   </style>
 </head>
 
@@ -1201,12 +1260,24 @@
       <h2 style="margin:0; font-size:22px; letter-spacing:-0.2px;">Founding Generation</h2>
       <p class="teaser-sub">The first shadows are forming…</p>
 
-      <div class="teaser-grid">
-        <div class="teaser-card kvBox">
-          <div class="teaser-img" aria-hidden="true"></div>
-          <h3 style="margin:0 0 6px;">???</h3>
-          <p style="margin:0; color: var(--muted); font-size:13px;">Debut Soon</p>
-        </div>
+<a class="cardLink" href="foxyprofile.html" aria-label="Open Foxy profile">
+  <div class="memberCard kvBox" data-tags="horror dbd">
+    <div class="memberMedia">
+      <img src="foxyeyes.png" alt="Kuroveil Member — Foxy" loading="lazy">
+    </div>
+
+    <h3 style="margin:0 0 6px;">Foxy</h3>
+    <p style="margin:0; color: var(--muted); font-size:13px;">
+      Horror-focused • Dead by Daylight main
+    </p>
+
+    <div class="memberMeta" aria-label="Member tags">
+      <span class="memberTag">Horror</span>
+      <span class="memberTag">DBD</span>
+      <span class="memberTag">Gen 0</span>
+    </div>
+  </div>
+</a>
 
         <div class="teaser-card kvBox">
           <div class="teaser-img" aria-hidden="true"></div>
