@@ -868,6 +868,43 @@
         opacity:0 !important;
       }
     }
+
+/* ============================
+   HOVER POP (make boxes pop)
+   ============================ */
+
+/* Make sure these can animate */
+.card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero{
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  will-change: transform;
+}
+
+/* Pop on hover */
+.card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 22px 70px rgba(0,0,0,.55);
+  border-color: rgba(177,108,255,.35);
+  background: rgba(255,255,255,.06);
+}
+
+/* Slightly smaller pop on mobile (no real hover) */
+@media (hover: none){
+  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
+    transform: none;
+    box-shadow: 0 14px 40px rgba(0,0,0,.25);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero{
+    transition: none !important;
+  }
+  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
+    transform: none !important;
+  }
+}
+
   </style>
 </head>
 
