@@ -29,6 +29,8 @@
       --warn: rgba(255,205,90,.85);
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
+
+      --focus: rgba(177,108,255,.85);
     }
 
     *{ box-sizing:border-box; }
@@ -42,6 +44,35 @@
         radial-gradient(900px 380px at 85% 0%, rgba(255,90,220,.12), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
+    }
+
+    /* Accessibility: skip link */
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:auto;
+      width:1px;height:1px;
+      overflow:hidden;
+    }
+    .skip:focus{
+      left:12px; top:12px;
+      width:auto;height:auto;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.7);
+      border:1px solid rgba(255,255,255,.14);
+      z-index: 9999;
+      color: var(--text);
+      text-decoration:none;
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Focus styles */
+    a:focus-visible, button:focus-visible{
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: 12px;
     }
 
     /* Background diagonal lines */
@@ -75,10 +106,10 @@
       z-index:1;
       max-width:1100px;
       margin:0 auto;
-      padding: 22px 18px 80px;
+      padding: 22px 18px 110px;
     }
 
-    /* Top nav (optional, matches your style) */
+    /* Top nav */
     .topbar{
       display:flex;
       align-items:center;
@@ -180,10 +211,26 @@
       border:1px solid rgba(177,108,255,.35);
       background: rgba(177,108,255,.10);
       color: var(--text);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
     .badge.alt{
       border-color: rgba(255,90,220,.35);
       background: rgba(255,90,220,.10);
+    }
+    .badge.live{
+      border-color: rgba(90,255,190,.35);
+      background: rgba(90,255,190,.10);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(255,205,90,.85);
+      box-shadow: 0 0 18px rgba(255,205,90,.35);
+    }
+    .dot.on{
+      background: rgba(90,255,190,.95);
+      box-shadow: 0 0 20px rgba(90,255,190,.35);
     }
 
     h1{
@@ -203,6 +250,44 @@
       font-size:15px;
       line-height:1.55;
       max-width: 62ch;
+    }
+
+    /* Identity actions (soundboard / quote) */
+    .id-actions{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius: 14px;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition:.18s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,.35);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      background: rgba(177,108,255,.08);
+    }
+    .btn.small{ padding:9px 10px; font-weight:600; }
+    .toast{
+      margin-top:10px;
+      font-size:12px;
+      color: rgba(246,241,255,.72);
+      min-height: 16px;
     }
 
     /* Right: portrait + quick links */
@@ -339,6 +424,7 @@
       justify-content:space-between;
       gap:10px;
       background: rgba(0,0,0,.18);
+      flex-wrap:wrap;
     }
     .card h2{
       margin:0;
@@ -349,6 +435,7 @@
     }
     .card .body{ padding:14px 16px; }
 
+    /* Stats */
     .stats{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -410,8 +497,8 @@
       font-style: italic;
     }
 
-    /* Tags */
-    .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+    /* Tags (clickable filters) */
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
     .tag{
       font-size:12px;
       padding:6px 10px;
@@ -419,6 +506,117 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.18);
       color: rgba(246,241,255,.85);
+      user-select:none;
+    }
+    button.tag{
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    button.tag:hover{
+      transform: translateY(-1px);
+      border-color: rgba(177,108,255,.35);
+      background: rgba(177,108,255,.10);
+      color: var(--text);
+    }
+    .tag.active{
+      border-color: rgba(177,108,255,.55);
+      background: rgba(177,108,255,.16);
+      color: var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    /* Lists */
+    .list{
+      display:grid;
+      gap:10px;
+    }
+    .item{
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .item .t{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .item strong{ font-size:13px; }
+    .item .sub{
+      margin-top:8px;
+      font-size:13px;
+      color: rgba(246,241,255,.78);
+      line-height:1.55;
+    }
+
+    /* Clips */
+    .clips{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 520px){
+      .clips{ grid-template-columns: 1fr; }
+    }
+    .clip{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      min-height: 190px;
+      position:relative;
+    }
+    .clip iframe{
+      width:100%;
+      height: 230px;
+      border:0;
+      display:block;
+    }
+    .clip .hint{
+      padding:10px 10px;
+      font-size:12px;
+      color: rgba(246,241,255,.70);
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.18);
+    }
+
+    /* Lore toggle tabs */
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .tabbtn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(246,241,255,.85);
+      padding:9px 10px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.02em;
+      transition:.18s ease;
+    }
+    .tabbtn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(177,108,255,.35);
+      background: rgba(177,108,255,.10);
+      color: var(--text);
+    }
+    .tabbtn.active{
+      border-color: rgba(177,108,255,.55);
+      background: rgba(177,108,255,.16);
+      color: var(--text);
+    }
+    .panel{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
     }
 
     /* Gallery */
@@ -453,6 +651,7 @@
       box-shadow: 0 16px 50px rgba(0,0,0,.35);
     }
     .gimg:hover img{ transform: scale(1.06); }
+    .hidden{ display:none !important; }
 
     /* Lightbox */
     .lightbox{
@@ -502,21 +701,68 @@
     }
     .foot a{ color: rgba(246,241,255,.75); text-decoration:none; }
     .foot a:hover{ text-decoration:underline; }
+
+    /* Floating actions (Share / Copy / Top) */
+    .floatbar{
+      position:fixed;
+      right: 16px;
+      bottom: 16px;
+      display:grid;
+      gap:10px;
+      z-index: 9999;
+    }
+    .fab{
+      width: 46px; height: 46px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      cursor:pointer;
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      transition:.18s ease;
+      display:grid;
+      place-items:center;
+      backdrop-filter: blur(10px);
+    }
+    .fab:hover{
+      transform: translateY(-2px);
+      border-color: rgba(177,108,255,.35);
+      background: rgba(177,108,255,.10);
+    }
+    .fab span{ font-size:18px; line-height:1; }
+    .sr{
+      position:absolute !important;
+      height:1px;width:1px;
+      overflow:hidden;
+      clip: rect(1px,1px,1px,1px);
+      white-space:nowrap;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; scroll-behavior:auto !important; }
+      .navlinks a:hover, .sbtn:hover, .btn:hover, .tag:hover, .gimg:hover, .fab:hover{
+        transform:none !important;
+      }
+      .gimg:hover img{ transform:none !important; }
+    }
   </style>
 </head>
 
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <div class="veil-lines"></div>
   <div class="veil-noise"></div>
 
   <div class="wrap">
-    <!-- Topbar (optional) -->
-    <header class="topbar">
-      <a class="brand" href="index.html">
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <a class="brand" href="index.html" aria-label="Kuroveil Home">
         <img src="favicon.png" alt="Kuroveil" />
         <span>Kuroveil</span>
       </a>
-      <nav class="navlinks">
+      <nav class="navlinks" aria-label="Primary navigation">
         <a href="about.html">About</a>
         <a href="roster.html">Roster</a>
         <a href="apply.html">Apply</a>
@@ -525,173 +771,433 @@
       </nav>
     </header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="identity">
-          <div class="badge-row">
-            <span class="badge">Gen 0 • Founding Veil</span>
-            <span class="badge alt">Active</span>
-            <span class="badge">🦊🌘</span>
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" aria-label="Foxy profile hero">
+        <div class="hero-inner">
+          <div class="identity">
+            <div class="badge-row">
+              <span class="badge">Gen 0 • Founding Veil</span>
+              <span class="badge alt">Active</span>
+
+              <!-- 1) Live status (manual toggle in JS) -->
+              <span class="badge live" id="liveBadge" title="Live status">
+                <span class="dot" id="liveDot" aria-hidden="true"></span>
+                <span id="liveText">OFFLINE</span>
+              </span>
+
+              <span class="badge">🦊🌘</span>
+            </div>
+
+            <h1>Foxy</h1>
+            <p class="titleline">“The Veil’s Split Soul” • Horror & Chaos</p>
+            <p class="hook">
+              A wandering kitsune divided by a demon’s hunger streaming fear until the Veil breaks.
+            </p>
+
+            <p class="quote" id="quoteLine">“A Kitsune that sometimes makes questionable sounds”</p>
+
+            <!-- 6) Soundboard / Quote -->
+            <div class="id-actions">
+              <button class="btn" id="playLine" type="button" aria-label="Play a Foxy voice line">
+                🔊 Play line
+              </button>
+              <button class="btn" id="newQuote" type="button" aria-label="Shuffle quote">
+                🎭 Shuffle quote
+              </button>
+              <a class="btn" href="roster.html?tag=horror" aria-label="View roster filtered to Horror">
+                🕸️ Horror roster
+              </a>
+            </div>
+            <div class="toast" id="toast" aria-live="polite"></div>
+
+            <!-- Hidden audio (optional file you can add later) -->
+            <audio id="voiceLine" preload="none">
+              <!-- Add your file if you want: -->
+              <!-- <source src="foxyline1.mp3" type="audio/mpeg"> -->
+            </audio>
           </div>
 
-          <!-- CHANGE THESE -->
-          <h1>Foxy</h1>
-          <p class="titleline">“The Veil’s Split Soul” • Horror & Chaos</p>
-          <p class="hook">
-            A wandering kitsune divided by a demon’s hunger streaming fear until the Veil breaks.
-          </p>
+          <div class="side">
+            <div class="portrait">
+              <img src="foxymoon.png" alt="Foxy portrait" />
+              <div class="watermark">Member of Kuroveil • The Veil is Rising</div>
+            </div>
 
-          <p class="quote">“A Kitsune that sometimes makes questionable sounds”</p>
+            <div class="socials" aria-label="Social links">
+              <a class="sbtn" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener" aria-label="Foxy on Twitch">
+                <span>🎥 Twitch</span>
+              </a>
+              <a class="sbtn" href="https://www.youtube.com/@Sleeping_Foxy" target="_blank" rel="noopener" aria-label="Foxy on YouTube">
+                <span>📺 YouTube</span>
+              </a>
+              <a class="sbtn" href="https://x.com/Sleeping_foxy" target="_blank" rel="noopener" aria-label="Foxy on X">
+                <span>🕯 X</span>
+              </a>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="side">
-          <!-- Main portrait -->
-          <div class="portrait">
-            <!-- Replace image -->
-            <img src="foxymoon.png" alt="Foxy portrait" />
-            <div class="watermark">Member of Kuroveil • The Veil is Rising</div>
+      <!-- Sticky mini-nav -->
+      <nav class="mininav" aria-label="On-page navigation">
+        <a href="#stats">Quick Info</a>
+        <a href="#live">Live & Schedule</a>
+        <a href="#clips">Clips</a>
+        <a href="#lore">Lore</a>
+        <a href="#veilrole">Role</a>
+        <a href="#content">Content</a>
+        <a href="#fan">Fan Hub</a>
+        <a href="#loadout">Loadout</a>
+        <a href="#gallery">Gallery</a>
+      </nav>
+
+      <section class="grid">
+        <!-- Quick Info -->
+        <article class="card" id="stats">
+          <div class="head">
+            <h2>Quick Info</h2>
+
+            <!-- 3) Clickable tag filters -->
+            <div class="tags" aria-label="Filters">
+              <button class="tag" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="tag" type="button" data-filter="horror">Horror</button>
+              <button class="tag" type="button" data-filter="dbd">Dead by Daylight</button>
+              <button class="tag" type="button" data-filter="chaotic">Chaotic</button>
+              <button class="tag" type="button" data-filter="kitsune">Kitsune</button>
+              <button class="tag" type="button" data-filter="demon">Demon</button>
+            </div>
           </div>
 
-          <!-- Socials -->
-          <div class="socials">
-            <a class="sbtn" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener"><span>🎥 Twitch</span></a>
-            <a class="sbtn" href="https://www.youtube.com/@Sleeping_Foxy" target="_blank" rel="noopener"><span>📺 YouTube</span></a>
-            <a class="sbtn" href="https://x.com/Sleeping_foxy" target="_blank" rel="noopener"><span>🕯 X</span></a>
+          <div class="body">
+            <div class="stats">
+              <div class="stat"><div class="k">Debut</div><div class="v">Feb 22 2026</div></div>
+              <div class="stat"><div class="k">Birthday</div><div class="v">??/??</div></div>
+              <div class="stat"><div class="k">Fan Name</div><div class="v">Foxy</div></div>
+              <div class="stat"><div class="k">Hashtag</div><div class="v">#Foxy</div></div>
+              <div class="stat"><div class="k">Languages</div><div class="v">EN</div></div>
+              <div class="stat"><div class="k">Timezone</div><div class="v">GMT+1</div></div>
+            </div>
+
+            <div style="height:12px"></div>
+
+            <div class="bars">
+              <div class="bar">
+                <div class="row"><span>Chaos Level</span><strong>70%</strong></div>
+                <div class="meter"><div class="fill" style="width:70%"></div></div>
+              </div>
+              <div class="bar">
+                <div class="row"><span>Horror Addiction</span><strong>95%</strong></div>
+                <div class="meter"><div class="fill" style="width:95%"></div></div>
+              </div>
+              <div class="bar">
+                <div class="row"><span>Emotional Stability</span><strong>22%</strong></div>
+                <div class="meter"><div class="fill" style="width:22%"></div></div>
+              </div>
+            </div>
+
+            <div style="height:12px"></div>
+
+            <!-- 10) Share/Copy quick links (also in floating bar) -->
+            <div class="tags">
+              <button class="btn small" id="copyLink" type="button">🔗 Copy link</button>
+              <button class="btn small" id="shareX" type="button">🕯 Share to X</button>
+              <a class="btn small" href="roster.html" aria-label="Back to roster">← Back</a>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- 1) Live & Schedule -->
+        <article class="card" id="live">
+          <div class="head"><h2>Live & Schedule</h2></div>
+          <div class="body">
+            <div class="list">
+              <div class="item" data-tags="horror chaotic">
+                <div class="t">
+                  <strong>Next stream</strong>
+                  <span class="tag" id="nextStreamTag">TBD</span>
+                </div>
+                <div class="sub" id="nextStreamText">
+                  Set this in the script: date + time + title.
+                </div>
+              </div>
+
+              <div class="item" data-tags="horror dbd">
+                <div class="t">
+                  <strong>Weekly schedule (example)</strong>
+                  <span class="tag">GMT+1</span>
+                </div>
+                <div class="sub">
+                  Mon: DBD • Wed: Indie Horror • Fri: Chaos Chatting • Sun: “Veil Night” Collab
+                </div>
+              </div>
+
+              <div class="item" data-tags="chaotic demon kitsune">
+                <div class="t">
+                  <strong>Status note</strong>
+                  <span class="tag">Manual</span>
+                </div>
+                <div class="sub">
+                  This page uses a simple manual LIVE toggle (no API keys). When you’re ready later, we can upgrade to a real Twitch API status.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2) Clips -->
+        <article class="card" id="clips">
+          <div class="head"><h2>Clips & Highlights</h2></div>
+          <div class="body">
+            <p style="margin:0 0 10px; color:rgba(246,241,255,.78); font-size:13px; line-height:1.55;">
+              Replace the embed URLs with your best moments (Twitch clip embeds or YouTube highlights).
+            </p>
+
+            <div class="clips">
+              <div class="clip" data-tags="horror chaotic">
+                <!-- Example YouTube embed (replace VIDEO_ID) -->
+                <iframe
+                  title="Highlight 1"
+                  src="https://www.youtube-nocookie.com/embed/VIDEO_ID_1"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <div class="hint">Highlight #1 — “The Veil Breaks”</div>
+              </div>
+
+              <div class="clip" data-tags="dbd chaotic">
+                <iframe
+                  title="Highlight 2"
+                  src="https://www.youtube-nocookie.com/embed/VIDEO_ID_2"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+                <div class="hint">Highlight #2 — “DBD Chaos”</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4) Collab hooks -->
+        <article class="card" id="collabs">
+          <div class="head"><h2>Collab Hooks</h2></div>
+          <div class="body">
+            <div class="list">
+              <div class="item" data-tags="horror chaotic">
+                <div class="t"><strong>Horror Nights</strong><span class="tag">Group scare runs</span></div>
+                <div class="sub">Rotating indie horror + scream counter + “demon takes over” punishments.</div>
+              </div>
+              <div class="item" data-tags="dbd chaotic">
+                <div class="t"><strong>DBD Kill Squad</strong><span class="tag">Stacked chaos</span></div>
+                <div class="sub">Full team comms + challenge wheel (perk roulette / no-heal / altruism only).</div>
+              </div>
+              <div class="item" data-tags="demon kitsune">
+                <div class="t"><strong>Demon vs Kitsune Debate</strong><span class="tag">Lore RP</span></div>
+                <div class="sub">Short roleplay segments between matches: “who controls the body tonight?”</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5) Lore toggle -->
+        <article class="card lore" id="lore">
+          <div class="head">
+            <h2>Personal Lore</h2>
+            <div class="tabs" aria-label="Lore tabs">
+              <button class="tabbtn active" type="button" data-panel="kitsune">🦊 Kitsune</button>
+              <button class="tabbtn" type="button" data-panel="demon">🖤 Demon</button>
+              <button class="tabbtn" type="button" data-panel="full">🌘 Full</button>
+            </div>
+          </div>
+          <div class="body">
+            <div class="panel" id="panel-kitsune">
+              <p>
+                From the dark corners of the world, a wandering kitsune crosses the Veil.
+                She seeks to protect what little light remains—quietly, stubbornly.
+              </p>
+              <p>
+                But every step deeper into shadow pulls her closer to the thing inside.
+              </p>
+            </div>
+
+            <div class="panel hidden" id="panel-demon">
+              <p>
+                A succubus bound to the kitsune’s soul—hungry, clever, and always smiling.
+                She feeds on fear, whispers shortcuts, and turns “oops” into “again.”
+              </p>
+              <p class="quote">“Let me drive. You’ll still be alive… probably.”</p>
+            </div>
+
+            <div class="panel hidden" id="panel-full">
+              <p>
+                Once drawn too deep into the shadows, she became bound to a demon—two sides, one body,
+                constantly fighting for control.
+              </p>
+              <p>
+                The kitsune seeks separation and mercy. The demon craves chaos and feeds on fear.
+                Streams become the battleground—every scream is a coin paid to the Veil.
+              </p>
+              <p class="muted">
+                Note: This is lore about the creator’s character, not their personal life. Keep it in-universe and relevant to their Veil identity.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Role in Veil -->
+        <article class="card lore" id="veilrole">
+          <div class="head"><h2>Role Within The Veil</h2></div>
+          <div class="body">
+            <p>
+              Foxy embodies the chaotic and horror-driven aspect of the Veil, bringing a unique blend of tension,
+              fear, and dark humor to the group. Her streams explore duality, inner conflict, and the struggle
+              between light and darkness—making her a key figure in shaping the Veil’s tone.
+            </p>
+            <div class="tags" style="margin-top:10px">
+              <span class="tag">Alignment: Chaos</span>
+              <span class="tag">Collab Specialty: Horror Nights</span>
+              <span class="tag">Veil Status: Active</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3) Content (filterable) -->
+        <article class="card" id="content">
+          <div class="head"><h2>Content</h2></div>
+          <div class="body">
+            <div class="tags" style="margin-bottom:10px">
+              <span class="tag">Dead by Daylight</span>
+              <span class="tag">Indie Horror</span>
+              <span class="tag">Chatting</span>
+              <span class="tag">gaming</span>
+            </div>
+
+            <div class="list" id="contentList">
+              <div class="item" data-tags="horror">
+                <div class="t"><strong>Main Streams</strong><span class="tag">Horror</span></div>
+                <div class="sub">Indie horror runs • challenge modifiers • scream counter.</div>
+              </div>
+              <div class="item" data-tags="dbd chaotic">
+                <div class="t"><strong>DBD Sessions</strong><span class="tag">DBD</span></div>
+                <div class="sub">Perk roulette • community customs • “demon takes over” punishments.</div>
+              </div>
+              <div class="item" data-tags="chaotic">
+                <div class="t"><strong>Chatting</strong><span class="tag">Chaos</span></div>
+                <div class="sub">Music commands • random talk topics • lore teases.</div>
+              </div>
+              <div class="item" data-tags="kitsune demon">
+                <div class="t"><strong>Specials</strong><span class="tag">Lore</span></div>
+                <div class="sub">Demon vs kitsune debates • “control battles” • Veil confessions.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7) Fan Hub -->
+        <article class="card" id="fan">
+          <div class="head"><h2>Fan Hub</h2></div>
+          <div class="body">
+            <div class="list">
+              <div class="item" data-tags="chaotic">
+                <div class="t"><strong>Hashtags</strong><span class="tag">Use these</span></div>
+                <div class="sub">
+                  Live: <strong>#FoxyLive</strong> • Fanart: <strong>#FoxyFanart</strong> • Clips: <strong>#FoxyClips</strong>
+                </div>
+              </div>
+              <div class="item" data-tags="horror">
+                <div class="t"><strong>Fanart & Clips</strong><span class="tag">How to submit</span></div>
+                <div class="sub">
+                  Post on X with the hashtag + tag Foxy. If you want it featured, add “OK TO RT” or “OK TO FEATURE”.
+                </div>
+              </div>
+              <div class="item" data-tags="kitsune demon">
+                <div class="t"><strong>Rules</strong><span class="tag">Keep it safe</span></div>
+                <div class="sub">
+                  Credit artists • no NSFW • no doxxing • keep it in-universe • respect boundaries.
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8) Loadout / Favorites -->
+        <article class="card" id="loadout">
+          <div class="head"><h2>Loadout & Favorites</h2></div>
+          <div class="body">
+            <div class="stats">
+              <div class="stat"><div class="k">DBD Role</div><div class="v">Survivor / Chaos</div></div>
+              <div class="stat"><div class="k">Horror Taste</div><div class="v">Indie / Paranormal</div></div>
+              <div class="stat"><div class="k">Collab Vibe</div><div class="v">Unhinged Fun</div></div>
+              <div class="stat"><div class="k">Scare Tolerance</div><div class="v">…depends 💀</div></div>
+            </div>
+
+            <div style="height:12px"></div>
+
+            <div class="list">
+              <div class="item" data-tags="dbd">
+                <div class="t"><strong>Favorite DBD stuff</strong><span class="tag">Edit me</span></div>
+                <div class="sub">Killers: ?? • Survivors: ?? • Perks: ?? • Map: ??</div>
+              </div>
+              <div class="item" data-tags="horror">
+                <div class="t"><strong>Favorite horror subgenres</strong><span class="tag">Edit me</span></div>
+                <div class="sub">Analog • Paranormal • Psychological • “Whatever makes me scream”</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9) Accessibility + UX card (small but pro) -->
+        <article class="card" id="access">
+          <div class="head"><h2>Site Options</h2></div>
+          <div class="body">
+            <div class="list">
+              <div class="item">
+                <div class="t"><strong>Reduced motion</strong><span class="tag">Auto</span></div>
+                <div class="sub">This page respects your device setting: “Reduce Motion”.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>Keyboard support</strong><span class="tag">On</span></div>
+                <div class="sub">Tab through buttons/tags/gallery. Press ESC to close the lightbox.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>Filters</strong><span class="tag">Smart</span></div>
+                <div class="sub">Click tags above to filter Content + Gallery. You can also link with <code>?tag=horror</code>.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gallery (filterable) -->
+        <article class="card" id="gallery">
+          <div class="head"><h2>Gallery</h2></div>
+          <div class="body">
+            <div class="gallery" id="galleryGrid">
+              <div class="gimg" data-tags="horror"><img src="foxy1.png" alt="Gallery 1"></div>
+              <div class="gimg" data-tags="dbd chaotic"><img src="foxy2.png" alt="Gallery 2"></div>
+              <div class="gimg" data-tags="kitsune"><img src="foxy3.png" alt="Gallery 3"></div>
+              <div class="gimg" data-tags="chaotic"><img src="foxyahh.jpg" alt="Gallery 4"></div>
+              <div class="gimg" data-tags="demon"><img src="foxyheart.png" alt="Gallery 5"></div>
+              <div class="gimg" data-tags="kitsune demon"><img src="foxypng.png" alt="Gallery 6"></div>
+            </div>
+            <p style="margin:10px 0 0; color:rgba(246,241,255,.7); font-size:12px;">
+              Click any image to expand.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <div class="foot">
+        <div>© <span id="yr"></span> Kuroveil • The Veil is Rising</div>
+        <div><a href="roster.html">← Back to Roster</a></div>
       </div>
-    </section>
+    </main>
+  </div>
 
-    <!-- Sticky mini-nav -->
-    <nav class="mininav">
-      <a href="#stats">Quick Info</a>
-      <a href="#lore">Lore</a>
-      <a href="#veilrole">Role in the Veil</a>
-      <a href="#content">Content</a>
-      <a href="#gallery">Gallery</a>
-    </nav>
-
-    <section class="grid">
-      <!-- Quick Info -->
-      <article class="card" id="stats">
-        <div class="head">
-          <h2>Quick Info</h2>
-          <div class="tags">
-            <span class="tag">Horror</span>
-            <span class="tag">Dead by Daylight</span>
-            <span class="tag">Chaotic</span>
-            <span class="tag">Kitsune/Demon</span>
-          </div>
-        </div>
-        <div class="body">
-          <div class="stats">
-            <div class="stat"><div class="k">Debut</div><div class="v">Feb 22 2026</div></div>
-            <div class="stat"><div class="k">Birthday</div><div class="v">??/??</div></div>
-            <div class="stat"><div class="k">Fan Name</div><div class="v">Foxy</div></div>
-            <div class="stat"><div class="k">Hashtag</div><div class="v">#Foxy</div></div>
-            <div class="stat"><div class="k">Languages</div><div class="v">EN</div></div>
-            <div class="stat"><div class="k">Timezone</div><div class="v">GMT+1</div></div>
-          </div>
-
-          <div style="height:12px"></div>
-
-          <div class="bars">
-            <div class="bar">
-              <div class="row"><span>Chaos Level</span><strong>70%</strong></div>
-              <div class="meter"><div class="fill" style="width:70%"></div></div>
-            </div>
-            <div class="bar">
-              <div class="row"><span>Horror Addiction</span><strong>95%</strong></div>
-              <div class="meter"><div class="fill" style="width:95%"></div></div>
-            </div>
-            <div class="bar">
-              <div class="row"><span>Emotional Stability</span><strong>22%</strong></div>
-              <div class="meter"><div class="fill" style="width:22%"></div></div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Lore -->
-      <article class="card lore" id="lore">
-        <div class="head"><h2>Personal Lore</h2></div>
-        <div class="body">
-          <p>
-            From the dark corners of the world,
-            a wandering kitsune finds themselves across the veil
-            But she is not alone.
-            Once drawn too deep into the shadows,
-            she became bound to a demon
-            a succubus that now shares her soul.
-            Two sides.
-            One body.
-            Constantly fighting for control.
-          </p>
-          <p>
-            The kitsune seeks to protect the innocent and find a way to separate from the demon, while the demon craves chaos and feeds on fear, pushing her towards darker deeds.
-          </p>
-          <p class="muted">
-            Note: This is lore about the creator’s character, not their personal life. Keep it in-universe and relevant to their Veil identity.
-          </p>
-        </div>
-      </article>
-
-      <!-- Role in Veil -->
-      <article class="card lore" id="veilrole">
-        <div class="head"><h2>Role Within The Veil</h2></div>
-        <div class="body">
-          <p>
-            Foxy embodies the chaotic and horror-driven aspect of the Veil, bringing a unique blend of tension, fear, and dark humor to the group. Her streams often explore themes of duality, inner conflict, and the struggle between light and darkness, making her a key figure in shaping the Veil.
-          </p>
-          <div class="tags" style="margin-top:10px">
-            <span class="tag">Alignment: Chaos</span>
-            <span class="tag">Collab Specialty: Horror Nights</span>
-            <span class="tag">Veil Status: Active</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Content -->
-      <article class="card" id="content">
-        <div class="head"><h2>Content</h2></div>
-        <div class="body">
-          <div class="tags" style="margin-bottom:10px">
-            <span class="tag">Dead by Daylight</span>
-            <span class="tag">Indie Horror</span>
-            <span class="tag">Chatting</span>
-            <span class="tag">gaming</span>
-          </div>
-          <div class="lore">
-            <p><strong>Main Streams:</strong> Horror games, DBD sessions, and chatting</p>
-            <p><strong>Specials:</strong>demon vs kitsune debates, clip farming nights.</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Gallery -->
-      <article class="card" id="gallery">
-        <div class="head"><h2>Gallery</h2></div>
-        <div class="body">
-          <div class="gallery">
-            <div class="gimg"><img src="foxy1.png" alt="Gallery 1"></div>
-            <div class="gimg"><img src="foxy2.png" alt="Gallery 2"></div>
-            <div class="gimg"><img src="foxy3.png" alt="Gallery 3"></div>
-            <div class="gimg"><img src="foxyahh.jpg" alt="Gallery 4"></div>
-            <div class="gimg"><img src="foxyheart.png" alt="Gallery 5"></div>
-            <div class="gimg"><img src="foxypng.png" alt="Gallery 6"></div>
-          </div>
-          <p style="margin:10px 0 0; color:rgba(246,241,255,.7); font-size:12px;">
-            Click any image to expand.
-          </p>
-        </div>
-      </article>
-    </section>
-
-    <div class="foot">
-      <div>© <span id="yr"></span> Kuroveil • The Veil is Rising</div>
-      <div><a href="roster.html">← Back to Roster</a></div>
-    </div>
+  <!-- 10) Floating actions -->
+  <div class="floatbar" aria-label="Quick actions">
+    <button class="fab" id="fabCopy" type="button" aria-label="Copy profile link"><span>🔗</span><span class="sr">Copy link</span></button>
+    <button class="fab" id="fabShare" type="button" aria-label="Share to X"><span>🕯</span><span class="sr">Share to X</span></button>
+    <button class="fab" id="fabTop" type="button" aria-label="Back to top"><span>↑</span><span class="sr">Back to top</span></button>
   </div>
 
   <!-- Lightbox -->
@@ -703,10 +1209,47 @@
   </div>
 
   <script>
+    // =========================
+    // 1) Live status + schedule (manual)
+    // =========================
+    // Flip this when Foxy is live:
+    const IS_LIVE = false;
+
+    // Set next stream info:
+    const NEXT_STREAM_LABEL = "Next: Wed 20:00 (GMT+1)";
+    const NEXT_STREAM_TEXT  = "Indie Horror • challenge wheel • demon takeover on screams";
+
+    const liveBadge = document.getElementById("liveBadge");
+    const liveDot   = document.getElementById("liveDot");
+    const liveText  = document.getElementById("liveText");
+
+    const nextStreamTag  = document.getElementById("nextStreamTag");
+    const nextStreamText = document.getElementById("nextStreamText");
+
+    function renderLive(){
+      if (IS_LIVE){
+        liveText.textContent = "LIVE";
+        liveDot.classList.add("on");
+        liveBadge.style.borderColor = "rgba(90,255,190,.55)";
+        liveBadge.style.background  = "rgba(90,255,190,.12)";
+      } else {
+        liveText.textContent = "OFFLINE";
+        liveDot.classList.remove("on");
+      }
+    }
+    renderLive();
+
+    nextStreamTag.textContent = NEXT_STREAM_LABEL;
+    nextStreamText.textContent = NEXT_STREAM_TEXT;
+
+    // =========================
     // Year
+    // =========================
     document.getElementById("yr").textContent = new Date().getFullYear();
 
-    // Gallery Lightbox
+    // =========================
+    // 2) Gallery Lightbox
+    // =========================
     const lb = document.getElementById("lightbox");
     const lbImg = document.getElementById("lightboxImg");
 
@@ -728,6 +1271,159 @@
     });
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLB();
+    });
+
+    // =========================
+    // 3) Tag filters (Content + Gallery) + URL ?tag=
+    // =========================
+    const filterButtons = Array.from(document.querySelectorAll('button.tag[data-filter]'));
+    const contentItems  = Array.from(document.querySelectorAll('#contentList .item'));
+    const galleryItems  = Array.from(document.querySelectorAll('#galleryGrid .gimg'));
+    const toast = document.getElementById("toast");
+
+    function setActiveFilterButton(tag){
+      filterButtons.forEach(b => {
+        const isActive = b.dataset.filter === tag;
+        b.classList.toggle("active", isActive);
+        b.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    }
+
+    function matchesTag(el, tag){
+      if (tag === "all") return true;
+      const tags = (el.getAttribute("data-tags") || "").toLowerCase().split(/\s+/).filter(Boolean);
+      return tags.includes(tag.toLowerCase());
+    }
+
+    function applyFilter(tag){
+      setActiveFilterButton(tag);
+
+      contentItems.forEach(el => {
+        el.classList.toggle("hidden", !matchesTag(el, tag));
+      });
+      galleryItems.forEach(el => {
+        el.classList.toggle("hidden", !matchesTag(el, tag));
+      });
+
+      // Update URL query without reloading
+      const url = new URL(window.location.href);
+      if (tag === "all") url.searchParams.delete("tag");
+      else url.searchParams.set("tag", tag);
+      window.history.replaceState({}, "", url.toString());
+
+      toast.textContent = (tag === "all") ? "Showing everything." : `Filtered to: ${tag.toUpperCase()}`;
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.textContent = "", 1800);
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => applyFilter(btn.dataset.filter));
+    });
+
+    // Load filter from query string
+    const qsTag = new URLSearchParams(window.location.search).get("tag");
+    if (qsTag && filterButtons.some(b => b.dataset.filter === qsTag)){
+      applyFilter(qsTag);
+    } else {
+      applyFilter("all");
+    }
+
+    // =========================
+    // 5) Lore tabs
+    // =========================
+    const tabBtns = Array.from(document.querySelectorAll(".tabbtn"));
+    const panels = {
+      kitsune: document.getElementById("panel-kitsune"),
+      demon:   document.getElementById("panel-demon"),
+      full:    document.getElementById("panel-full"),
+    };
+
+    function showPanel(name){
+      tabBtns.forEach(b => b.classList.toggle("active", b.dataset.panel === name));
+      Object.keys(panels).forEach(k => panels[k].classList.toggle("hidden", k !== name));
+    }
+    tabBtns.forEach(b => b.addEventListener("click", () => showPanel(b.dataset.panel)));
+
+    // =========================
+    // 6) Soundboard + Quote shuffle
+    // =========================
+    const quoteLine = document.getElementById("quoteLine");
+    const quotes = [
+      "“A Kitsune that sometimes makes questionable sounds”",
+      "“If you hear whispering… no you didn’t.”",
+      "“I’m fine. The demon is not.”",
+      "“One more match… one more scream…”",
+      "“The Veil is watching. Probably judging.”"
+    ];
+
+    function shuffleQuote(){
+      const pick = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteLine.textContent = pick;
+      toast.textContent = "Quote shuffled.";
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.textContent = "", 1200);
+    }
+
+    const voiceLine = document.getElementById("voiceLine");
+    document.getElementById("newQuote").addEventListener("click", shuffleQuote);
+
+    document.getElementById("playLine").addEventListener("click", async () => {
+      // If you add an audio source later, this will play it.
+      // If there is no source, it will just shuffle a quote.
+      const hasSource = voiceLine.querySelector("source") || (voiceLine.currentSrc && voiceLine.currentSrc.length);
+      if (!hasSource){
+        shuffleQuote();
+        toast.textContent = "Add a voice file later (foxyline1.mp3) — for now, quotes only.";
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => toast.textContent = "", 1800);
+        return;
+      }
+      try{
+        voiceLine.currentTime = 0;
+        await voiceLine.play();
+        toast.textContent = "Playing voice line.";
+      }catch(err){
+        toast.textContent = "Autoplay blocked — click again or enable sound.";
+      }
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.textContent = "", 1600);
+    });
+
+    // =========================
+    // 10) Copy / Share / Top
+    // =========================
+    async function copyProfileLink(){
+      const link = window.location.href;
+      try{
+        await navigator.clipboard.writeText(link);
+        toast.textContent = "Copied link to clipboard.";
+      }catch{
+        // fallback
+        const t = document.createElement("textarea");
+        t.value = link;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        toast.textContent = "Copied link.";
+      }
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.textContent = "", 1400);
+    }
+
+    function shareToX(){
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Foxy • Kuroveil — The Veil’s Split Soul 🦊🌘");
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank", "noopener");
+    }
+
+    document.getElementById("copyLink").addEventListener("click", copyProfileLink);
+    document.getElementById("shareX").addEventListener("click", shareToX);
+
+    document.getElementById("fabCopy").addEventListener("click", copyProfileLink);
+    document.getElementById("fabShare").addEventListener("click", shareToX);
+    document.getElementById("fabTop").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
   </script>
 </body>
