@@ -6,7 +6,6 @@
   <title>Foxy • Kuroveil</title>
   <meta name="description" content="Kuroveil Gen 0 talent profile for Foxy — horror, DBD, games and lore." />
   <meta name="theme-color" content="#0d0018" />
-
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +24,9 @@
       --muted: rgba(246,241,255,.72);
       --accent: rgb(177,108,255);
       --accent2: rgb(255,90,220);
-      --ok: rgba(90,255,190,.85);
-      --warn: rgba(255,205,90,.85);
+      --ok: rgba(90,255,190,.95);
+      --warn: rgba(255,205,90,.95);
+      --danger: rgba(255,90,120,.95);
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
       --focus: rgba(177,108,255,.85);
@@ -46,6 +46,26 @@
       overflow-x:hidden;
     }
 
+    /* ===== Scroll progress (A) ===== */
+    .progress{
+      position:fixed;
+      left:0; top:0;
+      width:100%;
+      height:4px;
+      z-index:99999;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+    .progress > span{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(177,108,255,.95), rgba(255,90,220,.85));
+      box-shadow: 0 0 24px rgba(177,108,255,.28);
+      transform-origin: left center;
+    }
+
     /* Accessibility: skip link */
     .skip{
       position:absolute;
@@ -61,7 +81,7 @@
       border-radius: 12px;
       background: rgba(0,0,0,.7);
       border:1px solid rgba(255,255,255,.14);
-      z-index: 9999;
+      z-index: 999999;
       color: var(--text);
       text-decoration:none;
       outline: 3px solid var(--focus);
@@ -100,13 +120,13 @@
       mix-blend-mode: overlay;
     }
 
-    /* ===== Particles canvas (behind content, above background) ===== */
+    /* ===== Particles canvas ===== */
     #veilParticles{
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;              /* behind .wrap (z=1), above gradients */
+      z-index: 0;
       pointer-events: none;
       opacity: .65;
     }
@@ -132,6 +152,7 @@
       border-radius: 999px;
       backdrop-filter: blur(10px);
       box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      margin-top: 6px; /* so the progress bar doesn't feel glued */
     }
     .brand{
       display:flex; align-items:center; gap:10px;
@@ -180,7 +201,6 @@
       filter: blur(2px);
       opacity:.8;
       transform: rotate(12deg);
-      pointer-events:none;
     }
     .hero-inner{
       display:grid;
@@ -202,18 +222,6 @@
       position:relative;
       overflow:hidden;
     }
-    /* keep your little corner box */
-    .identity::after{
-      content:"";
-      position:absolute;
-      inset:auto -60px -60px auto;
-      width:200px; height:200px;
-      border:1px solid rgba(177,108,255,.25);
-      transform: rotate(25deg);
-      border-radius: 32px;
-      opacity:.6;
-      pointer-events:none;
-    }
 
     .badge-row{
       display:flex; flex-wrap:wrap; gap:8px; align-items:center;
@@ -229,10 +237,55 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
+      position:relative;
+      overflow:hidden;
     }
     .badge.alt{
       border-color: rgba(255,90,220,.35);
       background: rgba(255,90,220,.10);
+    }
+
+    /* ===== Status pill (E) ===== */
+    .status{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(246,241,255,.9);
+      gap:6px;
+    }
+    .status .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(255,255,255,.35);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.06);
+    }
+    .status.live{
+      border-color: rgba(255,90,120,.35);
+      background: rgba(255,90,120,.10);
+    }
+    .status.live .dot{
+      background: var(--danger);
+      box-shadow: 0 0 18px rgba(255,90,120,.35), 0 0 0 6px rgba(255,90,120,.08);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .status.scheduled{
+      border-color: rgba(255,205,90,.35);
+      background: rgba(255,205,90,.10);
+    }
+    .status.scheduled .dot{
+      background: var(--warn);
+      box-shadow: 0 0 18px rgba(255,205,90,.30), 0 0 0 6px rgba(255,205,90,.08);
+    }
+    .status.offline{
+      border-color: rgba(90,255,190,.20);
+      background: rgba(90,255,190,.06);
+    }
+    .status.offline .dot{
+      background: rgba(90,255,190,.6);
+      box-shadow: 0 0 0 6px rgba(90,255,190,.06);
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); }
+      50%{ transform: scale(1.25); }
     }
 
     h1{
@@ -240,6 +293,7 @@
       font-size:44px;
       line-height:1.05;
       letter-spacing:-.6px;
+      text-shadow: 0 0 18px rgba(177,108,255,.12);
     }
     .titleline{
       color: var(--muted);
@@ -254,8 +308,7 @@
       max-width: 62ch;
     }
 
-    /* Identity actions (soundboard / quote) */
-    .id-actions{
+    .id-actions, .cta{
       margin-top:14px;
       display:flex;
       gap:10px;
@@ -263,6 +316,7 @@
       position:relative;
       z-index:2;
     }
+
     .btn{
       appearance:none;
       border:1px solid rgba(255,255,255,.12);
@@ -286,6 +340,12 @@
       background: rgba(177,108,255,.08);
     }
     .btn.small{ padding:9px 10px; font-weight:600; }
+    .btn.primary{
+      border-color: rgba(177,108,255,.55);
+      background: rgba(177,108,255,.12);
+    }
+    .btn.primary:hover{ background: rgba(177,108,255,.18); }
+
     .toast{
       margin-top:10px;
       font-size:12px;
@@ -293,20 +353,13 @@
       min-height: 16px;
     }
 
-    /* Start-here CTA */
-    .cta{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:2;
+    .quote{
+      border-left: 3px solid rgba(177,108,255,.55);
+      padding-left: 12px;
+      margin-top: 12px;
+      color: rgba(246,241,255,.90);
+      font-style: italic;
     }
-    .btn.primary{
-      border-color: rgba(177,108,255,.55);
-      background: rgba(177,108,255,.12);
-    }
-    .btn.primary:hover{ background: rgba(177,108,255,.18); }
 
     /* Right: portrait + quick links */
     .side{
@@ -375,7 +428,6 @@
       background: linear-gradient(135deg, rgba(177,108,255,.18), rgba(255,90,220,.10));
       opacity:0;
       transition:.18s ease;
-      pointer-events:none;
     }
     .sbtn:hover{
       transform: translateY(-2px);
@@ -399,7 +451,10 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.22);
       backdrop-filter: blur(10px);
+      overflow:hidden;
     }
+
+    /* ===== Active section highlight (A) ===== */
     .mininav a{
       text-decoration:none;
       color: var(--muted);
@@ -408,12 +463,29 @@
       border-radius: 999px;
       transition:.18s ease;
       border:1px solid transparent;
+      position:relative;
     }
     .mininav a:hover{
       color: var(--text);
       background: rgba(177,108,255,.10);
       border-color: rgba(177,108,255,.30);
       transform: translateY(-1px);
+    }
+    .mininav a.active{
+      color: var(--text);
+      background: rgba(177,108,255,.14);
+      border-color: rgba(177,108,255,.38);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+    .mininav a.active::after{
+      content:"";
+      position:absolute;
+      left:14px; right:14px;
+      bottom:6px;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(177,108,255,.95), rgba(255,90,220,.75));
+      opacity:.95;
     }
 
     /* Grid sections */
@@ -500,26 +572,6 @@
       border-radius: 999px;
     }
 
-    /* Lore blocks */
-    .lore p{
-      margin: 0 0 10px;
-      color: rgba(246,241,255,.86);
-      line-height:1.65;
-      font-size:14px;
-    }
-    .lore .muted{
-      color: var(--muted);
-      font-size:13px;
-      margin: 10px 0 0;
-    }
-    .quote{
-      border-left: 3px solid rgba(177,108,255,.55);
-      padding-left: 12px;
-      margin-top: 12px;
-      color: rgba(246,241,255,.90);
-      font-style: italic;
-    }
-
     /* Tags (clickable filters) */
     .tags{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
     .tag{
@@ -554,10 +606,7 @@
     }
 
     /* Lists */
-    .list{
-      display:grid;
-      gap:10px;
-    }
+    .list{ display:grid; gap:10px; }
     .item{
       padding:12px 12px;
       border-radius: 14px;
@@ -581,11 +630,14 @@
       line-height:1.55;
     }
 
-    /* Clips */
+    /* ===== Clips section upgrade (D) ===== */
     .clips{
       display:grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap:10px;
+    }
+    @media (max-width: 900px){
+      .clips{ grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 520px){
       .clips{ grid-template-columns: 1fr; }
@@ -595,35 +647,66 @@
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.22);
-      min-height: 190px;
+      min-height: 210px;
       position:relative;
-    }
-    .clip .ph{
-      padding:16px;
-      min-height: 190px;
       display:grid;
-      place-items:center;
-      text-align:center;
+      grid-template-rows: 120px 1fr;
+    }
+    .clip .thumb{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(600px 180px at 30% 10%, rgba(177,108,255,.22), transparent 60%),
+        radial-gradient(520px 170px at 80% 10%, rgba(255,90,220,.14), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .clip .thumb::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(255,255,255,.08) 0px,
+          rgba(255,255,255,.08) 1px,
+          transparent 1px,
+          transparent 18px);
+      opacity:.35;
+      mask-image: radial-gradient(240px 120px at 40% 30%, rgba(0,0,0,1), transparent 70%);
+    }
+    .clip .play{
+      position:absolute;
+      left:12px; bottom:12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      font-size:12px;
+      color: rgba(246,241,255,.86);
+      backdrop-filter: blur(10px);
+    }
+    .clip .body{
+      padding:12px;
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .clip .title{
+      display:flex;
+      justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
-    .clip .ph strong{
-      font-size:14px;
-      letter-spacing:.02em;
-    }
-    .clip .ph p{
-      margin:0;
-      color: rgba(246,241,255,.72);
-      font-size:13px;
-      line-height:1.5;
-      max-width: 46ch;
-    }
+    .clip .title strong{ font-size:13px; }
+    .clip .desc{ margin:0; color: rgba(246,241,255,.75); font-size:13px; line-height:1.5; }
+    .clip .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
 
     /* Lore toggle tabs */
-    .tabs{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
+    .tabs{ display:flex; gap:8px; flex-wrap:wrap; }
     .tabbtn{
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
@@ -790,155 +873,47 @@
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{ transition:none !important; scroll-behavior:auto !important; }
-      .navlinks a:hover, .sbtn:hover, .btn:hover, .tag:hover, .gimg:hover, .fab:hover{
+      .navlinks a:hover, .sbtn:hover, .btn:hover, .tag:hover, .gimg:hover, .fab:hover, .mininav a:hover{
         transform:none !important;
       }
       .gimg:hover img{ transform:none !important; }
+      .status.live .dot{ animation:none !important; }
     }
 
     /* ============================
-   REVEAL (NO TRANSFORM ANIMATION)
-   ============================ */
-:root{
-  --ease: cubic-bezier(.2,.9,.2,1);
-}
-
-/* start state */
-.reveal{
-  opacity: 0;
-  transform: translateY(14px) scale(.985);
-  filter: blur(2px);
-  transition:
-    opacity .55s var(--ease),
-    transform .55s var(--ease),
-    filter .55s var(--ease);
-  will-change: transform, opacity;
-}
-
-/* end state */
-.reveal.in{
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-    @keyframes kvSlashOnce{
-      0%   { opacity: 0; transform: translateX(-35%) rotate(12deg); }
-      35%  { opacity: 1; transform: translateX(10%) rotate(12deg); }
-      100% { opacity: 0; transform: translateX(45%) rotate(12deg); }
+       HOVER POP (boxes pop)
+       ============================ */
+    .card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero, .mininav{
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      will-change: transform;
     }
-
-    /* The diagonal slash: exists, but hidden by default */
-    .card::after,
-    .portrait::after,
-    .item::after,
-    .clip::after,
-    .gimg::after,
-    .sbtn::after,
-    .stat::after,
-    .bar::after{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(
-        135deg,
-        transparent 45%,
-        rgba(255,255,255,.22) 49%,
-        rgba(255,255,255,.22) 51%,
-        transparent 55%
-      );
-      opacity: 0;
-      transform: translateX(-35%) rotate(12deg);
-      pointer-events:none;
+    .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover, .mininav:hover{
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+      border-color: rgba(177,108,255,.35);
+      background: rgba(255,255,255,.06);
     }
-
-    /* Show it ONLY when that element is revealing */
-    .reveal.in.card::after,
-    .reveal.in.portrait::after,
-    .reveal.in.item::after,
-    .reveal.in.clip::after,
-    .reveal.in.gimg::after,
-    .reveal.in.sbtn::after,
-    .reveal.in.stat::after,
-    .reveal.in.bar::after{
-      animation: kvSlashOnce .65s var(--ease) both;
-    }
-
-    /* IMPORTANT: no hover rules for ::after anymore */
-
-    /* Keep motion respectful */
-    @media (prefers-reduced-motion: reduce){
-      .reveal{ opacity:1 !important; transform:none !important; }
-      .reveal.in{ animation:none !important; }
-      .card::after,.portrait::after,.item::after,.clip::after,.gimg::after,
-      .sbtn::after,.stat::after,.bar::after{
-        animation:none !important;
-        opacity:0 !important;
+    @media (hover: none){
+      .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover, .mininav:hover{
+        transform: none;
+        box-shadow: 0 14px 40px rgba(0,0,0,.25);
       }
     }
-
-/* ============================
-   HOVER POP (make boxes pop)
-   ============================ */
-
-/* Make sure these can animate */
-.card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero{
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-  will-change: transform;
-}
-
-/* Pop on hover */
-.card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
-  transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 22px 70px rgba(0,0,0,.55);
-  border-color: rgba(177,108,255,.35);
-  background: rgba(255,255,255,.06);
-}
-
-/* Slightly smaller pop on mobile (no real hover) */
-@media (hover: none){
-  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
-    transform: none;
-    box-shadow: 0 14px 40px rgba(0,0,0,.25);
-  }
-}
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero{
-    transition: none !important;
-  }
-  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover{
-    transform: none !important;
-  }
-}
-
-/* ============================
-   HOVER POP (ALL BOXES)
-   ============================ */
-.card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero, .mininav, .tabbtn, .btn{
-  will-change: transform;
-}
-
-.card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover,
-.portrait:hover, .hero:hover, .mininav:hover, .tabbtn:hover, .btn:hover{
-  transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 22px 70px rgba(0,0,0,.55);
-  border-color: rgba(177,108,255,.35);
-}
-
-/* Don’t “pop” on touch devices (no real hover) */
-@media (hover: none){
-  .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover,
-  .portrait:hover, .hero:hover, .mininav:hover, .tabbtn:hover, .btn:hover{
-    transform: none;
-    box-shadow: inherit;
-  }
-}
-
+    @media (prefers-reduced-motion: reduce){
+      .card, .item, .clip, .gimg, .sbtn, .stat, .bar, .identity, .portrait, .hero, .mininav{
+        transition: none !important;
+      }
+      .card:hover, .item:hover, .clip:hover, .gimg:hover, .sbtn:hover, .stat:hover, .bar:hover, .identity:hover, .portrait:hover, .hero:hover, .mininav:hover{
+        transform: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- A) Progress bar -->
+  <div class="progress" aria-hidden="true"><span id="kvProg"></span></div>
+
   <a class="skip" href="#main">Skip to content</a>
 
   <div class="veil-lines"></div>
@@ -966,6 +941,13 @@
           <div class="identity">
             <div class="badge-row">
               <span class="badge">Gen 0 • Founding Veil</span>
+
+              <!-- E) Status pill -->
+              <span class="badge status offline" id="statusPill" title="Status">
+                <span class="dot" aria-hidden="true"></span>
+                <span id="statusText">OFFLINE</span>
+              </span>
+
               <span class="badge alt">Active</span>
               <span class="badge">🦊🌘</span>
             </div>
@@ -985,12 +967,8 @@
             </div>
 
             <div class="id-actions">
-              <button class="btn" id="newQuote" type="button" aria-label="Shuffle quote">
-                🎭 Shuffle quote
-              </button>
-              <a class="btn" href="roster.html?tag=horror" aria-label="View roster filtered to Horror">
-                🕸️ Horror roster
-              </a>
+              <button class="btn" id="newQuote" type="button" aria-label="Shuffle quote">🎭 Shuffle quote</button>
+              <a class="btn" href="roster.html?tag=horror" aria-label="View roster filtered to Horror">🕸️ Horror roster</a>
             </div>
             <div class="toast" id="toast" aria-live="polite"></div>
           </div>
@@ -1002,31 +980,28 @@
             </div>
 
             <div class="socials" aria-label="Social links">
-              <a class="sbtn" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener" aria-label="Foxy on Twitch">
-                <span>🎥 Twitch</span>
-              </a>
-              <a class="sbtn" href="https://www.youtube.com/@Sleeping_Foxy" target="_blank" rel="noopener" aria-label="Foxy on YouTube">
-                <span>📺 YouTube</span>
-              </a>
-              <a class="sbtn" href="https://x.com/Sleeping_foxy" target="_blank" rel="noopener" aria-label="Foxy on X">
-                <span>🕯 X</span>
-              </a>
+              <a class="sbtn" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener" aria-label="Foxy on Twitch"><span>🎥 Twitch</span></a>
+              <a class="sbtn" href="https://www.youtube.com/@Sleeping_Foxy" target="_blank" rel="noopener" aria-label="Foxy on YouTube"><span>📺 YouTube</span></a>
+              <a class="sbtn" href="https://x.com/Sleeping_foxy" target="_blank" rel="noopener" aria-label="Foxy on X"><span>🕯 X</span></a>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- A) Active-section mini-nav -->
       <nav class="mininav" aria-label="On-page navigation">
-        <a href="#stats">Quick Info</a>
-        <a href="#live">Schedule</a>
-        <a href="#clips">Clips</a>
-        <a href="#lore">Lore</a>
-        <a href="#veilrole">Role</a>
-        <a href="#content">Content</a>
-        <a href="#fan">Fan Hub</a>
-        <a href="#loadout">Loadout</a>
-        <a href="#guide">Guide</a>
-        <a href="#gallery">Gallery</a>
+        <a href="#stats" data-spy="stats">Quick Info</a>
+        <a href="#live" data-spy="live">Schedule</a>
+        <a href="#clips" data-spy="clips">Clips</a>
+        <a href="#lore" data-spy="lore">Lore</a>
+        <a href="#veilrole" data-spy="veilrole">Role</a>
+        <a href="#content" data-spy="content">Content</a>
+        <a href="#fan" data-spy="fan">Fan Hub</a>
+        <a href="#loadout" data-spy="loadout">Loadout</a>
+        <a href="#collab" data-spy="collab">Collabs</a>
+        <a href="#brandkit" data-spy="brandkit">Brand Kit</a>
+        <a href="#guide" data-spy="guide">Guide</a>
+        <a href="#gallery" data-spy="gallery">Gallery</a>
       </nav>
 
       <section class="grid">
@@ -1077,7 +1052,8 @@
             <div class="tags">
               <button class="btn small" id="copyLink" type="button">🔗 Copy link</button>
               <button class="btn small" id="shareX" type="button">🕯 Share to X</button>
-              <a class="btn small" href="roster.html" aria-label="Back to roster">← Back</a>
+              <!-- E) back preserves tag -->
+              <a class="btn small" id="backRosterTop" href="roster.html">← Back</a>
             </div>
           </div>
         </article>
@@ -1112,34 +1088,72 @@
                   <span class="tag">Simple</span>
                 </div>
                 <div class="sub">
-                  If you want the most accurate status, check Foxy’s Twitch — it updates instantly.
+                  For the most accurate status, check Foxy’s Twitch — it updates instantly.
                 </div>
               </div>
             </div>
           </div>
         </article>
 
+        <!-- D) Clips upgraded -->
         <article class="card" id="clips">
-          <div class="head"><h2>Clips</h2></div>
+          <div class="head">
+            <h2>Clips</h2>
+            <div class="tags">
+              <a class="btn small" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener">🎥 Follow on Twitch</a>
+              <a class="btn small" href="#fan">📩 Submit a clip</a>
+            </div>
+          </div>
           <div class="body">
             <div class="clips">
               <div class="clip" data-tags="horror chaotic">
-                <div class="ph">
-                  <strong>Highlights coming soon</strong>
-                  <p>
-                    Foxy’s best moments will be posted here. Follow on Twitch to catch the chaos live.
-                  </p>
-                  <a class="btn small" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener">🎥 Follow on Twitch</a>
+                <div class="thumb">
+                  <div class="play">▶ Featured • Coming soon</div>
+                </div>
+                <div class="body">
+                  <div class="title">
+                    <strong>Best scare of the week</strong>
+                    <span class="tag">Horror</span>
+                  </div>
+                  <p class="desc">This slot will be replaced with the weekly “top scream” clip.</p>
+                  <div class="actions">
+                    <a class="btn small" href="#fan">📩 How to submit</a>
+                    <a class="btn small" href="#content">🕸️ Content types</a>
+                  </div>
                 </div>
               </div>
 
               <div class="clip" data-tags="dbd chaotic">
-                <div class="ph">
-                  <strong>DBD clips incoming</strong>
-                  <p>
-                    DBD chaos, perk roulette, and “demon takeover” moments will be added soon.
-                  </p>
-                  <a class="btn small" href="#content">🕸️ See content types</a>
+                <div class="thumb">
+                  <div class="play">▶ DBD • Coming soon</div>
+                </div>
+                <div class="body">
+                  <div class="title">
+                    <strong>DBD chaos moment</strong>
+                    <span class="tag">DBD</span>
+                  </div>
+                  <p class="desc">Perk roulette, demon takeover, and “one more match…” energy.</p>
+                  <div class="actions">
+                    <a class="btn small" href="https://www.twitch.tv/sleepingfoxy_" target="_blank" rel="noopener">🎥 Catch it live</a>
+                    <a class="btn small" href="#loadout">🎮 Loadout</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clip" data-tags="chaotic kitsune demon">
+                <div class="thumb">
+                  <div class="play">▶ Lore • Coming soon</div>
+                </div>
+                <div class="body">
+                  <div class="title">
+                    <strong>Demon vs Kitsune</strong>
+                    <span class="tag">Lore</span>
+                  </div>
+                  <p class="desc">Lore improv and control battles—this slot becomes the “lore highlight.”</p>
+                  <div class="actions">
+                    <a class="btn small" href="#lore">🌘 Read lore</a>
+                    <button class="btn small" type="button" id="newQuote2">🎭 Shuffle quote</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1189,8 +1203,8 @@
                 The kitsune seeks separation and mercy. The demon craves chaos and feeds on fear.
                 Streams become the battleground—every scream is a coin paid to the Veil.
               </p>
-              <p class="muted">
-                Note: This is lore about the creator’s character, not their personal life. Keep it in-universe and relevant to their Veil identity.
+              <p style="color:var(--muted); font-size:13px; margin:10px 0 0;">
+                Note: This is lore about the creator’s character, not their personal life. Keep it in-universe.
               </p>
             </div>
           </div>
@@ -1199,7 +1213,7 @@
         <article class="card lore" id="veilrole">
           <div class="head"><h2>Role Within The Veil</h2></div>
           <div class="body">
-            <p>
+            <p style="margin:0;color:rgba(246,241,255,.86);line-height:1.65;font-size:14px;">
               Foxy embodies the chaotic and horror-driven aspect of the Veil — tension, fear, and dark humor.
               Streams explore duality and control battles, shaping the Veil’s tone.
             </p>
@@ -1253,9 +1267,10 @@
                 </div>
               </div>
               <div class="item">
-                <div class="t"><strong>Fanart & Clips</strong><span class="tag">How to submit</span></div>
+                <div class="t"><strong>Submit a clip</strong><span class="tag">Easy</span></div>
                 <div class="sub">
-                  Post on X with the hashtag + tag Foxy. If you want it featured, add “OK TO RT” or “OK TO FEATURE”.
+                  Post on X with <strong>#FoxyClips</strong> + tag Foxy. Add <strong>OK TO FEATURE</strong> if you want it shown here.
+                  <br><span style="color:var(--muted)">(Optional) Drop the link in your Kuroveil Discord clips channel too.</span>
                 </div>
               </div>
               <div class="item">
@@ -1288,6 +1303,58 @@
               <div class="item" data-tags="horror">
                 <div class="t"><strong>Favorite horror subgenres</strong><span class="tag">Edit later</span></div>
                 <div class="sub">Analog • Paranormal • Psychological • “Whatever makes me scream”</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- B) Collab hooks panel -->
+        <article class="card" id="collab">
+          <div class="head"><h2>Collab Hooks</h2></div>
+          <div class="body">
+            <div class="list">
+              <div class="item">
+                <div class="t"><strong>Best collab nights</strong><span class="tag">Easy W</span></div>
+                <div class="sub">DBD customs • 2–4p indie horror • “Scream counter” challenge nights • Veil group events.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>What Foxy brings</strong><span class="tag">Style</span></div>
+                <div class="sub">Chaotic comms • dark humor • lore improv • “demon takeover” bits that make clips.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>Collab boundaries</strong><span class="tag">Professional</span></div>
+                <div class="sub">No NSFW • no doxxing • keep it in-universe • respect comfort levels and content ratings.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- C) Brand kit panel -->
+        <article class="card" id="brandkit">
+          <div class="head">
+            <h2>Brand Kit</h2>
+            <div class="tags">
+              <span class="tag">Assets</span>
+              <span class="tag">Credit</span>
+              <span class="tag">Rules</span>
+            </div>
+          </div>
+          <div class="body">
+            <div class="list">
+              <div class="item">
+                <div class="t"><strong>Creator credit</strong><span class="tag">Use this</span></div>
+                <div class="sub">“Foxy (Kuroveil)” + link to Twitch. If fanart: credit the artist and keep watermark.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>Allowed edits</strong><span class="tag">Safe</span></div>
+                <div class="sub">Clips & memes allowed with credit • no NSFW • no harassment edits • no impersonation.</div>
+              </div>
+              <div class="item">
+                <div class="t"><strong>Asset pack</strong><span class="tag">Add link</span></div>
+                <div class="sub">
+                  Add your Drive/Dropbox link here:
+                  <br><span style="color:var(--muted)">PNGs • header • icons • fanart rules • “OK TO FEATURE” template</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1338,7 +1405,7 @@
 
       <div class="foot">
         <div>© <span id="yr"></span> Kuroveil • The Veil is Rising</div>
-        <div><a href="roster.html">← Back to Roster</a></div>
+        <div><a id="backRosterFoot" href="roster.html">← Back to Roster</a></div>
       </div>
     </main>
   </div>
@@ -1367,6 +1434,40 @@
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(() => toast.textContent = "", ms);
     }
+
+    /* ===== E) Status pill (set this however you want) =====
+       Options: "live" | "scheduled" | "offline"
+       You can also set via URL like: foxy.html?status=live
+    */
+    const statusParam = new URLSearchParams(location.search).get("status");
+    const STATUS = (statusParam || "offline").toLowerCase();
+
+    const statusPill = document.getElementById("statusPill");
+    const statusText = document.getElementById("statusText");
+    statusPill.classList.remove("live","scheduled","offline");
+    if (STATUS === "live"){
+      statusPill.classList.add("live");
+      statusText.textContent = "LIVE";
+    } else if (STATUS === "scheduled"){
+      statusPill.classList.add("scheduled");
+      statusText.textContent = "SCHEDULED";
+    } else {
+      statusPill.classList.add("offline");
+      statusText.textContent = "OFFLINE";
+    }
+
+    /* ===== A) Scroll progress bar ===== */
+    const prog = document.getElementById("kvProg");
+    function updateProgress(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollH = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollH > 0 ? (scrollTop / scrollH) * 100 : 0;
+      prog.style.width = pct.toFixed(2) + "%";
+    }
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress, { passive: true });
+    updateProgress();
 
     // Tag filters (Content + Gallery) + URL ?tag=
     const filterButtons = Array.from(document.querySelectorAll('button.tag[data-filter]'));
@@ -1454,6 +1555,7 @@
       if (!silent) say("Quote swapped.");
     }
     document.getElementById("newQuote").addEventListener("click", () => shuffleQuote(false));
+    document.getElementById("newQuote2").addEventListener("click", () => shuffleQuote(false));
     setInterval(() => shuffleQuote(true), 8000);
 
     // Copy / Share / Top
@@ -1485,34 +1587,42 @@
       window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     });
 
-    /* ===== Reveal pop-up for boxes/cards ===== */
-    const revealTargets = [
-      ".hero",
-      ".identity",
-      ".portrait",
-      ".sbtn",
-      ".mininav",
-      ".card",
-      ".item",
-      ".clip",
-      ".gimg",
-      ".stat",
-      ".bar"
-    ].join(",");
+    /* ===== A) Active section highlight for mini-nav ===== */
+    const spyLinks = Array.from(document.querySelectorAll('.mininav a[data-spy]'));
+    const sections = spyLinks
+      .map(a => document.getElementById(a.dataset.spy))
+      .filter(Boolean);
 
-    const revealEls = Array.from(document.querySelectorAll(revealTargets));
-    revealEls.forEach(el => el.classList.add("reveal"));
+    function setActiveSpy(id){
+      spyLinks.forEach(a => a.classList.toggle("active", a.dataset.spy === id));
+    }
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    const spyIO = new IntersectionObserver((entries) => {
+      // pick the most visible entry
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveSpy(visible.target.id);
+    }, {
+      root: null,
+      threshold: [0.12, 0.18, 0.24, 0.30, 0.36, 0.42, 0.48, 0.54, 0.60],
+      rootMargin: "-10% 0px -65% 0px"
+    });
 
-    revealEls.forEach(el => io.observe(el));
+    sections.forEach(s => spyIO.observe(s));
+    // default active
+    setActiveSpy(sections[0]?.id || "stats");
+
+    /* ===== E) Back to roster preserves ?tag= ===== */
+    function setBackLinks(){
+      const tag = new URLSearchParams(window.location.search).get("tag");
+      const href = tag ? `roster.html?tag=${encodeURIComponent(tag)}` : "roster.html";
+      const a1 = document.getElementById("backRosterTop");
+      const a2 = document.getElementById("backRosterFoot");
+      if (a1) a1.href = href;
+      if (a2) a2.href = href;
+    }
+    setBackLinks();
 
     /* ===== Particles ===== */
     (() => {
@@ -1598,11 +1708,8 @@
         if (!reduce) requestAnimationFrame(step);
       }
 
-      if (reduce){
-        step();
-      } else {
-        requestAnimationFrame(step);
-      }
+      if (reduce){ step(); }
+      else { requestAnimationFrame(step); }
     })();
   </script>
 </body>
